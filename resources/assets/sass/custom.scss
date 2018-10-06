@@ -1,0 +1,341 @@
+html, body {
+  background-color: #fff;
+  color: #636b6f;
+  font-family: 'Raleway', sans-serif;
+  // font-weight: 100;
+  min-height: 100vh;
+  margin: 0;
+  font-family: arial;
+}
+
+.full-height {
+  height: 100vh;
+}
+
+.flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.position-ref {
+  position: relative;
+}
+
+.top-right {
+  position: absolute;
+  right: 10px;
+  top: 18px;
+}
+
+.content {
+  text-align: center;
+}
+
+.title {
+  font-size: 84px;
+}
+
+.links > a {
+  color: #636b6f;
+  padding: 0 25px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.m-b-md {
+  margin-bottom: 30px;
+}
+
+main{
+  min-height: 100vh;
+  margin: 0;
+}
+footer{
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: #343434;
+  text-align: center;
+}
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.bg-color{
+  background-color: #0078a4;
+
+}
+
+.card-login{
+  background: rgba(238, 251, 255, 0.81);
+}
+
+
+.bg-primary,.btn-primary{
+  background: #0078a4;
+
+}
+.btn-primary:hover{
+  background: #3b778e;
+}
+
+a.brand{
+  text-decoration: none;
+  color: #0078a4 !important;
+}
+
+a.brand h1{
+  font-size: 3rem;
+
+}
+
+.register-tabs{
+  // background-color: #fafafa;
+  margin: auto;
+}
+
+.register-tabs li{
+  padding: 1em;
+  border-radius: 5px;
+  // background-color: #7d9692;
+  margin: 0 5px;
+}
+
+.register-tabs li{
+  // background-color: #838383;
+  // display: none;
+  text-decoration: none;
+  list-style: none;
+
+  // // margin: 0;
+  // position: absolute;
+  // left: -9999;
+
+
+}
+.register-tabs li.active{
+  display: block;
+  left: 0;
+  position: auto;
+}
+
+
+.tab-nav{
+  list-style: none;
+  display: flex;
+  background: #e3e3e3;
+  justify-content: center;
+  padding: 0;
+}
+
+.tab-nav li{
+  background: #a8a8a8;
+  padding: 1em;
+}
+
+.tab-nav li.active{
+  background: #cccccc;
+  padding: 1em;
+}
+
+.hidden{
+  position:absolute;
+  left: -9999;
+  height: 0;
+  opacity: 0;
+}
+
+.danger{
+  border-color: #ff0404;
+}
+
+.banner{
+  // background:linear-gradient(rgba(10, 135, 187, 0.1), rgba(76, 81, 108, 0.1)), url('//images.pexels.com/photos/590493/pexels-photo-590493.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') 1002px -174px ;
+  background:linear-gradient(rgba(10, 135, 187, 0.1), rgba(76, 81, 108, 0.1)), url('/images/DLF-Banner.png') 1002px -174px ;
+  height: 20rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center -20px;
+}
+
+.banner *{
+  color:#ffffff !important;
+  margin: auto;
+
+}
+
+.loaderDiv{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .loader {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ff0000;
+    border-top-color: #0e0;
+    border-right-color: #0dd;
+    border-bottom-color: #f90;
+    -webkit-animation: spin 0.9s linear infinite; /* Safari */
+    animation: spin .6s linear infinite;
+
+  }
+
+}
+
+// /* Safari */
+// @-webkit-keyframes spin {
+//   0% { -webkit-transform: rotate(0deg); }
+//   100% { -webkit-transform: rotate(360deg); }
+// }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.main-body{
+  display: none;
+  transition: 0.5s;
+}
+
+.custom-card{
+  .card{
+    max-width: 30rem;
+  }
+
+  .card:hover{
+    background: #e8e8e8;
+  }
+}
+
+a.custom-card,
+a.custom-card:hover {
+  color: inherit;
+  width: 18rem;
+  text-decoration: none;
+}
+
+.custom-icon-card{
+  position: relative;
+  display: flex;
+  word-wrap: break-word;
+  background-color:#3c8dbc;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  width: 18rem;
+  text-decoration: none;
+  color: #fff;
+  margin: 20px;
+  transition: 0.5s;
+  border: 2px solid transparent;
+
+  .custom-icon{
+    font-size: 5rem;
+    margin-bottom: 10px;
+  }
+}
+
+.custom-icon-card:hover{
+  text-decoration: none;
+  color: #3c8dbc;
+  // width: 17rem;
+  background-color:transparent;
+
+  transition: 0.5s;
+  border: 2px solid #3c8dbc;
+
+}
+
+#navbarDropdown{
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.user-card{
+  width: 22rem;
+}
+
+.custom-dropdown{
+  .dropdown-menu{
+    padding: 0;
+  }
+}
+
+.fa-trash{
+  font-size: 1.5rem;
+}
+
+
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.whoIsItFor{
+  width: 18rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  white-space: normal;
+}
+
+
+.payment-types{
+  background: #e6e6e6;
+  padding: 0.5rem;
+}
+.poCode{
+  background: #ffffff;
+  padding: 0.5rem;
+}
+.paypal-btn{
+  font-size: 2rem;
+  background: #009cde;
+  color: #fff;
+  border-radius: 2rem;
+  cursor: pointer;
+  outline: none;
+
+}
+
+.place-booking-btn{
+  font-size: 2rem;
+  border-radius: 1rem;
+
+}
+
+.booking-summary{
+  background-color: #eceff1;
+  padding: 2rem 1rem;
+  height: 100%;
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  border: 1px solid #ddd;
+
+  .course-details{
+    border-bottom: 1px solid #bdbdbd;
+    margin-bottom: 15px;
+  }
+}
+
+.referrer-gdpr-div{
+  background: #c9e0ca;
+  padding: 1rem ;
+}
+
+.other-related-courses{
+  padding: 1rem ;
+  background: #c2f9c6;
+}

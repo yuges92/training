@@ -1,0 +1,2 @@
+[Thu Sep 27 11:50:00.455442 2018] [autoindex:error] [pid 15000:tid 2372] [client 10.169.240.11:60765] AH01276: Cannot serve directory D:/Websites/learning2.dlf.org.uk/public/images/: No matching DirectoryIndex (index.html,index.php) found, and server-generated directory index forbidden by Options directive
+[Thu Sep 27 11:52:42.045943 2018] [core:error] [pid 15000:tid 2372] (20024)The given path is misformatted or contained invalid characters: [client 10.169.240.11:61077] AH00127: Cannot map GET /... HTTP/1.1 to file, referer: https://learning-dev2.dlf.org.uk/admin
