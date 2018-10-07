@@ -52,7 +52,7 @@ class CartController extends Controller
   */
   public function show(Cart $cart)
   {
-    //
+    
   }
 
   /**

@@ -43,6 +43,14 @@
           </select>
         </div>
       </div>
+      <div class="form-group row">
+        <label for="title" class="col-sm-2 col-form-label">Class Title:</label>
+        <div class="col-sm-10">
+          <div class="">
+            <input name="title" type="text" class="form-control" id="title" value="{{$classEvent->title}}">
+          </div>
+        </div>
+      </div>
 
       <div class="form-group row">
         <label for="textareaEditor" class="col-sm-2 col-form-label">Description:</label>
@@ -132,7 +140,6 @@
           <input class="form-control" type="text" name="price" id="price" value="{{$classEvent->price}}">
         </div>
       </div>
-
 
 
       <div class="form-group row float-right mt-3 p-3">
