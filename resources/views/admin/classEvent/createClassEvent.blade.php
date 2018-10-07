@@ -43,6 +43,14 @@
           </select>
         </div>
       </div>
+      <div class="form-group row">
+        <label for="title" class="col-sm-2 col-form-label">Class Title:</label>
+        <div class="col-sm-10">
+          <div class="">
+            <input name="title" type="text" class="form-control" id="title">
+          </div>
+        </div>
+      </div>
 
       <div class="form-group row">
         <label for="textareaEditor" class="col-sm-2 col-form-label">Description:</label>
@@ -103,18 +111,19 @@
       </div>
 
       <div class="form-group row">
+        <label for="space" class="col-sm-2 col-form-label">Space:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="space" id="space" value="{{old('space')}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label for="price" class="col-sm-2 col-form-label">Price:</label>
         <div class="col-sm-10">
           <input class="form-control" type="text" name="price" id="price" value="{{old('price')}}">
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="availableSpace" class="col-sm-2 col-form-label">Available Space:</label>
-        <div class="col-sm-10">
-          <input class="form-control" type="text" name="availableSpace" id="availableSpace" value="{{old('availableSpace')}}">
-        </div>
-      </div>
 
       <div class="form-group row float-right mt-3 p-3">
         <input class="btn btn-secondary px-5" type="submit" value="Add">

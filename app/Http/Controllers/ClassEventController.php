@@ -66,6 +66,8 @@ class ClassEventController extends Controller
     $classEvent=new ClassEvent();
     $classEvent->course_id =$request->input('course_id');
     $classEvent->type =$request->input('type');
+    $classEvent->title =$request->input('title');
+    $classEvent->slug =str_slug($request->input('title'));
     $classEvent->address_id =$request->input('address_id');
     $classEvent->description =$request->input('description');
     $classEvent->startDate =$request->input('startDate');
@@ -75,6 +77,7 @@ class ClassEventController extends Controller
     $classEvent->startTimeEnd =$request->input('startTimeEnd');
     $classEvent->endTimeEnd =$request->input('endTimeEnd');
     $classEvent->availableSpace =$request->input('availableSpace');
+    $classEvent->space =$request->input('availableSpace');
     $classEvent->price =$request->input('price');
     if ($request->file('file')) {
 

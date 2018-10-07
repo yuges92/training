@@ -47,6 +47,7 @@ class CourseController extends Controller
 
     $course= new Course();
     $course->title=$request->input('title');
+    $course->slug= str_slug($request->input('title'));
     $course->body=$request->input('body');
     $course->description=$request->input('description');
     $course->type=$request->input('type');

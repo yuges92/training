@@ -11,15 +11,12 @@
       <div class="form-group row">
         <label for="role" class="col-sm-2 col-form-label">Role:</label>
         <div class="col-sm-10">
-          <select class="form-control" name="role" id="role">
-            <option {{ ($user->role=='Super Admin') ? 'selected' : '' }} value="Super Admin">Super Admin</option>
-            <option {{ ($user->role=='Admin') ? 'selected' : '' }} value="Admin">Admin</option>
-            <option {{ ($user->role=='Manager') ? 'selected' : '' }} value="Manager">Manager</option>
-            <option {{ ($user->role=='Trainer') ? 'selected' : '' }} value="Trainer">Trainer</option>
-            <option {{ ($user->role=='Moderator') ? 'selected' : '' }} value="Moderator">Moderator</option>
-            <option {{ ($user->role=='OCN') ? 'selected' : '' }} value="OCN">OCN</option>
-            <option {{ ($user->role=='Learner') ? 'selected' : '' }} value="Learner">Learner</option>
-            <option {{ ($user->role=='Commissioner') ? 'selected' : '' }} value="Commissioner">Commissioner</option>
+          <select class="form-control" name="role[]" id="role" multiple>
+            @if ($roles)
+            @foreach ($roles as $role)
+              <option {{ ($role->name==$user->hasRole($role->name)) ? 'selected' : '' }} value="{{$role->id}}">{{$role->name}}</option>
+            @endforeach
+          @endif
           </select>
         </div>
       </div>

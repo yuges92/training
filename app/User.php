@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
   use Notifiable;
 
+
+
   /**
   * The attributes that are mass assignable.
   *
@@ -18,6 +20,8 @@ class User extends Authenticatable
   protected $fillable = [
     'name', 'email', 'password',
   ];
+
+
 
   /**
   * The attributes that should be hidden for arrays.
@@ -28,10 +32,14 @@ class User extends Authenticatable
     'password', 'remember_token',
   ];
 
+
+
   public function getFullname()
   {
     return ucfirst($this->firstName).' '.ucfirst($this->lastName);
   }
+
+
 
   public function roles()
   {
@@ -48,21 +56,23 @@ class User extends Authenticatable
     return $this->hasRole($roles) ||
     abort(401, 'This action is unauthorized.');
   }
+
   /**
   * Check multiple roles
   * @param array $roles
   */
   public function hasAnyRole($roles)
   {
-    return null !== $this->roles()->whereIn(‘name’, $roles)->first();
+    return null !== $this->roles()->whereIn('name', $roles)->first();
   }
+
   /**
   * Check one role
   * @param string $role
   */
   public function hasRole($role)
   {
-    return null !== $this->roles()->where(‘name’, $role)->first();
+    return null !== $this->roles()->where('name', $role)->first();
   }
 
 
@@ -70,11 +80,13 @@ class User extends Authenticatable
   public function hasAdminAccess()
   {
     $allowedRoles = array('Super Admin','Admin','Manager','Trainer','Moderator','OCN');
-    if(in_array($this->role,$allowedRoles)){
-      return true;
-    }
+    // if(in_array($this->role,$allowedRoles)){
+    //   return true;
+    // }
+    //
+    // return false;
+    return null !== $this->roles()->where('name', $allowedRoles)->first();
 
-    return false;
   }
 
 

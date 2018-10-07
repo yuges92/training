@@ -13,6 +13,7 @@ class CourseTableSeeder extends Seeder
     {
       DB::table('courses')->insert([
         'title' => 'Course Test 1',
+        'slug' => str_slug('Course Test 1'),
         'type' => 'course',
          'body' => 'Body',
          'description' => 'Course',

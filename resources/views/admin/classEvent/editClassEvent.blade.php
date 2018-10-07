@@ -112,6 +112,19 @@
           <input class="form-control" type="time" name="endTimeEnd" id="endTimeEnd" value="{{$classEvent->endTimeEnd}}">
         </div>
       </div>
+      <div class="form-group row">
+        <label for="space" class="col-sm-2 col-form-label">Spaces Allocated:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="space" id="space" value="{{$classEvent->space}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="availableSpace" class="col-sm-2 col-form-label">Remaining Spaces:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="availableSpace" id="availableSpace" value="{{$classEvent->availableSpace}}">
+        </div>
+      </div>
 
       <div class="form-group row">
         <label for="price" class="col-sm-2 col-form-label">Price(£):</label>
@@ -120,12 +133,7 @@
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="availableSpace" class="col-sm-2 col-form-label">Available Space:</label>
-        <div class="col-sm-10">
-          <input class="form-control" type="text" name="availableSpace" id="availableSpace" value="{{$classEvent->availableSpace}}">
-        </div>
-      </div>
+
 
       <div class="form-group row float-right mt-3 p-3">
         <input class="btn btn-secondary px-5" type="submit" value="Update">

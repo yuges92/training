@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Learner;
 use App\Course;
+use App\Role;
 use Illuminate\Http\Request;
 
 class LearnerController extends Controller
@@ -15,7 +16,9 @@ class LearnerController extends Controller
   */
   public function index()
   {
-    $learners=Learner::allLearners();
+    // dd(Learner::findLearner(2));
+    $learners=Learner::all();
+    // dd($learners);
     return view('admin.learner.learners', compact('learners'));
 
   }
@@ -60,10 +63,9 @@ class LearnerController extends Controller
   */
   public function edit(Learner $learner)
   {
-    if($learner->learner()){
+    dd($learner);
       $courses=Course::all();
       return view('admin.learner.editLearner', compact('learner', 'courses'));
-    }
 
 
 

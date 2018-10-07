@@ -10,15 +10,13 @@
       <div class="form-group row">
         <label for="role" class="col-sm-2 col-form-label">Role:</label>
         <div class="col-sm-10">
-          <select class="form-control" name="role" id="role">
-            <option {{ (old('role')=='Super Admin') ? 'selected' : '' }} value="Super Admin">Super Admin</option>
-            <option {{ (old('role')=='Admin') ? 'selected' : '' }} value="Admin">Admin</option>
-            <option {{ (old('role')=='Manager') ? 'selected' : '' }} value="Manager">Manager</option>
-            <option {{ (old('role')=='Trainer') ? 'selected' : '' }} value="Trainer">Trainer</option>
-            <option {{ (old('role')=='Moderator') ? 'selected' : '' }} value="Moderator">Moderator</option>
-            <option {{ (old('role')=='OCN') ? 'selected' : '' }} value="OCN">OCN</option>
-            <option {{ (old('role')=='Learner') ? 'selected' : '' }} value="Learner">Learner</option>
-            <option {{ (old('role')=='Commissioner') ? 'selected' : '' }} value="Commissioner">Commissioner</option>
+          <select class="form-control" name="role[]" id="role" multiple>
+            @if ($roles)
+
+            @foreach ($roles as $role)
+              <option {{ (old('role')==$role->id) ? 'selected' : '' }} value="{{$role->id}}">{{$role->name}}</option>
+            @endforeach
+          @endif
           </select>
         </div>
       </div>
