@@ -63,7 +63,7 @@ class LearnerController extends Controller
   */
   public function edit(Learner $learner)
   {
-    dd($learner);
+    // dd($learner);
       $courses=Course::all();
       return view('admin.learner.editLearner', compact('learner', 'courses'));
 

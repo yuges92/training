@@ -5,18 +5,24 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 
-use Cart;
+use App\Cart;
 
-class ClassEvent extends Model implements Buyable
+class ClassEvent extends Model
 
 {
+  public $timestamps = true;
+
   protected $dates = ['date', 'startDate', 'endDate'];
 
   public function address()
   {
-return $this->belongsTo('App\ClassAddress');
+    return $this->belongsTo('App\ClassAddress');
   }
 
+  // public function cart()
+  // {
+  //     return $this->hasMany('App\Comment');
+  // }
 
   public function course()
   {
@@ -52,21 +58,27 @@ return $this->belongsTo('App\ClassAddress');
 
   public function learners()
   {
-    return $this->belongsToMany(User::class, 'class_students', 'class_id', 'user_id')->withPivot('attendance');
+    return $this->belongsToMany(User::class, 'class_students', 'class_id', 'user_id')->withPivot('attendance')->withTimestamps();
 
   }
 
 
-  public function getBuyableIdentifier($options = null){
-    return $this->id;
+  public function reduceSpace($space)
+  {
+    $this->availableSpace=$this->availableSpace-$space;
+    $this->save();
   }
 
-  public function getBuyableDescription($options = null){
-    return $this->course()->title;
-  }
-
-  public function getBuyablePrice($options = null){
-    return $this->price;
-  }
+  // public function getBuyableIdentifier($options = null){
+  //   return $this->id;
+  // }
+  //
+  // public function getBuyableDescription($options = null){
+  //   return $this->course()->title;
+  // }
+  //
+  // public function getBuyablePrice($options = null){
+  //   return $this->price;
+  // }
 
 }

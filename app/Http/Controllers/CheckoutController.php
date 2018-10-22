@@ -3,60 +3,69 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Cart;
+use App\Cart;
 use App\ClassEvent;
 use App\Course;
 use App\User;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
-class CheckoutController extends Controller
-{
+class CheckoutController extends Controller {
 
-  public function buyForSelf(Request $request)
+  public function __construct()
   {
-    if (Auth::check()) {
-      Cart::restore(Auth::user()->id);
-      Cart::store(Auth::user()->id);
-    }
-    $cart = Cart::content();
+    $this->middleware('checkCart');
+    // $this->middleware('checkBuyingForSelf', ['only' => ['paymentAndBillingSelf']]);
+
+  }
+
+  /**
+  * Display a listing of the resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function index(){
     return view('checkout.buyingForSelf', compact('cart'));
 
-    // dd($request);
   }
 
-  public function buyForSomeoneElse(Request $request)
-  {
-    if (Auth::check()) {
-      Cart::restore(Auth::user()->id);
-      Cart::store(Auth::user()->id);
-    }
-    $cart = Cart::content();
-    return view('checkout.someoneElse', compact('cart'));
-
-
-  }
-
-  public function customerDetail(Request $request)
-  {
-    // return view('checkout.whoIsItFor');
-
-    dd($request);
-  }
-
-  public function whoIsItFor(Request $request)
-  {
+  public function whoIsItFor(Request $request){
     return view('checkout.whoIsItFor');
 
   }
 
-  public function payment()
-  {
-    if (Auth::check()) {
-      Cart::restore(Auth::user()->id);
-      Cart::store(Auth::user()->id);
-    }
-    $cart = Cart::content();
-    return view('checkout.paymentAndBilling', compact('cart'));
 
-  }
+
+  // public function paymentAndBillingSelf(Request $request){
+  //
+  //   $userData=$request->session()->get('userData');
+  //   $userAddress=$userData['address'];
+  //
+  //   if(Auth::check()){
+  //     $userAddress=Auth::user()->getAddressByType('billing');
+  //     if(!$userAddress){
+  //       $userAddress=Auth::user()->getAddressByType('home');
+  //     }
+  //   }
+  //
+  //   return view('checkout.paymentAndBilling', compact('userAddress'));
+  // }
+
+
+  // public function paymentAndBillingSomeoneElse(Request $request){
+  //
+  //   $userData=$request->session()->get('userData');
+  //   $userAddress=$userData['address'];
+  //
+  //   if(Auth::check()){
+  //     $userAddress=Auth::user()->getAddressByType('billing');
+  //     if(!$userAddress){
+  //       $userAddress=Auth::user()->getAddressByType('home');
+  //     }
+  //   }
+  //
+  //   return view('checkout.paymentAndBilling', compact('userAddress'));
+  // }
+
+
 }

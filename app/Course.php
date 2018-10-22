@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
 
+  public $timestamps = true;
 
     public function assignments()
     {

@@ -74,29 +74,36 @@ Route::group(['middleware' => ['admin']], function(){
 
 });
 
-Route::post('cart/', 'ShoppingCartController@addToBasket')->name('addToBasket');
-Route::get('cart/', 'ShoppingCartController@showCart')->name('showCart');
-Route::delete('cart/', 'ShoppingCartController@destroy')->name('removeClassFromCart');
 
+Route::resource('/cart', 'CartController');
 
-// Route::get('/checkout/customerDetail/', 'CheckoutController@customerDetail')->name('showCustomerDetail');
 Route::get('/checkout/whoIsItFor/', 'CheckoutController@whoIsItFor')->name('whoIsItFor');
-Route::get('/checkout/buyForSelf/', 'CheckoutController@buyForSelf')->name('buyForSelf');
-Route::get('/checkout/buyForSomeoneElse/', 'CheckoutController@buyForSomeoneElse')->name('buyForSomeoneElse');
-
-Route::post('/checkout/payment/', 'CheckoutController@payment')->name('paymentAndBilling');
 
 
+Route::get('checkout', 'CheckoutController@index')->name('checkout');
 
-Route::get('myCart', 'CartController@store');
-Route::get('myCart/show', 'CartController@index');
+//controller for buyingForSelf
+Route::get('checkout/self', 'BuyForSelfController@index')->name('self.index');
+Route::post('checkout/self', 'BuyForSelfController@store')->name('buyForSelf.store');
+Route::get('checkout/self/create', 'BuyForSelfController@create')->name('buyForSelf.create');
+Route::get('checkout/self/paymentAndBilling', 'BuyForSelfController@paymentAndBillingSelf')->name('paymentAndBillingSelf');
+Route::post('checkout/self/paymentAndBilling', 'BuyForSelfController@payment')->name('paymentSelf');
 
+
+
+Route::post('checkout/payment', 'PaymentController@store')->name('payment');
+Route::get('checkout/someoneElse/payment', 'CheckoutController@paymentSomeoneElse')->name('paymentAndBillingSomeoneElse');
+Route::resource('checkout/someoneElse', 'BuyForSomeoneElseController');
+
+
+Route::get('order/thankYou', 'OrderController@thankYou')->name('thankYou');
 
 Route::get('/course/{course}/classes', 'CourseController@getClasses');
 Route::get('/course/classEvent/{classEvent}', 'ClassEventController@getshowClassDetailC')->name('showClassDetail');
 
-
-//paypal
-Route::get('paywithpaypal', array('as' => 'addmoney.paywithpaypal','uses' => 'AddMoneyController@payWithPaypal',));
-Route::post('paypal', array('as' => 'addmoney.paypal','uses' => 'AddMoneyController@postPaymentWithpaypal',));
-Route::get('paypal', array('as' => 'payment.status','uses' => 'AddMoneyController@getPaymentStatus',));
+//paypal payment.status
+// Route::get('paywithpaypal','PaypalController@payWithPaypal' )->name('addmoney.paywithpaypal');
+// Route::post('paypal', 'PaypalController@postPaymentWithpaypal')->name('addmoney.paypal');
+Route::get('paypal', 'PaypalController@getPaymentStatus')->name('paypal.status');
+Route::get('paypal/status', 'PaypalController@completed')->name('paypal.completed');
+Route::get('paypal/order/{order}/cancelled', 'PaypalController@cancelledPayment')->name('paypal.cancelled');

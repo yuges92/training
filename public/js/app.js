@@ -13689,7 +13689,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
@@ -13705,7 +13705,7 @@ module.exports = __webpack_require__(38);
 __webpack_require__(12);
 __webpack_require__(36);
 __webpack_require__(37);
-__webpack_require__(43);
+__webpack_require__(38);
 
 // window.Vue = require('vue');
 
@@ -35963,6 +35963,10 @@ $(document).ready(function () {
     document.getElementsByClassName("main-body")[0].style.display = "block";
   }, 100);
 
+  $('form').submit(function (event) {
+    var ll = $(this).find('.btn').attr('disabled', 'disabled');
+  });
+
   $('.btn-next').click(function (event) {
     var thisParent = $(this).parents('ul li');
     var allowed = false;
@@ -36128,16 +36132,6 @@ function getClassesByCourse(event) {
 /* 38 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */
-/***/ (function(module, exports) {
-
 document.addEventListener("DOMContentLoaded", function (event) {
   increaseDecreaseQuantity();
   enableUpdateButton('.quantity-input');
@@ -36213,6 +36207,12 @@ function showGDPRForm() {
     }
   });
 }
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

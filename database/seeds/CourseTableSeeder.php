@@ -19,5 +19,6 @@ class CourseTableSeeder extends Seeder
          'description' => 'Course',
          'createdBy' => 1,
      ]);
+     
     }
 }

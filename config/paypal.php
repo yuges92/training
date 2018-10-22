@@ -15,7 +15,7 @@ return array(
     /**
     * Specify the max request time in seconds
     */
-    'http.ConnectionTimeOut' => 1000,
+    'http.ConnectionTimeOut' => 2000,
     /**
     * Whether want to log to a file
     */
@@ -30,7 +30,7 @@ return array(
     * Logging is most verbose in the 'FINE' level and decreases as you
     * proceed towards ERROR
     */
-    'log.LogLevel' => 'FINE',
+    'log.LogLevel' => 'DEBUG',
     'http.Proxy' => 'http://access5.cws.sco.cisco.com:8080'
 
   ),

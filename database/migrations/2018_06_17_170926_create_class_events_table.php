@@ -20,7 +20,7 @@ class CreateClassEventsTable extends Migration
       $table->integer('address_id')->unsigned();
       $table->string('title')->unique();
       $table->string('slug')->unique();
-      $table->string('description');
+      $table->text('description');
       $table->date('startDate');
       $table->time('startTimeStart');
       $table->time('endTimeStart');
@@ -33,7 +33,7 @@ class CreateClassEventsTable extends Migration
       $table->double('price');
       $table->string('originFileName')->nullable();
       $table->string('file')->nullable();
-      $table->integer('createdBy');
+      $table->integer('createdBy')->nullable();
       $table->integer('updatedBY')->nullable();
       $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
       // $table->foreign('address_id')->references('id')->on('class_addresses')->onDelete('set null');

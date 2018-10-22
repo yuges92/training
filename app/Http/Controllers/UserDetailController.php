@@ -38,19 +38,19 @@ class UserDetailController extends Controller
     {
         $this->validate($request, [
           'user_id' => 'required',
-          'phone' => 'required|digits:11',
+          // 'phone' => 'required|digits:11',
           'jobStatus' => 'required',
           'jobRole' => 'required',
           'dob' => 'required',
           'gender' => 'required',
           'ethnicity' => 'required',
           'ability' => 'required',
-          'organisation' => 'required'
+          // 'organisation' => 'required'
         ]);
 
         $userDetail= new UserDetail();
         $userDetail->user_id=$request->input('user_id');
-        $userDetail->phone=$request->input('phone');
+        // $userDetail->phone=$request->input('phone');
         $userDetail->jobStatus=$request->input('jobStatus');
         $userDetail->jobRole=$request->input('jobRole');
         $userDetail->dob=$request->input('dob');
@@ -58,7 +58,7 @@ class UserDetailController extends Controller
         $userDetail->ethnicity=$request->input('ethnicity');
         $userDetail->ability=$request->input('ability');
         $userDetail->disability=$request->input('disability');
-        $userDetail->organisation=$request->input('organisation');
+        // $userDetail->organisation=$request->input('organisation');
         $userDetail->createdBy=$request->user()->id;
         $userDetail->save();
 
@@ -101,17 +101,17 @@ class UserDetailController extends Controller
 
       $this->validate($request, [
         'user_id' => 'required',
-        'phone' => 'required|digits:11',
+        // 'phone' => 'required|digits:11',
         'jobStatus' => 'required',
         'jobRole' => 'required',
         'dob' => 'required',
         'gender' => 'required',
         'ethnicity' => 'required',
         'ability' => 'required',
-        'organisation' => 'required'
+        // 'organisation' => 'required'
       ]);
 
-      $userDetail->phone=$request->input('phone');
+      // $userDetail->phone=$request->input('phone');
       $userDetail->jobStatus=$request->input('jobStatus');
       $userDetail->jobRole=$request->input('jobRole');
       $userDetail->dob=$request->input('dob');
@@ -119,7 +119,7 @@ class UserDetailController extends Controller
       $userDetail->ethnicity=$request->input('ethnicity');
       $userDetail->ability=$request->input('ability');
       $userDetail->disability=$request->input('disability');
-      $userDetail->organisation=$request->input('organisation');
+      // $userDetail->organisation=$request->input('organisation');
       $userDetail->updatedBY=$request->user()->id;
       $userDetail->update();
 

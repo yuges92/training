@@ -10,6 +10,7 @@ class User extends Authenticatable
 {
   use Notifiable;
 
+  public $timestamps = true;
 
 
   /**
@@ -43,7 +44,7 @@ class User extends Authenticatable
 
   public function roles()
   {
-    return $this->belongsToMany(Role::class);
+    return $this->belongsToMany(Role::class)->withTimestamps();;
   }
 
 
@@ -102,11 +103,11 @@ class User extends Authenticatable
   //for class learnes
   public function learnerClasses()
   {
-    return $this->belongsToMany('App\ClassEvent', 'class_students', 'user_id', 'class_id')->withPivot('attendance');
+    return $this->belongsToMany('App\ClassEvent', 'class_students', 'user_id', 'class_id')->withPivot('attendance')->withTimestamps();
   }
 
 
-  public function details()
+  public function detail()
   {
     return $this->hasOne('App\UserDetail', 'user_id');
   }
@@ -114,6 +115,11 @@ class User extends Authenticatable
   public function addresses()
   {
     return $this->hasMany('App\Address','user_id');
+  }
+
+  public function orders()
+  {
+    return $this->hasMany('App\Order','user_id');
   }
 
   public function getAddressByType($type)
@@ -130,5 +136,7 @@ class User extends Authenticatable
   {
     return $this->learnerClasses->find($class_id)->pivot;
   }
+
+
 
 }

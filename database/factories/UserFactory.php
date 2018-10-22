@@ -14,12 +14,14 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\User::class, function (Faker $faker) {
-    return [
-      'firstName' => $faker->firstName,
-       'lastName' => $faker->lastName,
-       'email' =>  $faker->unique()->safeEmail,
-       'password' => Hash::make('secret'),
-    ];
+  $email=$faker->unique()->safeEmail;
+  return [
+    'firstName' => $faker->firstName,
+    'lastName' => $faker->lastName,
+    'username' => $faker->unique()->userName,
+    'email' =>  $faker->unique()->safeEmail,
+    'password' => Hash::make('secret'),
+  ];
 });
 
 

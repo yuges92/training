@@ -12,7 +12,7 @@
 @foreach ($courses as $course)
 
       <div class="card m-2" style="width: 18rem;">
-        <img class="card-img-top" src="//images.pexels.com/photos/256541/pexels-photo-256541.jpeg?cs=srgb&dl=bookcase-books-bookshelves-256541.jpg&fm=jpg" alt="Card image cap">
+        <img class="card-img-top h-50" src="//images.pexels.com/photos/256541/pexels-photo-256541.jpeg?cs=srgb&dl=bookcase-books-bookshelves-256541.jpg&fm=jpg" alt="Card image cap">
         <div class="card-body">
           <div class="card-title">
             <h2>{{$course->title}}</h2>

@@ -16,7 +16,6 @@ class CreateUserDetailsTable extends Migration
         Schema::create('user_details', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->unique();
-            $table->string('phone');
             $table->string('jobStatus');
             $table->string('jobRole');
             $table->date('dob');
@@ -24,8 +23,7 @@ class CreateUserDetailsTable extends Migration
             $table->string('ethnicity');
             $table->string('ability');
             $table->string('disability')->nullable();;
-            $table->string('organisation');
-            $table->integer('createdBy');
+            $table->integer('createdBy')->nullable();
             $table->integer('updatedBY')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

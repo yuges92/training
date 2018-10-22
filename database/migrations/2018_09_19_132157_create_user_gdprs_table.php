@@ -17,9 +17,9 @@ class CreateUserGdprsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->unique();
             $table->enum('agreed',['pending','yes','no']);
-            $table->enum('byEmail',['pending','yes','no']);
-            $table->enum('byPhone',['pending','yes','no']);
-            $table->integer('createdBy');
+            $table->enum('byEmail',['pending','yes','no'])->default('pending');
+            $table->enum('byPhone',['pending','yes','no'])->default('pending');
+            $table->integer('createdBy')->nullable();
             $table->integer('updatedBY')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

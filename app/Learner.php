@@ -7,6 +7,7 @@ use App\Role;
 
 class Learner extends User
 {
+  public $timestamps = true;
 
   protected $table = 'users';
 

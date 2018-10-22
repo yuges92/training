@@ -1,12 +1,12 @@
 <form class="mt-3" action="{{route('userDetail.store')}}" method="post">
   {{ csrf_field() }}
 
-  <div class="form-group row">
+  {{-- <div class="form-group row">
     <label for="phone" class="col-sm-2 col-form-label">Phone:</label>
     <div class="col-sm-10">
       <input name="phone" type="text" class="form-control" id="phone" value="{{ old('phone')}}" placeholder="Phone">
     </div>
-  </div>
+  </div> --}}
 
 <input type="hidden" name="user_id" value="{{$learner->id}}">
   <div class="form-group row">
@@ -29,12 +29,12 @@
     </div>
   </div>
 
-  <div class="form-group row">
+  {{-- <div class="form-group row">
     <label for="organisation" class="col-sm-2 col-form-label">Organisation:</label>
     <div class="col-sm-10">
       <input name="organisation" type="text" class="form-control" id="organisation" value="{{ old('organisation')}}" placeholder="Organisation" >
     </div>
-  </div>
+  </div> --}}
 
   <div class="form-group row">
     <label for="dob" class="col-sm-2 col-form-label">Date of birth:</label>

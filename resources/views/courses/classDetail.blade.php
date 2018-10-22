@@ -16,8 +16,6 @@
         {!! $class->description!!}
       </div>
 
-
-
       <div class="row mx-auto">
 
         <div class="col-md-6">
@@ -38,7 +36,10 @@
               <span>{{$class->startTimeStart}}</span>
             </li>
           </ul>
-          <form class="" action="{{route('addToBasket')}}" method="post">
+          <form class="" action="{{($cartItem) ? route('cart.update', $cartItem->class_id):route('cart.store')}}" method="post">
+            @if ($cartItem)
+              {{ method_field('PUT') }}
+            @endif
             {{ csrf_field() }}
             <input type="hidden" name="class_id" value="{{$class->id}}">
             <div class="">
@@ -46,7 +47,7 @@
             <div class="form-inline">
               <label for="quantity{{$class->id}}" class="sr-only">Quantity</label>
               <button class="col-xs-4 qty-decrement-cart btn btn-link" type="button" data-id="quantity{{$class->id}}"><i class="fas fa-minus"></i></button>
-              <input id="quantity{{$class->id}}" name="quantity" type="number" autocomplete="off" size="2" value="{{($cartItem) ?$cartItem->qty :1}}" title="quantity" class="form-control quantity-input text-center col-xs-5 col-md-1 " min="1" max="{{$class->availableSpace}}">
+              <input id="quantity{{$class->id}}" name="quantity" type="number" autocomplete="off" size="2" value="{{($cartItem) ?$cartItem->quantity :1}}" title="quantity" class="form-control quantity-input text-center col-xs-5 col-md-1 " min="1" max="{{$class->availableSpace}}">
               <button class="col-xs-4 qty-increment-cart btn btn-link" type="button" data-id="quantity{{$class->id}}"><i class="fas fa-plus"></i></button>
             </div>
             <div class=" mt-3">
@@ -72,7 +73,7 @@
           </div>
           <div class="card-footer row mx-auto">
             {{-- <a href="{{route('addToBasket', $class->id)}}" class="btn btn-primary">Add to Basket</a> --}}
-            <form method="POST" action="{{route('addToBasket')}}">
+            <form method="POST" action="{{route('cart.store')}}">
 
               {{ csrf_field() }}
               <input type="hidden" name="class_id" value="22">

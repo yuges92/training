@@ -7,6 +7,10 @@ $(document).ready(function() {
   }, 100);
 
 
+  $('form').submit(function(event) {
+    var ll=$(this).find('.btn').attr('disabled', 'disabled');
+  });
+
   $('.btn-next').click(function(event) {
     var thisParent = $(this).parents('ul li');
     var allowed = false;
@@ -141,5 +145,5 @@ function removeFile() {
 function checkAllCheckbox() {
   $("#selectAllCheckbox").click(function(){
     $('input:checkbox').not(this).prop('checked', this.checked);
-});
+  });
 }

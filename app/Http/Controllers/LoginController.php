@@ -40,10 +40,10 @@ class LoginController extends Controller
     $credentials = $request->only('email', 'password');
 
     if (Auth::attempt($credentials)) {
-        Cart::restore(Auth::user()->id);
-        // $cart = Cart::content();
-// dd($cart);
-      return redirect()->route('adminDashboard');
+      Cart::storeToDatabase();
+
+      // return redirect()->route('adminDashboard');
+      return redirect()->back();
     }
 
     return redirect()->back()->with('error', 'Login Failed. Please check your credentials');
@@ -59,9 +59,8 @@ class LoginController extends Controller
   public function logout()
   {
 
-    Cart::restore(Auth::user()->id);
-    Cart::store(Auth::user()->id);
-    Cart::destroy();
+    // Cart::store(Auth::user()->id);
+    // Cart::destroy();
     Auth::logout();
     return redirect()->route('home');
 

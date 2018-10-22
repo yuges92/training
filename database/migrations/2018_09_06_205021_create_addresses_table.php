@@ -23,7 +23,7 @@ class CreateAddressesTable extends Migration
             $table->string('county');
             $table->string('postcode');
             $table->string('country');
-            $table->integer('createdBy');
+            $table->integer('createdBy')->nullable();
             $table->integer('updatedBY')->nullable();
             $table->unique(['type','user_id']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

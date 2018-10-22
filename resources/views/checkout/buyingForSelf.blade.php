@@ -5,99 +5,15 @@
     <div class="container mt-5">
       <h1>Your Details</h1>
 
-      <form class="" action="{{route('paymentAndBilling')}}" method="post" enctype="multipart/form-data">
+      <form class="" action="{{route('buyForSelf.store')}}" method="post">
+        {{ csrf_field() }}
         <div class="row">
           <div class="col-md-7">
-            {{ csrf_field() }}
+            @include('partials.userDetail')
 
-            <div class="form-group row">
-              <label for="firstName" class="col-md-3 col-form-label">First name:</label>
-              <div class="col">
-                <input name="firstName" type="text" class="form-control" id="firstName" value="{{ old('firstName') }}" placeholder="First name">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="lastName" class="col-md-3 col-form-label">Last name:</label>
-              <div class="col">
-                <input name="lastName" type="text" class="form-control" id="lastName" value="{{ old('lastName') }}" placeholder="Last name">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="email" class="col-md-3 col-form-label">Email:</label>
-              <div class="col">
-                <input name="email" type="text" class="form-control" id="email" value="{{ old('email') }}" placeholder="Email">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="password" class="col-md-3 col-form-label">Password:</label>
-              <div class="col">
-                <input class="form-control" type="password" name="password" id="password" value="" placeholder="Password">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="confirmPassword" class="col-md-3 col-form-label">Confirm Password:</label>
-              <div class="col">
-                <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" value="" placeholder="Confirm Password">
-              </div>
-            </div>
-
-
-            <div class="form-group row">
-              <label for="phone" class="col-md-3 col-form-label">Phone:</label>
-              <div class="col">
-                <input name="phone" type="text" class="form-control" id="phone" value="{{ old('phone')}}" placeholder="Phone">
-              </div>
-            </div>
-
-            <div class="Address">
-              <div class="form-group row">
-                <label for="line1" class="col-md-3 col-form-label">Line 1:</label>
-                <div class="col">
-                  <input class="form-control" type="text" name="line1" id="line1" value="{{old('line1')}}" placeholder="Address line 1">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="line2" class="col-md-3 col-form-label">Line 2:</label>
-                <div class="col">
-                  <input class="form-control" type="text" name="line2" id="line2" value="{{old('line2')}}" placeholder="Address Line 2">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="town" class="col-md-3 col-form-label">Town:</label>
-                <div class="col">
-                  <input class="form-control" type="text" name="town" id="town" value="{{old('town')}}" placeholder="Town">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="county" class="col-md-3 col-form-label">County:</label>
-                <div class="col">
-                  <input class="form-control" type="text" name="county" id="county" value="{{old('county')}}" placeholder="County">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="postcode" class="col-md-3 col-form-label">Postcode:</label>
-                <div class="col">
-                  <input class="form-control" type="text" name="postcode" id="postcode" value="{{old('postcode')}}" placeholder="Postcode">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="country" class="col-md-3 col-form-label">Country:</label>
-                <div class="col">
-                  <input class="form-control" type="text" name="country" id="country" value="United Kingdom" placeholder="Country" readonly>
-                </div>
-              </div>
-            </div>
-
-            <div class="additional-info">
+            <div class="additional-info mt-5">
+              <h2>Additional Details</h2>
+              <p>We need the following information to ensure you have a positive learning experience and in case we need to register you with the accrediting body.</p>
 
               <div class="form-group row">
                 <label for="jobStatus" class="col-md-3 col-form-label">Job Status:</label>
@@ -116,13 +32,6 @@
                 <label for="jobRole" class="col-md-3 col-form-label">Job Role/Title:</label>
                 <div class="col">
                   <input name="jobRole" type="text" class="form-control" id="jobRole" value="{{ old('jobRole')}}" placeholder="Job Role/Title">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="organisation" class="col-md-3 col-form-label">Organisation:</label>
-                <div class="col">
-                  <input name="organisation" type="text" class="form-control" id="organisation" value="{{ old('organisation')}}" placeholder="Organisation" >
                 </div>
               </div>
 
@@ -170,6 +79,7 @@
                     <option {{ old('ethnicity')=='46' ? 'selected': ''}} value="46">Black / African / Caribbean / Black British - Any Other Black / African / Caribbean Background</option>
                     <option {{ old('ethnicity')=='47' ? 'selected': ''}} value="47">Other Ethnic Group - Arab</option>
                     <option {{ old('ethnicity')=='98' ? 'selected': ''}} value="98">Other Ethnic Group - Any Other Ethnic Group</option>
+                    <option {{ old('ethnicity')=='Do not wish to disclose' ? 'selected': ''}} value="Do not wish to disclose">Do not wish to disclose</option>
                   </select>
                 </div>
               </div>

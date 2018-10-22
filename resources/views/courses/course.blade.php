@@ -13,7 +13,7 @@
       <h2>Upcoming Courses</h2>
       <div class="row mx-auto">
         @foreach ($course->classes as $class)
-          <div class="card m-2" style="width: 18rem;">
+          <div class="card m-2" style="width: 19rem;">
             <div class="card-body">
               <h3 class="card-title">{{$course->title}}</h3>
               <p class="card-text">  {!!$class->getStartEndDate() !!}</p>
@@ -26,13 +26,15 @@
             </div>
             <div class="card-footer row mx-auto">
               {{-- <a href="{{route('addToBasket', $class->id)}}" class="btn btn-primary">Add to Basket</a> --}}
-              <form method="POST" action="{{route('addToBasket')}}">
+              <form method="POST" action="{{route('cart.store')}}">
 
                 {{ csrf_field() }}
                 <input type="hidden" name="class_id" value="{{$class->id}}">
-                <button type="submit" class="btn btn-primary add-to-cart">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="btn btn-{{Cart::checkIfExist($class->id)?'success' : 'primary'}} add-to-cart" {{Cart::checkIfExist($class->id)?'disabled' : ''}}>
                   <i class="fa fa-shopping-cart"></i>
-                  Add to cart
+                  {{Cart::checkIfExist($class->id)?'Added to cart' : 'Add to cart'}}
+
                 </button>
               </form>
               <a class="ml-1 btn btn-info"href="{{route('showClassDetail', $class->id)}}">View Full Detail</a>

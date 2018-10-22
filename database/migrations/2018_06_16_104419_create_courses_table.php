@@ -18,8 +18,8 @@ class CreateCoursesTable extends Migration
             $table->string('title')->unique();
             $table->string('slug')->unique();
             $table->enum('type',['course','conference','refresher']);
-            $table->text('body');
-            $table->string('description');
+            $table->longText('body');
+            $table->text('description');
             $table->string('originFileName')->nullable();
             $table->string('file')->nullable();
             $table->integer('createdBy');

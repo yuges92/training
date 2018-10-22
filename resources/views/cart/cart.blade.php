@@ -21,60 +21,58 @@
             </thead>
             <tbody>
               @foreach($cart as $item)
-
                 <tr class="">
                   <td class="cart_delete">
-                    <form class="" action="{{route('removeClassFromCart')}}" method="post">
+                    <form class="" action="{{route('cart.destroy',$item->class_id)}}" method="post">
                       {{ csrf_field() }}
                       <input type="hidden" name="_method" value="delete" />
-                      <input type="hidden" name="rowId" value="{{$item->rowId}}" />
-                      <input type="hidden" name="class_id" value="{{$item->id}}">
                       <button type="submit" class="cart_quantity_delete text-danger btn " name="destroy">Remove</button>
                     </form>
                   </td>
                   <td class="cart_description">
-                    <h2><a href="{{route('showClassDetail', $item->id)}}">{{$item->name}}</a></h2>
+                    <h2><a href="{{route('showClassDetail', $item->class_id)}}">{{$item->class->course->title}}</a></h2>
                     <div class="row">
                       <div class="col-12">
 
-                        <span>{{$item->model->address->town}}</span>
+                        <span>{{$item->class->address->town}}</span>
                       </div>
                       <div class="col-12">
 
-                        <span>{{$item->model->getStartEndDate()}}</span>
+                        <span>{{$item->class->getStartEndDate()}}</span>
                       </div>
                     </div>
                   </td>
-                  {{-- <td>{{$item->model->address->town}}</td> --}}
-                  {{-- <td>{{$item->model->getStartEndDate()}}</td> --}}
+                  {{-- <td>{{$item->class->address->town}}</td> --}}
+                  {{-- <td>{{$item->class->getStartEndDate()}}</td> --}}
                   <td class="cart_price">
-                    <p>£{{$item->price}}</p>
+                    <p>£{{$item->class->price}}</p>
                   </td>
                   <td class="cart_quantity">
-                    <form class="row" action="{{route('addToBasket')}}" method="post">
+                    <form class="row" action="{{route('cart.update', $item->class_id)}}" method="post">
                       {{ csrf_field() }}
-                      <input type="hidden" name="class_id" value="{{$item->id}}">
+                      {{ method_field('PATCH') }}
+                      <input type="hidden" name="class_id" value="{{$item->class_id}}">
                       <div class="">
                       </div>
 
-                      @if ($item->model->type=='private')
-                        <input id="quantity{{$item->id}}" autocomplete="off" size="2" value="{{$item->model->availableSpace}}" title="quantity" class="form-control col-md-5 text-center" readonly>
+                      @if ($item->class->type=='private')
+                        <input id="quantity{{$item->class_id}}" autocomplete="off" size="2" value="{{$item->class->availableSpace}}" title="quantity" class="form-control col-md-5 text-center" readonly>
                       @else
-                      <div class="form-inline row mx-auto">
-                        <label for="quantity{{$item->id}}" class="sr-only">Quantity</label>
-                        <button class="col-xs-4 qty-decrement-cart btn btn-link" type="button" data-id="quantity{{$item->id}}"><i class="fas fa-minus"></i></button>
-                        <input id="quantity{{$item->id}}" name="quantity" type="number" autocomplete="off" size="2" value="{{$item->qty}}" title="quantity" class="form-control  col-5 col-md-2 quantity-input text-center" min="1" max="{{$item->model->availableSpace}}" button-target="button{{$item->id}}">
-                        <button class="col-xs-4 qty-increment-cart btn btn-link" type="button" data-id="quantity{{$item->id}}"><i class="fas fa-plus"></i></button>
-                        <div class="col-12 mx-auto mt-1 ">
-                          <button id="button{{$item->id}}"class="btn ml-1" type="submit" name="button" disabled>Update</button>
+                        <div class="form-inline row mx-auto">
+                          <label for="quantity{{$item->class_id}}" class="sr-only">Quantity</label>
+                          <button class="col-xs-4 qty-decrement-cart btn btn-link" type="button" data-id="quantity{{$item->class_id}}"><i class="fas fa-minus"></i></button>
+                          <input id="quantity{{$item->class_id}}" name="quantity" type="number" autocomplete="off" size="2" value="{{$item->quantity}}" title="quantity" class="form-control  col-5 col-md-4 quantity-input text-center" min="1" max="{{$item->class->availableSpace}}" button-target="button{{$item->class_id}}">
+                          <button class="col-xs-4 qty-increment-cart btn btn-link" type="button" data-id="quantity{{$item->class_id}}"><i class="fas fa-plus"></i></button>
+                          <div class="col-12 mx-auto mt-1 ">
+                            <button id="button{{$item->class_id}}"class="btn ml-1" type="submit" name="button" disabled>Update</button>
+                          </div>
                         </div>
-                      </div>
-                    @endif
+                      @endif
 
                     </form>
                   </td>
                   <td class="cart_total">
-                    <strong class="cart_total_price">£{{$item->subtotal}}</strong>
+                    <strong class="cart_total_price">£{{$item->getItemSubTotal()}}</strong>
                   </td>
                 </tr>
               @endforeach
@@ -106,7 +104,7 @@
 
               </div>
               <div class="col-12">
-                <span class="total">VAT</span> <span>£{{Cart::tax()}}</span>
+                <span class="total">VAT</span> <span>£{{Cart::getVAT()}}</span>
 
               </div>
               <div class="col-12">
@@ -119,7 +117,7 @@
             <a class="btn btn-success px-5 py-3" href="{{route('whoIsItFor')}}">Continue to Checkout</a>
           </div>
         @else
-          <p>You have no items in the shopping cart</p>
+          <p class="text-center">You have no items in the shopping cart</p>
         @endif
 
       </div>

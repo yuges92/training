@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class AccessCode extends Model
 {
 
+  public $timestamps = true;
+
 
 
   public function class()
@@ -30,6 +32,30 @@ class AccessCode extends Model
   {
     return $this->belongsTo('App\User', 'user_id');
 
+  }
+
+  public static function generateAccessCode(){
+    $accessCode = "";
+    $chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    $coupon_valid=false;
+
+    for ($i = 0; $i < 10; $i++) {
+      $accessCode .= $chars[mt_rand(0, strlen($chars)-1)];
+    }
+
+
+
+    return $accessCode;
+  }
+
+  public static function getValidAccessCode()
+  {
+    do {
+      $accessCode=self::generateAccessCode();
+
+    } while (self::where("accessCode", "=", $accessCode)->first() instanceof AccessCode);
+
+    return $accessCode;
   }
 
 

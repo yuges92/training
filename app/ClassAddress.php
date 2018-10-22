@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClassAddress extends Model
 {
+  public $timestamps = true;
 
 
 

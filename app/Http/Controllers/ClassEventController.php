@@ -52,6 +52,7 @@ class ClassEventController extends Controller
     $this->validate($request, [
       'course_id' => [ 'required'],
       'type' => 'required',
+      'title' => 'required',
       'address_id' => 'required',
       'description' => 'required',
       'startDate' => 'required',
@@ -61,6 +62,8 @@ class ClassEventController extends Controller
       'startTimeEnd' => 'required',
       'endTimeEnd' => 'required',
       'price' => 'required',
+      'space' => 'required'
+
     ]);
 
     $classEvent=new ClassEvent();
@@ -76,8 +79,8 @@ class ClassEventController extends Controller
     $classEvent->endDate =$request->input('endDate');
     $classEvent->startTimeEnd =$request->input('startTimeEnd');
     $classEvent->endTimeEnd =$request->input('endTimeEnd');
-    $classEvent->availableSpace =$request->input('availableSpace');
-    $classEvent->space =$request->input('availableSpace');
+    $classEvent->availableSpace =$request->input('space');
+    $classEvent->space =$request->input('space');
     $classEvent->price =$request->input('price');
     if ($request->file('file')) {
 
@@ -130,6 +133,7 @@ class ClassEventController extends Controller
     $this->validate($request, [
       'course_id' => [ 'required'],
       'type' => 'required',
+      'title' => 'required',
       'address_id' => 'required',
       'description' => 'required',
       'startDate' => 'required',
@@ -139,6 +143,8 @@ class ClassEventController extends Controller
       'startTimeEnd' => 'required',
       'endTimeEnd' => 'required',
       'price' => 'required',
+      'space' => 'required',
+      'availableSpace' => 'required'
     ]);
 
     if(!$request->input('oldFile') ){
@@ -165,6 +171,7 @@ class ClassEventController extends Controller
     $classEvent->endTimeEnd =$request->input('endTimeEnd');
     $classEvent->availableSpace =$request->input('availableSpace');
     $classEvent->price =$request->input('price');
+    $classEvent->space =$request->input('space');
     $classEvent->updatedBy =$request->user()->id;
     $classEvent->update();
     return redirect()->back()->with('success', 'Class Updated');
@@ -244,7 +251,7 @@ class ClassEventController extends Controller
     // $cartItem=Cart::search(function($cartItem, $rowId) use($class)  {
     //   return $cartItem->id == $class->id;
     // });
-    $cartItem=Cart::content()->where('id', $class->id)->first();
+    $cartItem=Cart::getCart()->where('class_id', $class->id)->first();
     return view('courses.classDetail', compact('class','cartItem'));
 
   }

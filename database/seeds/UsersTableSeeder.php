@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
     $user->firstName='Yugeswaran';
     $user->lastName='Sivanathan';
     $user->email='sivayuges@gmail.com';
+    $user->username='sivayuges';
     $user->password=Hash::make('password');
     $user->save();
     $user->roles()->attach($role_SA);

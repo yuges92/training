@@ -48,6 +48,20 @@
             </div>
           </div>
 
+          <div class="form-group row">
+            <label for="organisation" class="col-sm-2 col-form-label">Organisation:</label>
+            <div class="col-sm-10">
+              <input name="organisation" type="text" class="form-control" id="organisation" value="{{ $learner->organisation }}" placeholder="Organisation" readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="phone" class="col-sm-2 col-form-label">Phone:</label>
+            <div class="col-sm-10">
+              <input name="phone" type="text" class="form-control" id="phone" value="{{ $learner->phone }}" placeholder="Phone" readonly>
+            </div>
+          </div>
+
           <div class="form-group row float-right mt-3 p-3">
             <a href="{{route('users.edit', $learner->id)}}" class="btn btn-secondary px-5">Edit</a>
           </div>
@@ -57,7 +71,7 @@
 
       {{--Tab for learner additional details  --}}
       <div class="tab-pane  fade" id="additionalDetails">
-        @if ($learner->details)
+        @if ($learner->detail)
           @include('admin.learner.editDetailsTemplate')
         @else
           @include('admin.learner.addDetailsTemplate')
@@ -121,22 +135,22 @@
 
 
             <div class="form-group row">
-              <label for="agreed" class="col-sm-3 col-form-label text-md-right">Agreed To GDPR Consent:</label>
-              <div class="col-lg-3 col-sm-5">
+              <label for="agreed" class="col-sm-3 col-form-label ">Agreed To GDPR Consent:</label>
+              <div class="col-sm-3">
                 <input name="agreed" type="text" class="form-control" id="agreed" value="{{( $learner->gdpr)? $learner->gdpr->agreed:'No'}}" readonly>
               </div>
             </div>
             @if ($learner->gdpr&& $learner->gdpr->agreed=='yes')
               <span class="text-info">Can be contacted by:</span>
               <div class="form-group row">
-                <label for="byEmail" class="col-sm-2 col-form-label">Email:</label>
+                <label for="byEmail" class="col-sm-3 col-form-label">Email:</label>
                 <div class="col-sm-3">
                   <input name="byEmail" type="text" class="form-control" id="byEmail" value="{{ $learner->gdpr->byEmail }}" readonly>
                 </div>
               </div>
 
               <div class="form-group row">
-                <label for="byPhone" class="col-sm-2 col-form-label">Phone:</label>
+                <label for="byPhone" class="col-sm-3 col-form-label">Phone:</label>
                 <div class="col-sm-3">
                   <input name="byPhone" type="text" class="form-control" id="byPhone" value="{{ $learner->gdpr->byPhone }}"  readonly>
                 </div>

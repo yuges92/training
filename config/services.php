@@ -35,4 +35,13 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'paypal' => [
+       'username' => env('PAYPAL_USERNAME'),
+       'password' => env('PAYPAL_PASSWORD'),
+       'signature' => env('PAYPAL_SIGNATURE'),
+       'sandbox' => env('PAYPAL_SANDBOX'),
+       'http.Proxy' => 'http://access5.cws.sco.cisco.com:8080'
+       
+   ],
+
 ];
