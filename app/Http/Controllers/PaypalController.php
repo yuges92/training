@@ -127,17 +127,18 @@ class PaypalController extends HomeController
   }
 
 
+
+
   public function getPaymentStatus(Request $request)
   {
-
     if(!$request->paymentId){
-      return Redirect::route('cart.index')->with('error','The response is missing the paymentId and PayerID');
+      return Redirect::route('cart.index')->with('error','The response is missing the Payment ID and Payer ID');
     }
 
-    $payment_id = $request->paymentId;
-    $orderPayment= OrderPayment::where('paymentId',$payment_id)->first();
+    $paymentId = $request->paymentId;
+    $orderPayment= OrderPayment::where('paymentId',$paymentId)->first();
 
-    $payment = Payment::get($payment_id, $this->apiContext);
+    $payment = Payment::get($paymentId, $this->apiContext);
     /** PaymentExecution object includes information necessary **/
     /** to execute a PayPal account payment. **/
     /** The payer_id is added to the request query parameters **/
@@ -147,6 +148,7 @@ class PaypalController extends HomeController
     /**Execute the payment **/
     // dd($payment);
     try {
+      $result = $payment;
       if($payment->getState()=='created'){
 
         $result = $payment->execute($execution, $this->apiContext);
@@ -165,14 +167,21 @@ class PaypalController extends HomeController
     return Redirect::route('cart.index')->with('error', 'Payment failed');
   }
 
+
+
+
   public function cancelledPayment(Order $order, Request $request)
   {
-    $order->status='cancelled';
-    $order->payment->payment_status='cancelled';
-    $order->save();
-    $order->payment->save();
+    // $payment = Payment::get($order->payment->paymentId, $this->apiContext);
 
-    return view('order.cancelledPayment')->with('error','Pyament Cancelled');
+    if($order->payment->payment_status=='created'){
+      $order->status='cancelled';
+      $order->payment->payment_status='cancelled';
+      $order->save();
+      $order->payment->save();
+    }
+
+    return view('order.cancelledPayment')->with('error','Payment Cancelled');
 
   }
 }

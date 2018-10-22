@@ -2,7 +2,7 @@
     <ul class="">
       <li><a class="{{ Request::is('/') ? 'active' : '' }}" href="/"><i class="fa fa-home"></i> <span> Home</span></a></li>
       <li><a class="{{ Request::is('admin') ? 'active' : '' }}" href="{{route('adminDashboard')}}"><i class="fa fa-tachometer-alt"></i> <span> Dashboard</span></a></li>
-      <li><a class="{{ Request::is('admin/bookings*') ? 'active' : '' }}" href=""><i class="fas fa-list-alt"></i> <span>Bookings</span></a></li>
+      <li><a class="{{ Request::is('admin/bookings*') ? 'active' : '' }}" href="{{route('bookings.index')}}"><i class="fas fa-list-alt"></i> <span>Bookings</span></a></li>
       <li><a class="{{ Request::is('admin/learners*') ? 'active' : '' }}" href="/admin/learners"><i class="fa fa-user-graduate"></i> <span>Learners</span></a></li>
       <li><a class="{{ Request::is('admin/courses*') ? 'active' : '' }}" href="{{route('adminCourses')}}"><i class="fa fa-graduation-cap"></i> <span>Courses</span></a></li>
       <li><a class="{{ Request::is('admin/assignments*') ? 'active' : '' }}" href="/admin/assignments"><i class="fa fa-tasks"></i> <span>Course Assignments</span></a></li>

@@ -81,9 +81,8 @@ class BuyForSelfController extends Controller
     $newUser->email =$request->input('email');
     $newUser->phone =$request->input('phone');
     $newUser->organisation =$request->input('organisation');
-
-
     $newUser->password =Hash::make($request->input('password'));
+
     $userAddress= new Address();
     $userAddress->type='home';
     $userAddress->line1=$request->input('line1');
@@ -174,15 +173,21 @@ class BuyForSelfController extends Controller
         'termsCondition' => 'required',
         'poNumber' => 'required_if:paymentMethod,invoiceRequest',
       ]);
+
+      $userAddress=Auth::user()->getAddressByType('billing');
+      if(!$userAddress){
+        $userAddress=Auth::user()->getAddressByType('home');
+      }
+
       $order->billingFirstName=$request->user()->firstName;
       $order->billingLastName=$request->user()->lastName;
       $order->billingTel=$request->user()->phone;
-      $order->billingLine1=$request->user()->getAddressByType('home')->line1;
-      $order->billingLine2=$request->user()->getAddressByType('home')->line1;
-      $order->billingTown=$request->user()->getAddressByType('home')->town;
-      $order->billingCounty=$request->user()->getAddressByType('home')->county;
-      $order->billingPostcode=$request->user()->getAddressByType('home')->postcode;
-      $order->billingCountry=$request->user()->getAddressByType('home')->country;
+      $order->billingLine1=$userAddress->line1;
+      $order->billingLine2=$userAddress->line1;
+      $order->billingTown=$userAddress->town;
+      $order->billingCounty=$userAddress->county;
+      $order->billingPostcode=$userAddress->postcode;
+      $order->billingCountry=$userAddress->country;
 
     }
 
@@ -215,13 +220,12 @@ class BuyForSelfController extends Controller
     }
 
     if($order->paymentMethod=='invoiceRequest'){
-
       return redirect()->route('thankYou')->with('success', 'Your booking will be approved once the payment is completed');
     }
 
     if ($order->paymentMethod=='paypal'){
       $paypalController= new PaypalController();
-    return  $paypalController->postPaymentWithpaypal($order);
+      return  $paypalController->postPaymentWithpaypal($order);
     }
     // dd($request);
   }
