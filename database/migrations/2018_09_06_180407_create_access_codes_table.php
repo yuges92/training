@@ -22,7 +22,7 @@ class CreateAccessCodesTable extends Migration
             $table->boolean('valid');
             $table->integer('createdBy')->nullable();
             $table->timestamps();
-            $table->foreign('class_id')->references('id')->on('class_event')->onDelete('cascade');
+            $table->foreign('class_id')->references('id')->on('class_events')->onDelete('cascade');
         });
     }
 
