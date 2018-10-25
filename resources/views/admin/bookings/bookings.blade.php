@@ -10,7 +10,10 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Title</th>
+        <th scope="col">Booked by</th>
+        <th scope="col">Date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Total</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -19,8 +22,11 @@
 
         <tr>
           <th scope="row">{{$booking->id}}</th>
-          <td>{{$booking->title}}</td>
-          <td class="row"><a class="btn btn-success mr-1" href="{{route('editCourse', [$booking->id])}}">Edit</a>
+          <td>{{$booking->user->getFullname()}}</td>
+          <td>{{$booking->created_at}}</td>
+          <td>{{$booking->status}}</td>
+          <td>£{{$booking->total}}</td>
+          <td class="row"><a class="btn btn-success mr-1" href="{{route('bookings.edit', [$booking->id])}}">Edit</a>
             <form class="deleteForm" action="{{route('deleteCourse',[$booking->id])}}" method="post">
               {{ csrf_field() }}
               @method('Delete')

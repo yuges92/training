@@ -22,7 +22,11 @@ class Order extends Model
   {
     $this->status='completed';
     $this->save();
-    return $this->giveAccess();
+    if($this->isSelf==1){
+      return $this->giveAccess();
+
+    }
+    return $this->sendAccessCode();
 
   }
 
@@ -56,6 +60,7 @@ class Order extends Model
     //     // dd($detail->quantity);
     //   }
     // }
+    return 1;
   }
 
 

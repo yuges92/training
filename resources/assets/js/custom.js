@@ -75,7 +75,7 @@ function openNav() {
   if (adminBar) {
     window.addEventListener('resize', (function(event) {
       if (window.matchMedia("(min-width: 800px)").matches) {
-        mainContents.style.marginLeft = '15rem';
+        mainContents.style.marginLeft = '18rem';
         adminBar.style.width = "15rem";
         btn_menu.innerHTML = '<i class="material-icons">close</i>';
 
