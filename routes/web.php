@@ -64,7 +64,7 @@ Route::group(['middleware' => ['admin']], function(){
   Route::resource('/admin/userDetail', 'UserDetailController');
   Route::resource('/admin/address', 'AddressController');
   Route::resource('/admin/accessCode', 'AccessCodeController');
-  Route::resource('/bookings', 'BookingController');
+  Route::resource('/admin/bookings', 'BookingController');
 
   Route::post('/admin/classStudent', 'ClassStudentController@store')->name('giveStudentClassAccess');
   // Route::post('/admin/userDetail/store', 'UserDetailController@store')->name('addLearnerDetails');
@@ -91,10 +91,15 @@ Route::get('checkout/self/paymentAndBilling', 'BuyForSelfController@paymentAndBi
 Route::post('checkout/self/paymentAndBilling', 'BuyForSelfController@payment')->name('paymentSelf');
 
 
+Route::get('checkout/someoneElse', 'BuyForSomeoneElseController@index')->name('someoneElse.index');
+Route::post('checkout/someoneElse', 'BuyForSomeoneElseController@store')->name('someoneElse.store');
+Route::get('checkout/someoneElse/create', 'BuyForSomeoneElseController@create')->name('someoneElse.create');
+Route::get('checkout/someoneElse/paymentAndBilling', 'BuyForSomeoneElseController@paymentAndBilling')->name('paymentAndBillingSomeoneElse');
+Route::post('checkout/someoneElse/paymentAndBilling', 'BuyForSomeoneElseController@payment')->name('paymentSomeoneElse');
 
-Route::post('checkout/payment', 'PaymentController@store')->name('payment');
-Route::get('checkout/someoneElse/payment', 'CheckoutController@paymentSomeoneElse')->name('paymentAndBillingSomeoneElse');
-Route::resource('checkout/someoneElse', 'BuyForSomeoneElseController');
+// Route::post('checkout/payment', 'PaymentController@store')->name('payment');
+// Route::get('checkout/someoneElse/payment', 'CheckoutController@paymentSomeoneElse')->name('paymentAndBillingSomeoneElse');
+// Route::resource('checkout/someoneElse', 'BuyForSomeoneElseController');
 
 
 Route::get('order/thankYou', 'OrderController@thankYou')->name('thankYou');

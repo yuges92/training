@@ -71,7 +71,7 @@
             </div>
           </div>
         </div>
-        <a href="{{route('buyForSelf.create')}}" class=" my-1 mx-auto btn btn-outline-info whoIsItFor">New user</a>
+        <a href="{{Request::url()}}/create" class=" my-1 mx-auto btn btn-outline-info whoIsItFor">New user</a>
       </div>
     </div>
   </section> <!--/#cart_items-->

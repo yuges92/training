@@ -123,15 +123,13 @@ class BuyForSelfController extends Controller
 
 
   public function paymentAndBillingSelf(Request $request){
-    $userData=$request->session()->get('userData');
-    $userAddress=$userData['address'];
     if(Auth::check()){
       $userAddress=Auth::user()->getAddressByType('billing');
       if(!$userAddress){
         $userAddress=Auth::user()->getAddressByType('home');
       }
     }
-    $paymentAction='payment.self';
+    $paymentAction='payment.someoneElse';
     return view('checkout.paymentAndBilling', compact('userAddress','paymentAction' ));
   }
 
@@ -220,6 +218,7 @@ class BuyForSelfController extends Controller
     }
 
     if($order->paymentMethod=='invoiceRequest'){
+      Cart::getCartIntance()->emptyCurrentUserCart();
       return redirect()->route('thankYou')->with('success', 'Your booking will be approved once the payment is completed');
     }
 

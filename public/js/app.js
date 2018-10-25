@@ -36004,6 +36004,7 @@ $(document).ready(function () {
   deleteConfirmation();
   removeFile();
   checkAllCheckbox();
+  checkBoxBtn();
 });
 
 function openSideNavBar() {
@@ -36089,6 +36090,13 @@ function removeFile() {
 function checkAllCheckbox() {
   $("#selectAllCheckbox").click(function () {
     $('input:checkbox').not(this).prop('checked', this.checked);
+  });
+}
+
+function checkBoxBtn() {
+  $('.checkBoxBtn').click(function (event) {
+    console.log('button clicked');
+    $(this).find('input').prop('checked', 'checked');
   });
 }
 

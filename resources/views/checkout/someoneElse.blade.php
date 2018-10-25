@@ -5,7 +5,7 @@
     <div class="container mt-5">
       <h1>Your Details</h1>
 
-      <form class="" action="{{route('buyForSomeoneElse.store')}}" method="post">
+      <form class="" action="{{route('someoneElse.store')}}" method="post">
         {{ csrf_field() }}
         <div class="row">
           <div class="col-md-7">
