@@ -118,7 +118,7 @@ class Cart extends Model
 
   public function getPriceIncVat()
   {
-    return ($this->quantity*$this->class->price)*(1+$this->tax());
+    return ($this->class->price)*(1+$this->tax());
 
   }
 

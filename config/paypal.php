@@ -26,9 +26,6 @@ return array(
     'log.FileName' => storage_path() . '/logs/paypal.log',
     /**
     * Available option 'FINE', 'INFO', 'WARN' or 'ERROR'
-    *
-    * Logging is most verbose in the 'FINE' level and decreases as you
-    * proceed towards ERROR
     */
     'log.LogLevel' => 'DEBUG',
     'http.Proxy' => 'http://access5.cws.sco.cisco.com:8080'

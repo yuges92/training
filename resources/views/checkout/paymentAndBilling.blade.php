@@ -14,7 +14,7 @@
               <div id="accordion">
                 <div class="card">
                   <div class="card-header" id="headingOne">
-                    <button class="btn " data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" type="button">
+                    <button class="btn checkBoxBtn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" type="button">
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="differentAddress" id="sameBilling" value="0" required="" {{old('differentAddress')!=1 ?'checked' :''}}>
                         <label class="form-check-label" for="sameBilling">Billing detail</label>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="card">
                   <div class="card-header" id="headingTwo">
-                    <button class="btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="button">
+                    <button class="btn checkBoxBtn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" type="button">
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="differentAddress" id="billingAddress" value="1" required="" {{old('differentAddress')==1 ?'checked' :''}}>
                         <label class="form-check-label" for="billingAddress">Different billing Detail</label>
