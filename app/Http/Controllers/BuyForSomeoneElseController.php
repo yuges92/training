@@ -98,7 +98,7 @@ class BuyForSomeoneElseController extends Controller
 
     if (Auth::loginUsingId($newUser->id)) {
       Cart::storeToDatabase();
-      return redirect()->route('paymentAndBillingSelf');
+      return redirect()->route('paymentAndBillingSomeoneElse');
     }
 
     return redirect()->back()->with('error', 'registration failed');
@@ -199,6 +199,7 @@ class BuyForSomeoneElseController extends Controller
         $orderDetails->order_id=$order->id;
         $orderDetails->class_id=$cartItem->class_id;
         $orderDetails->quantity=$cartItem->quantity;
+        $orderDetails->price=$cartItem->class->price;
         $order->orderDetails()->save($orderDetails);
       }
 

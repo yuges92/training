@@ -39,7 +39,7 @@
 </a>
 
 
-<a href="/" class="custom-icon-card mx-auto">
+<a href="{{route('order.index')}}" class="custom-icon-card mx-auto">
   <div class="card-body mx-auto text-center">
     <i class="fas fa-list-alt custom-icon"></i>
     <h5 class="card-title">Bookings</h5>

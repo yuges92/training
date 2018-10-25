@@ -12,9 +12,15 @@ class OrderDetail extends Model
 
   return $this->belongsTo('App\Order');
 }
-public function classEvent()
+public function class()
 {
   return $this->belongsTo('App\ClassEvent', 'class_id');
 
 }
+
+public function getItemSubTotal()
+{
+  return $this->quantity*$this->price;
+}
+
 }

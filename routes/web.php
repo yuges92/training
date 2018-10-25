@@ -64,7 +64,7 @@ Route::group(['middleware' => ['admin']], function(){
   Route::resource('/admin/userDetail', 'UserDetailController');
   Route::resource('/admin/address', 'AddressController');
   Route::resource('/admin/accessCode', 'AccessCodeController');
-  Route::resource('/admin/bookings', 'BookingController');
+  Route::resource('/admin/order', 'BookingController');
 
   Route::post('/admin/classStudent', 'ClassStudentController@store')->name('giveStudentClassAccess');
   // Route::post('/admin/userDetail/store', 'UserDetailController@store')->name('addLearnerDetails');

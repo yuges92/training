@@ -94,6 +94,7 @@ class Cart extends Model
   {
     return $this->quantity*$this->class->price;
   }
+  
   public function subTotal()
   {
     // return $this->quantity*$this->class->price;

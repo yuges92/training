@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class BookingController extends Controller
 {
@@ -14,8 +15,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-      $bookings=Order::all();
-        return view('admin.bookings.bookings', compact('bookings'));
+      $orders=Order::all();
+        return view('admin.bookings.bookings', compact('orders'));
     }
 
     /**
@@ -42,10 +43,10 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Booking  $booking
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Booking $booking)
+    public function show(Order $order)
     {
         //
     }
@@ -53,33 +54,42 @@ class BookingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Booking  $booking
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function edit(Booking $booking)
+    public function edit(Order $order)
     {
-        //
+
+        return view('admin.bookings.editBooking', compact('order'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Booking  $booking
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Booking $booking)
+    public function update(Request $request, Order $order)
     {
-        //
+
+      $this->validate($request, [
+        'status' => 'required'
+
+      ]);
+
+      $order->status=$request->input('status');
+      $order->update();
+      return redirect()->back()->with('success', 'Order Updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Booking  $booking
+     * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Booking $booking)
+    public function destroy(Order $order)
     {
         //
     }

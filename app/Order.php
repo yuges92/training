@@ -22,7 +22,7 @@ class Order extends Model
   {
     $this->status='completed';
     $this->save();
-    if($this->isSelf==1){
+    if($this->isSelf){
       return $this->giveAccess();
 
     }
@@ -67,6 +67,22 @@ class Order extends Model
   public function payment()
   {
     return $this->hasOne('App\OrderPayment');
+  }
+
+  public function type()
+  {
+    if($this->isSelf){
+      return 'for self';
+    }
+    return 'for someone else';
+  }
+
+  public function paypalStatus()
+  {
+    if($this->paymentMethod=='paypal'){
+      return $this->payment->payment_status;
+    }
+    return;
   }
 
 

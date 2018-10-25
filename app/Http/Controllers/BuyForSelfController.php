@@ -136,6 +136,7 @@ class BuyForSelfController extends Controller
 
   public function payment(Request $request)
   {
+    // dd($request);
     // dd($request->user()->firstName);
     $order= new Order();
     if($request->input('differentAddress')==1){
@@ -209,11 +210,11 @@ class BuyForSelfController extends Controller
     $order=$request->user()->orders()->save($order);
 
     foreach ($cart->getCart() as $cartItem) {
-      # code...
       $orderDetails= new OrderDetail();
       $orderDetails->order_id=$order->id;
       $orderDetails->class_id=$cartItem->class_id;
       $orderDetails->quantity=$cartItem->quantity;
+      $orderDetails->price=$cartItem->class->price;
       $order->orderDetails()->save($orderDetails);
     }
 
