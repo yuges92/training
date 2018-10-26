@@ -4,9 +4,11 @@
 @endpush
 @section('body')
   <header>
-
+    <a class="btn-brand" href="{{ url('/') }}">
+      {{ config('app.name', 'Laravel') }}
+    </a>
   </header>
-  <main class="learnerMain">
+  <main class="learnerMainsss">
     @include('layouts.learnerSideNavBar')
     <div class="mainContents">
       @include('includes.messages')

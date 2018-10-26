@@ -15,7 +15,7 @@
       <li><a class="{{ Request::is('admin/assignmentMarking*') ? 'active' : '' }}" href=""><i class="fas fa-clipboard-check"></i> <span>Assignment Marking</span></a></li>
       <li><a class="{{ Request::is('admin/messages*') ? 'active' : '' }}" href=""><i class="fa fa-comments"></i> <span>Messages</span></a></li>
       <li><a class="{{ Request::is('admin/myProfile*') ? 'active' : '' }}" href=""><i class="fa fa-user-circle"></i> <span>My Profile</span></a></li>
-      <li><a class="{{ Request::is('admin/myNotification*') ? 'active' : '' }}" href=""><i class="fa fa-home"></i> <span>My Notifications</span></a></li>
+      <li><a class="{{ Request::is('admin/myNotification*') ? 'active' : '' }}" href=""><i class="fas fa-bell"></i> <span>My Notifications</span></a></li>
       <li><a class="{{ Request::is('admin/users*') ? 'active' : '' }}" href="/admin/users"><i class="fas fa-users"></i> <span>Users</span></a></li>
       <li><a class="{{ Request::is('admin/settings*') ? 'active' : '' }}" href=""><i class="fa fa-cogs"></i> <span>Settings</span></a></li>
     </ul>
