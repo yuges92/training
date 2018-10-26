@@ -77,10 +77,7 @@ Route::group(['middleware' => ['admin']], function(){
 
 
 Route::resource('/cart', 'CartController');
-
 Route::get('/checkout/whoIsItFor/', 'CheckoutController@whoIsItFor')->name('whoIsItFor');
-
-
 Route::get('checkout', 'CheckoutController@index')->name('checkout');
 
 //controller for buyingForSelf
@@ -101,7 +98,6 @@ Route::post('checkout/someoneElse/paymentAndBilling', 'BuyForSomeoneElseControll
 // Route::get('checkout/someoneElse/payment', 'CheckoutController@paymentSomeoneElse')->name('paymentAndBillingSomeoneElse');
 // Route::resource('checkout/someoneElse', 'BuyForSomeoneElseController');
 
-
 Route::get('order/thankYou', 'OrderController@thankYou')->name('thankYou');
 
 Route::get('/course/{course}/classes', 'CourseController@getClasses');
@@ -113,3 +109,6 @@ Route::get('/course/classEvent/{classEvent}', 'ClassEventController@getshowClass
 Route::get('paypal', 'PaypalController@getPaymentStatus')->name('paypal.status');
 Route::get('paypal/status', 'PaypalController@completed')->name('paypal.completed');
 Route::get('paypal/order/{order}/cancelled', 'PaypalController@cancelledPayment')->name('paypal.cancelled');
+
+
+Route::get('learner/dashboard', 'Learner\LearnerDashboardController@index')->name('learnder.dashboard');
