@@ -22,6 +22,8 @@ class Order extends Model
   {
     $this->status='completed';
     $this->save();
+    Cart::getCartIntance()->emptyCurrentUserCart();
+    
     if($this->isSelf){
       return $this->giveAccess();
 

@@ -27,8 +27,8 @@ return array(
     /**
     * Available option 'FINE', 'INFO', 'WARN' or 'ERROR'
     */
-    'log.LogLevel' => 'DEBUG',
-    'http.Proxy' => 'http://access5.cws.sco.cisco.com:8080'
+    // 'http.Proxy' => 'http://access5.cws.sco.cisco.com:8080',
+    'log.LogLevel' => 'DEBUG'
 
   ),
 );
