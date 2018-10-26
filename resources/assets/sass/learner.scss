@@ -1,0 +1,83 @@
+.learnerSideNavBar{
+  margin: 0;
+  height: 100vh;
+  padding: 0;
+  position: fixed;
+  overflow-x: hidden;
+  transition: 0.5s;
+  z-index: 10;
+  margin-top: 0.65rem;
+  // overflow-y: scroll;
+  background: #23282d;
+  ul{
+    text-decoration: none;
+    list-style: none;
+    // background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    // width: 13rem;
+    // height: 100vh;
+    // display: flex;
+    // flex-direction: column;
+    padding-bottom: 5.5rem;
+    li {
+      margin: 0;
+      display: flex;
+      a{
+        text-decoration: none;
+        // background: #f1f1f1;
+        display: flex;
+        font-size: 16px;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0.5rem;
+        transition: 1s;
+        color: #fff;
+        width: 15rem;
+        i{
+          margin-right: 5px;
+          font-size: 1.5rem;
+        }
+        span{
+          font-size: 1rem;
+
+        }
+
+      }
+      a:hover{
+        background: #fff;
+        color: #414141;
+        transition: 0.3s;
+
+      }
+    }
+  }
+
+  .active{
+    background: #fff;
+    color: #414141;
+    font-weight: 600;
+  }
+}
+
+.mainContents{
+  margin-left: 18rem;
+  transition: margin-left .5s;
+  padding: 0.7rem;
+
+}
+
+@media screen and (max-width: 800px) {
+  .adminSideNavBar{
+    // display: none;
+    //
+    margin-left: 0;
+    width: 0;
+  }
+
+  .mainContents{
+    margin-left: 0;
+
+  }
+
+}

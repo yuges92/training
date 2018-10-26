@@ -26,10 +26,8 @@
 </head>
 <body>
   <div class="loaderDiv">
-
     <div class="loader">
     </div>
-
   </div>
 
   <main class="main-body">

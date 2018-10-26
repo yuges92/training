@@ -31,6 +31,7 @@
       @endguest
 
       <li><a class="nav-link" href="{{ route('adminDashboard') }}">{{ __('Admin') }}</a></li>
+      <li><a class="nav-link" href="{{ route('learnder.dashboard') }}">{{ __('Learner') }}</a></li>
       <li><a href="/cart"><i class="fa fa-shopping-cart"></i><span class="badge badge-pill badge-success">{{($cartCount=Cart::getCart()->count())?$cartCount :''}}</span></a></li>
     </div>
   </ul>
