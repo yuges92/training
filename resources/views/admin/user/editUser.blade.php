@@ -4,22 +4,27 @@
   <div class="container p-sm-0 px-md-5 ">
     <h1 class="mb-5">New User</h1>
 
-      <form class="" action="{{route('users.update', $user->id)}}" method="post">
+    <form class="" action="{{route('users.update', $user->id)}}" method="post">
       {{ csrf_field() }}
       @method('PUT')
 
       <div class="form-group row">
         <label for="role" class="col-sm-2 col-form-label">Role:</label>
-        <div class="col-sm-10">
-          <select class="form-control" name="role[]" id="role" multiple>
-            @if ($roles)
+        <div class="col-sm-10 row">
+
+          @if ($roles)
             @foreach ($roles as $role)
-              <option {{ ($role->name==$user->hasRole($role->name)) ? 'selected' : '' }} value="{{$role->id}}">{{$role->name}}</option>
+              <div class="checkbox col-6">
+                <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}" {{ ($role->name==$user->hasRole($role->name)) ? 'checked' : '' }} value="{{$role->id}}">
+                <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
+              </div>
             @endforeach
           @endif
-          </select>
+
+
         </div>
       </div>
+
 
       <div class="form-group row">
         <label for="firstName" class="col-sm-2 col-form-label">First name:</label>

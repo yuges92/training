@@ -15,11 +15,11 @@
         "cross-env": "^5.2.0",
         "jquery": "^3.2",
         "laravel-mix": "^2.1.14",
-        "lodash": "^4.17.4",
+        "lodash": "^4.17.11",
         "popper.js": "^1.14.4",
         "vue": "^2.5.17"
     },
     "dependencies": {
-        "ckeditor": "^4.10.0"
+        "ckeditor": "^4.10.1"
     }
 }

@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
       $table->string('billingFirstName');
       $table->string('billingLastName');
       $table->string('billingTel');
+      $table->string('billingEmail');
       $table->string('billingLine1');
       $table->string('billingLine2')->nullable();
       $table->string('billingTown');

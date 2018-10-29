@@ -1,4 +1,5 @@
-  <ul class="">
+  <nav class="learnerSideNavBar">
+    <ul class="">
     <li><a class="btn-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a></li>
     <li><a class="{{ Request::is('/') ? 'active' : '' }}" href="/"><i class="fa fa-home"></i> <span> Home</span></a></li>
     <li><a class="{{ Request::is('learner') ? 'active' : '' }}" href=""><i class="fa fa-tachometer-alt"></i> <span>My Dashboard</span></a></li>
@@ -10,3 +11,4 @@
     <li><a class="{{ Request::is('learner/settings*') ? 'active' : '' }}" href=""><i class="fa fa-cogs"></i> <span>Settings</span></a></li>
     <li><a class="{{ Request::is('learner/settings*') ? 'active' : '' }}" href=""><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
   </ul>
+  </nav>

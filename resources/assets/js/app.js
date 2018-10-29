@@ -5,9 +5,9 @@
  */
 
 require('./bootstrap');
-require('./custom');
-require('./ajaxCalls');
-require('./checkout');
+// require('./ajaxCalls');
+// require('./checkout');
+
 
 // window.Vue = require('vue');
 

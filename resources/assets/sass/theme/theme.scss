@@ -1,0 +1,16 @@
+// //bootstrap
+// @import "css/vendor_components/bootstrap/dist/css/bootstrap";
+// @import "css/vendor_components/bootstrap/dist/css/bootstrap-extend";
+//
+// //font awesome
+// @import "css/vendor_components/font-awesome/css/font-awesome";
+//
+// //ionicons
+// @import "css/vendor_components/Ionicons/css/ionicons";
+
+//theme style
+
+@import "css/master_style";
+
+//mpt_admin skins. choose a skin from the css/skins folder instead of downloading all of them to reduce the load.
+@import "css/skins/skin-blue";

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.templateLayout')
 @push('css')
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 @endpush

@@ -14,8 +14,8 @@
 
 
 Route::get('/', function () {
-
-  return view('welcome');
+  $title='Page Title';
+  return view('welcome')->with('title', $title);
 });
 
 // Route::get('/download/{file}', function ($file='') {

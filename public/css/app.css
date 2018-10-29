@@ -1,4 +1,4 @@
-@import url(//fonts.googleapis.com/icon?family=Material+Icons);/*!
+@import url(https://use.fontawesome.com/releases/v5.4.2/css/all.css);/*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -10481,6 +10481,14 @@ body {
   font-family: arial;
 }
 
+a {
+  text-decoration: none !important;
+}
+
+.content {
+  text-align: left;
+}
+
 .full-height {
   height: 100vh;
 }
@@ -10505,10 +10513,6 @@ body {
   position: absolute;
   right: 10px;
   top: 18px;
-}
-
-.content {
-  text-align: center;
 }
 
 .title {
@@ -11043,7 +11047,6 @@ a.custom-card:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 1.2rem;
 }
 
 .front-nav .main-navbar .nav-link .fa {
@@ -11102,7 +11105,6 @@ a.custom-card:hover {
   -webkit-transition: 0.5s;
   transition: 0.5s;
   z-index: 10;
-  margin-top: 0.65rem;
   background: #23282d;
 }
 
@@ -11150,6 +11152,11 @@ a.custom-card:hover {
   color: #414141;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+}
+
+.learnerSideNavBar ul li .btn-brand {
+  font-size: 1.5rem;
+  background: #009688;
 }
 
 .learnerSideNavBar .active {

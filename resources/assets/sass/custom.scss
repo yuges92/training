@@ -7,7 +7,13 @@ html, body {
   margin: 0;
   font-family: arial;
 }
+a{
+  text-decoration: none !important;
 
+}
+.content {
+ text-align: left;
+}
 .full-height {
   height: 100vh;
 }
@@ -26,10 +32,6 @@ html, body {
   position: absolute;
   right: 10px;
   top: 18px;
-}
-
-.content {
-  text-align: center;
 }
 
 .title {

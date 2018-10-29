@@ -33,6 +33,7 @@
   <main class="main-body">
     @yield('body')
   </main>
+
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
   <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>

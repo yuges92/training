@@ -9,15 +9,15 @@
 
       <div class="form-group row">
         <label for="role" class="col-sm-2 col-form-label">Role:</label>
-        <div class="col-sm-10">
-          <select class="form-control" name="role[]" id="role" multiple>
-            @if ($roles)
-
+        <div class="col-sm-10 row">
+          @if ($roles)
             @foreach ($roles as $role)
-              <option {{ (old('role')==$role->id) ? 'selected' : '' }} value="{{$role->id}}">{{$role->name}}</option>
+              <div class="checkbox col-6">
+                <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}" {{ (old('role')==$role->id) ? 'checked' : '' }} value="{{$role->id}}">
+                <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
+              </div>
             @endforeach
           @endif
-          </select>
         </div>
       </div>
 
@@ -43,11 +43,13 @@
       </div>
 
 
-      <div class="form-group row ml-md-2 ml-0 ">
-        <div class="col-sm-10 offset-md-2 ">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" value="">Notify user about the account:
-          </label>
+      <div class="form-group ">
+        <div class="col-sm-10 offset-sm-2 ">
+
+          <div class="checkbox">
+            <input type="checkbox" name="notify" id="notify" {{ (old('notify')) ? 'notify' : '' }} value="1}">
+            <label for="notify">Notify user about the account:</label>
+          </div>
         </div>
       </div>
 
