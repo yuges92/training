@@ -248,7 +248,7 @@
         <div class="col-sm-12 invoice-col">
           <div class="invoice-details row no-margin">
             <div class="col-md-6 col-lg-2"><b>Order ID:</b> {{$order->id}}</div>
-            <div class="col-md-6 col-lg-3"><b>Ordered for: </b>{{$order->type()}}</div>
+            <div class="col-md-6 col-lg-3"><b>Ordered: </b>{{$order->type()}}</div>
             <div class="col-md-6 col-lg-3"><b>Order Status:</b> {{$order->status}}</div>
             <div class="col-md-6 col-lg-4"><b>Referral Code:</b> {{$order->referralCode}}</div>
           </div>
