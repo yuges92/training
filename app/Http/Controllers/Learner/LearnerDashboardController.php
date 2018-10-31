@@ -9,6 +9,7 @@ class LearnerDashboardController extends Controller
 {
     public function index()
     {
-      return view('Learner.index');
+      return view('Learner.index')->with('title', 'Dashboard');
     }
+
 }

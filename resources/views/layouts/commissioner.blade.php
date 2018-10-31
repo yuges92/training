@@ -90,7 +90,7 @@
     </header>
 
     <!-- Left side column. contains the sidebar -->
-    @include('includes.learnerSideNavBar')
+    @include('includes.commissionerSideNavBar')
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
