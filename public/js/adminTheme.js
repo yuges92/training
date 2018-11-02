@@ -13688,7 +13688,6 @@ module.exports = Cancel;
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 window._ = __webpack_require__(11);
 window.Popper = __webpack_require__(3).default;
 
@@ -13702,7 +13701,9 @@ try {
   window.$ = window.jQuery = __webpack_require__(4);
 
   __webpack_require__(13);
-} catch (e) {}
+} catch (e) {
+  console.log(e);
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
