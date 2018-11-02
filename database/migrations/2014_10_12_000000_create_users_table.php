@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->enum('type',['approved','blocked','pending'])->default('pending');
             // $table->enum('role',['Super Admin','Admin','Manager','Trainer','Moderator','OCN','Learner','Commissioner'])->default('Learner');
             $table->rememberToken();
+            // $table->string('api_token', 60)->unique()->nullable()->default(null);
             $table->timestamps();
         });
     }

@@ -110,5 +110,12 @@ Route::get('paypal', 'PaypalController@getPaymentStatus')->name('paypal.status')
 Route::get('paypal/status', 'PaypalController@completed')->name('paypal.completed');
 Route::get('paypal/order/{order}/cancelled', 'PaypalController@cancelledPayment')->name('paypal.cancelled');
 
+//learner Routes
+Route::get('learner', 'Learner\LearnerDashboardController@index')->name('learner');
+Route::get('learner/dashboard', 'Learner\LearnerDashboardController@index')->name('learner.dashboard');
+Route::get('learner/bookings', 'Learner\LearnerBookingController@index')->name('learner.bookings');
+Route::get('learner/bookings/{order}', 'Learner\LearnerBookingController@show')->name('learner.bookings.show');
 
-Route::get('learner/dashboard', 'Learner\LearnerDashboardController@index')->name('learnder.dashboard');
+
+//Commissioner Routes
+Route::get('commissioner', 'Commissioner\CommissinerDashboardController@index')->name('commissioner');

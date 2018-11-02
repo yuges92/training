@@ -23,7 +23,7 @@ class Order extends Model
     $this->status='completed';
     $this->save();
     Cart::getCartIntance()->emptyCurrentUserCart();
-    
+
     if($this->isSelf){
       return $this->giveAccess();
 
@@ -85,6 +85,12 @@ class Order extends Model
       return $this->payment->payment_status;
     }
     return;
+  }
+
+
+  public function getCssClass()
+  {
+    # code...
   }
 
 

@@ -10837,6 +10837,10 @@ a.custom-card:hover {
   background: #c2f9c6;
 }
 
+.search-input {
+  padding: 1rem 0.5rem !important;
+}
+
 .nav-bar-top {
   background: #00456d;
   padding: 1rem;
