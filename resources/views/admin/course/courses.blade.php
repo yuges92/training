@@ -6,10 +6,11 @@
     <a class="btn btn-info" href="{{route('createCourse')}}">Add New</a>
 
   </div>
+
   @if (count($courses)>0)
-  <table class="table table-hover table-responsive-sm">
-    <thead>
-      <tr>
+  <table class="table table-hover table-responsive-sm" id="table_id">
+    <thead >
+      <tr >
         <th scope="col">#</th>
         <th scope="col">Title</th>
         <th scope="col"></th>

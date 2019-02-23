@@ -205,7 +205,7 @@ a.brand h1{
 
 .main-body{
   display: none;
-  transition: 0.5s;
+  // transition: 0.5s;
 }
 
 .custom-card{
@@ -344,4 +344,44 @@ a.custom-card:hover {
 
 .search-input{
   padding: 1rem 0.5rem !important;
+}
+
+
+
+table.dataTable thead .sorting_asc:after {
+  content: "\f0de";
+  margin-left: 10px;
+  font-family: "Font Awesome 5 Free"!important;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+table.dataTable thead .sorting_desc:after {
+  content: "\f0dd";
+  margin-left: 10px;
+  font-family: "Font Awesome 5 Free"!important;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+table.dataTable thead .sorting:after {
+  content: "\f0dc";
+  margin-left: 10px;
+  font-family: "Font Awesome 5 Free" !important;
+  font-weight: 900;
+  cursor: pointer;
+  color: rgba(50, 50, 50, 0.5);
+}
+
+thead *{
+  font-weight: bold !important
+}
+
+.bg-dark-light{
+  background: #d4d4d4 !important;
+}
+
+
+.skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side{
+  background: #ededed !important;
 }

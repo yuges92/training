@@ -45,6 +45,9 @@ Route::group(['middleware' => ['admin']], function(){
   Route::get('/admin/courses', 'CourseController@index')->name('adminCourses');
   Route::get('/admin/courses/create', 'CourseController@create')->name('createCourse');
   Route::get('/admin/courses/{course}', 'CourseController@show')->name('viewCourse');
+  Route::get('/admin/courses/{course}/dashboard', 'CourseController@dashboard')->name('viewCourseDashboard');
+  Route::get('/admin/courses/{course}/learner/{learner}', 'CourseController@learnerCourseOverview')->name('learnerCourseOverview');
+  Route::get('/admin/assignmentMarking', 'CourseController@assignmentMarking')->name('assignmentMarking');
   Route::get('/admin/courses/{course}/edit', 'CourseController@edit')->name('editCourse');
   Route::post('/admin/courses/store', 'CourseController@store')->name('storeCourse');
   Route::put('/admin/courses/{course}', 'CourseController@update')->name('updateCourse');
