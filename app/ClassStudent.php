@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClassStudent extends Model
-{
-  public $timestamps = true;
+class ClassStudent extends Model{
+  // public $timestamps = true;
 
 }

@@ -11021,7 +11021,7 @@ a.custom-card:hover {
 }
 
 .front-nav * {
-  color: #fff !important;
+  color: #fff;
 }
 
 .front-nav .humburger {
@@ -11045,59 +11045,19 @@ a.custom-card:hover {
 }
 
 .front-nav .main-navbar .nav-link {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  border-bottom: 4px solid transparent;
 }
 
-.front-nav .main-navbar .nav-link .fa {
-  font-size: 1rem;
-  margin-left: 0.1rem;
-}
-
-.front-nav .main-navbar .nav-link.active {
+.front-nav .main-navbar .nav-link:hover {
+  border-bottom: 4px solid #72bbf7;
   background: #fff;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
   color: #36577a !important;
 }
 
-.front-nav .main-navbar .dropdown .dropdown-items {
-  display: none;
-  position: absolute;
-  background-color: #f74545;
-  width: 250rem;
-  left: 5%;
-  padding: 0;
-  margin-left: 0;
-  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  list-style: none;
-}
-
-.front-nav .main-navbar .dropdown .dropdown-items .dropdown-item {
-  padding: 1rem;
-  margin: 0;
-}
-
-.front-nav .main-navbar .dropdown .dropdown-items .tab {
-  padding: 1rem;
-  margin: 0;
-}
-
-.front-nav .main-navbar .dropdown:hover .dropdown-items {
-  display: block;
-}
-
-.front-nav .dropdown-itemsDiv .dropdown-items {
-  list-style: none;
-  padding: 0;
-}
-
-.front-nav .dropdown-itemsDiv .dropdown-items .dropdown-item {
-  padding: 0;
+.front-nav .main-navbar .nav-link:hover * {
+  color: #36577a !important;
 }
 
 .learnerSideNavBar {
