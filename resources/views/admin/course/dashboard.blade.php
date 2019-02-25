@@ -53,7 +53,7 @@
 
           <tr>
             <th scope="row">{{$i}}</th>
-            <td>Learner Name</td>
+            <td>{{$faker->name}}</td>
             <td>Pass</td>
             <td>Y</td>
             <td>Pass</td>

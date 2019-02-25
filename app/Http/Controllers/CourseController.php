@@ -6,6 +6,7 @@ use App\Course;
 use App\Learner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Faker\Factory as Faker;
 
 class CourseController extends Controller
 {
@@ -147,8 +148,9 @@ class CourseController extends Controller
 
   public function dashboard(Course $course)
   {
+    $faker = Faker::create();
     $title='Course Dashboard';
-    return view('admin.course.dashboard',compact('title'));
+    return view('admin.course.dashboard',compact('title', 'faker'));
   }
 
   public function learnerCourseOverview(Course $course, Learner $learner)
