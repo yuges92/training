@@ -65,6 +65,15 @@
         <div class="box-body box-profile">
           <img class="profile-user-img rounded-circle img-fluid mx-auto d-block" src="//www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg" alt="User profile picture">
           <h3 class="profile-username text-center">{{$user->getFullname()}}</h3>
+          <div class="d-flex justify-content-center">
+            <form class="" action="" method="post">
+              {{ csrf_field() }}
+              @method('PUT')
+              <div class="form-group">
+                <input class="btn btn-warning px-5 " type="submit" value="Reset Password">
+              </div>
+            </form>
+          </div>
           <div class="row">
             <div class="col-12">
               <div class="profile-user-info">
@@ -169,15 +178,6 @@
 
                 <div class="form-group d-flex justify-content-end">
                   <input class="btn btn-primary px-5 " type="submit" value="Update">
-                </div>
-              </form>
-            </div>
-            <div class="d-flex justify-content-center">
-              <form class="" action="" method="post">
-                {{ csrf_field() }}
-                @method('PUT')
-                <div class="form-group">
-                  <input class="btn btn-warning px-5 " type="submit" value="Reset Password">
                 </div>
               </form>
             </div>

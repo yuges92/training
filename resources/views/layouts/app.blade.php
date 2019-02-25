@@ -6,8 +6,8 @@
 
 
 @section('body')
-  @include('layouts.topNav')
-  @include('layouts.navBar')
+  @include('includes.topNav')
+  @include('includes.navBar')
   @include('includes.messages')
 
   @yield('content')

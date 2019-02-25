@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Learner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -55,7 +56,7 @@ class CourseController extends Controller
 
       $course->originFileName=$request->file('file')->getClientOriginalName();
       $course->file=$request->file('file')->storeAs('courseDocs', time().'.'.$request->file('file')->getClientOriginalExtension());
-  }
+    }
     $course->createdBy=1;
     // $course->createdBy=1;
     $course->save();
@@ -140,10 +141,27 @@ class CourseController extends Controller
 
   public function getClasses(Course $course)
   {
-        return response()->json($course->classes);
+    return response()->json($course->classes);
   }
 
 
+  public function dashboard(Course $course)
+  {
+    $title='Course Dashboard';
+    return view('admin.course.dashboard',compact('title'));
+  }
+
+  public function learnerCourseOverview(Course $course, Learner $learner)
+  {
+    $title='Course page for learner';
+    return view('admin.course.learnerCourseOverview',compact('title'));
+  }
+
+  public function assignmentMarking()
+  {
+    $title='Assignment Marking';
+    return view('admin.courseAssignment.assignmentMarking',compact('title'));
+  }
 
 
 }

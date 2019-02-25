@@ -15,8 +15,6 @@
       <li><a class="nav-link" href="{{ route('courses') }}">{{ __('Train Your Team') }}<i class="fa fa-chevron-down"></i></a></li>
       <li><a class="nav-link" href="{{ route('courses') }}">{{ __('About') }}<i class="fa fa-chevron-down"></i></a></li>
     </ul>
-
-
   </div>
 
   {{-- <div class="dropdown-mega-menu p-0">
