@@ -205,6 +205,7 @@ class BuyForSelfController extends Controller
     $order->totalVat=$cart->getVAT();
     $order->vat=$cart->tax();
     $order->isSelf=1;
+    $order->billingEmail='sivayuges@gmail.com';
 
 
     $order=$request->user()->orders()->save($order);

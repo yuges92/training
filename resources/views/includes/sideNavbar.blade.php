@@ -13,18 +13,19 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard 1</a></li>
-          <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard 2</a></li>
-          <li><a href="../../index3.html"><i class="fa fa-circle-o"></i> Dashboard 3</a></li>
-          <li><a href="../../index4.html"><i class="fa fa-circle-o"></i> Dashboard 4</a></li>
-          <li><a href="../../index5.html"><i class="fa fa-circle-o"></i> Dashboard 5</a></li>
-          <li><a href="../../index6.html"><i class="fa fa-circle-o"></i> Dashboard 6</a></li>
+          <li><a href=""><i class="fa fa-circle-o"></i> Dashboard 1</a></li>
+          <li><a href=""><i class="fa fa-circle-o"></i> Dashboard 2</a></li>
+          <li><a href=""><i class="fa fa-circle-o"></i> Dashboard 3</a></li>
+          <li><a href=""><i class="fa fa-circle-o"></i> Dashboard 4</a></li>
+          <li><a href=""><i class="fa fa-circle-o"></i> Dashboard 5</a></li>
+          <li><a href=""><i class="fa fa-circle-o"></i> Dashboard 6</a></li>
         </ul>
       </li>
 
       <li class="{{ Request::is('admin') ? 'active' : '' }}"><a  href="{{route('adminDashboard')}}"><i class="fa fa-tachometer-alt"></i> <span> Dashboard</span></a></li>
       <li class="{{ Request::is('admin/order*') ? 'active' : '' }}"><a  href="{{route('order.index')}}"><i class="fas fa-list-alt"></i> <span>Bookings</span></a></li>
       <li class="{{ Request::is('admin/learners*') ? 'active' : '' }}"><a  href="/admin/learners"><i class="fa fa-user-graduate"></i> <span>Learners</span></a></li>
+      <li><a class="{{ Request::is('admin/courseTypes*') ? 'active' : '' }}" href="{{route('courseTypes.index')}}"><i class="fa fa-graduation-cap"></i> <span>Course Type</span></a></li>
       <li class="{{ Request::is('admin/courses*') ? 'active' : '' }}"><a  href="{{route('adminCourses')}}"><i class="fa fa-graduation-cap"></i> <span>Courses</span></a></li>
       <li class="{{ Request::is('admin/assignments*') ? 'active' : '' }}"><a  href="/admin/assignments"><i class="fa fa-tasks"></i> <span>Course Assignments</span></a></li>
       <li class="{{ Request::is('admin/classEvent*') ? 'active' : '' }}"><a  href="/admin/classEvent"><i class="fa fa-calendar"></i> <span>Classes/Events</span></a></li>

@@ -54,6 +54,7 @@ Route::group(['middleware' => ['admin']], function(){
   Route::delete('/admin/courses/{course}', 'CourseController@destroy')->name('deleteCourse');
   Route::post('/admin/courses/deleteFile/{course}', 'CourseController@removeCourseFile')->name('deleteCourseFile');
 
+  Route::resource('/admin/courseTypes', 'CourseTypeController');
   Route::resource('/admin/assignments', 'AssignmentController');
   Route::resource('/admin/classEvent', 'ClassEventController');
   Route::resource('/admin/users', 'UserController');

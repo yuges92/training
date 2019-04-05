@@ -55,7 +55,7 @@
 
   </header>
   <main class="adminMain">
-    @include('includes.adminSideNavBar')
+    {{-- @include('includes.adminSideNavBar') --}}
     <div class="mainContents mt-3">
       @include('includes.messages')
 
