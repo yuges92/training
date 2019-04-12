@@ -3,7 +3,7 @@
 @section('content')
   <h1>Courses</h1>
   <div class="my-2">
-    <a class="btn btn-info" href="{{route('createCourse')}}">Add New</a>
+    <a class="btn btn-info" href="{{route('courseTypes.create')}}">Add New</a>
 
   </div>
 

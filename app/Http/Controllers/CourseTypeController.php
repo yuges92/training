@@ -14,7 +14,9 @@ class CourseTypeController extends Controller
      */
     public function index()
     {
-        //
+        $courses=CourseType::all();
+        return view('admin.courseType.index', compact('courses'));
+        
     }
 
     /**
@@ -24,7 +26,7 @@ class CourseTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.courseType.create');
     }
 
     /**
