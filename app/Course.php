@@ -9,14 +9,23 @@ class Course extends Model
 
   public $timestamps = true;
 
-    public function assignments()
-    {
-      return $this->hasMany('App\Assignment');
-    }
 
+  public function getRouteKeyName()
+  {
+    return 'slug';
+  }
+  public function assignments()
+  {
+    return $this->hasMany('App\Assignment');
+  }
 
-    public function classes()
- {
-     return $this->hasMany('App\ClassEvent');
- }
+  public function courseType()
+  {
+    return $this->belongsTo(CourseType::class);
+  }
+
+  public function classes()
+  {
+    return $this->hasMany('App\ClassEvent');
+  }
 }

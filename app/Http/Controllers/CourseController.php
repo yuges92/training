@@ -82,9 +82,9 @@ class CourseController extends Controller
   * @param  \App\Course  $course
   * @return \Illuminate\Http\Response
   */
-  public function edit(Course $course)
+  public function edit($course_id)
   {
-    // dd($course);
+    $course=Course::find($course_id);
     // echo  Storage::download($course->file);
 
     return view('admin.course.courseEdit')->with('course',$course );

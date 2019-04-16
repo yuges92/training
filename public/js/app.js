@@ -36690,9 +36690,9 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Websites\learning2.dlf.org.uk\resources\assets\js\app.js */"./resources/assets/js/app.js");
-__webpack_require__(/*! D:\Websites\learning2.dlf.org.uk\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
-module.exports = __webpack_require__(/*! D:\Websites\learning2.dlf.org.uk\resources\assets\sass\theme\theme.scss */"./resources/assets/sass/theme/theme.scss");
+__webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\js\app.js */"./resources/assets/js/app.js");
+__webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\sass\theme\theme.scss */"./resources/assets/sass/theme/theme.scss");
 
 
 /***/ })

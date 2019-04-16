@@ -1,7 +1,24 @@
 require('./bootstrap');
 require('./theme/theme');
-import dt from 'datatables.net';
+// var $ = require('jquery');
+require('dropify');
+const ClassicEditor = require('@ckeditor/ckeditor5-build-classic');
 
-$(document).ready(function() {
+import dt from 'datatables.net'
+
+$(document).ready(function () {
     $('.dataTable').DataTable();
+    $('.dropify').dropify();
+
 });
+
+
+ClassicEditor
+    .create(document.querySelector('.ckEditor'), { removePlugins: ['Image', 'ImageCaption', 'ImageStyle', 'ImageTextAlternative', 'ImageToolbar', 'ImageUpload'], })
+    .then(editor => {
+        console.log('Editor was initialized', editor);
+
+    })
+    .catch(err => {
+        console.error(err.stack);
+    });

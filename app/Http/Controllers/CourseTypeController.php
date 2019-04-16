@@ -37,7 +37,7 @@ class CourseTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -46,9 +46,11 @@ class CourseTypeController extends Controller
      * @param  \App\CourseType  $courseType
      * @return \Illuminate\Http\Response
      */
-    public function show(CourseType $courseType)
+    public function show($courseTypeID)
     {
-        //
+        $courseType= CourseType::with('courses', 'courses.classes')->find($courseTypeID);
+        return view('admin.courseType.show');
+
     }
 
     /**

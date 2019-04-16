@@ -382,6 +382,21 @@ thead *{
 }
 
 
-.skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side{
-  // background: #ededed !important;
+// .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side{
+//   // background: #ededed !important;
+// }
+
+body{
+  min-height: 100vh;
+}
+.footer {
+  background-color: orange;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+// sets ck-editor height
+.ck-editor__editable {
+  min-height: 300px;
 }

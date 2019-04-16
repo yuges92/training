@@ -17,8 +17,11 @@ class CreateCourseTypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('title')->unique();
             $table->string('slug')->unique();
-            $table->longText('body')->nullable();
+            $table->unsignedInteger('parent_id')->nullable();
+            $table->enum('status',['publish','draft','private']);
             $table->text('description')->nullable();
+            $table->longText('body')->nullable();
+            $table->string('image');
             $table->integer('createdBy');
             $table->integer('updatedBY')->nullable();
             $table->timestamps();
@@ -32,6 +35,7 @@ class CreateCourseTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_types');
+      Schema::dropIfExists('courses');
+      Schema::dropIfExists('course_types');
     }
 }

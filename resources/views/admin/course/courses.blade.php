@@ -8,6 +8,8 @@
   </div>
 
   @if (count($courses)>0)
+  <div class="box">
+      <div class="box-body">
   <table class="table table-hover table-responsive-sm" id="table_id">
     <thead >
       <tr >
@@ -22,7 +24,7 @@
         <tr>
           <th scope="row">{{$course->id}}</th>
           <td>{{$course->title}}</td>
-          <td class="row"><a class="btn btn-success mr-1" href="{{route('editCourse', [$course->id])}}">Edit</a>
+          <td class="row"><a class="btn btn-success mr-1" href="{{route('editCourse', [$course->slug])}}"><i class="fas fa-edit"></i> Edit</a>
             <form class="deleteForm" action="{{route('deleteCourse',[$course->id])}}" method="post">
               {{ csrf_field() }}
               @method('Delete')
@@ -34,6 +36,8 @@
 
       </tbody>
     </table>
+  </div>
+</div>
   @else
     <div class="text-center">
 

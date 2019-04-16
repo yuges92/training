@@ -15,14 +15,19 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
+            $table->bigInteger('course_code')->unique();
+            $table->unsignedInteger('course_type_id');
             $table->string('title')->unique();
             $table->string('slug')->unique();
-            $table->enum('type',['course','conference','refresher']);
-            $table->longText('body');
+            $table->enum('status',['publish','draft','private']);
+            // $table->enum('type',['course','conference','refresher']);
+            $table->string('password')->nullable();
             $table->text('description');
-            $table->string('originFileName')->nullable();
-            $table->string('file')->nullable();
+            $table->longText('body');
+            // $table->string('originFileName')->nullable();
+            // $table->string('file')->nullable();
             $table->integer('createdBy');
+            // $table->foreign('course_type_id')->references('id')->on('course_types')->onDelete('cascade');
             $table->integer('updatedBY')->nullable();
             $table->timestamps();
         });
@@ -37,6 +42,6 @@ class CreateCoursesTable extends Migration
     {
       Schema::dropIfExists('class_events');
       Schema::dropIfExists('assignments');
-        Schema::dropIfExists('courses');
+      Schema::dropIfExists('courses');
     }
 }

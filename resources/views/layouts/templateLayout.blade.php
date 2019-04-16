@@ -7,12 +7,12 @@
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>{{ config('app.name', 'Learning Exchange')}} {{(isset($title)) ?$title :'Title'}}</title>
+  <title>{{ config('app.name', 'Learning Exchange')}} - @yield('title')</title>
   <!-- Fonts -->
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
-  {{-- @stack('css') --}}
+  @stack('css')
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
@@ -56,14 +56,14 @@
                       <small>Member since April . 2016</small>
                     </p>
                   </li>
-                  <li class="user-footer">
-                    <div class="pull-left">
+                  <li class="user-footer row mx-auto">
+                    <div class="col-md-6">
 
                       <a href="#" class="btn btn-block btn-primary"><i class="fas fa-user-circle"></i> Profile</a>
                     </div>
-                    <div class="pull-right">
+                    <div class="col-md-6">
                       <a class="btn btn-block btn-danger" href="{{ route('customLogout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                          <i class="fas fa-sign-out-alt"></i>  {{ __('Logout') }}
                       </a>
                     </div>
                     <form id="logout-form" action="{{ route('customLogout') }}" method="POST" style="display: none;">
@@ -96,7 +96,7 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1>{{isset($title) ?$title :'Title'}}</h1>
+        <h1>@yield('title')</h1>
         {{-- <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="breadcrumb-item"><a href="#">Examples</a></li>
@@ -127,6 +127,7 @@
 
 <script src="{{ asset('js/adminTheme.js') }}" defer></script>
 <script src="{{ asset('js/lms.js') }}" defer></script>
+@stack('js')
 </body>
 
 </html>
