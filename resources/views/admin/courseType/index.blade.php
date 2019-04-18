@@ -18,6 +18,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Title</th>
+          <th scope="col">Status</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -27,8 +28,9 @@
         <tr>
           <th scope="row">{{$course->id}}</th>
           <td>{{$course->title}}</td>
+          <td>{{$course->status}}</td>
           <td class="row">
-            <a class="btn btn-info mr-1" href="{{route('courseTypes.show', [$course->id])}}"> <i class="fas fa-edit"></i></a>
+            <a class="btn btn-info mr-1" href="{{route('courseTypes.edit', [$course->id])}}"> <i class="fas fa-edit"></i></a>
             <form class="deleteForm" action="{{route('courseTypes.destroy',[$course->id])}}" method="post">
               {{ csrf_field() }} @method('Delete')
               <button class="btn btn-danger" type="submit"> <i class="fas fa-trash-alt"></i></button>

@@ -9,6 +9,12 @@
             <p>{{$courseType->description}}</p>
         </div>
     </div>
+    <div class="container ">
+        <section >
+            {!! html_entity_decode($courseType->body)!!}
+
+        </section>
+    </div>
 
     <div class="container my-3 row mx-auto">
         <div class="col-md-6">
@@ -44,21 +50,27 @@
         <div class="row mx-auto">
             @foreach ($courseType->courses as $course)
 
-            <div class="card mx-auto mx-md-0" style="width: 18rem;">
-                <img class="card-img-top h-50" src="//imgplaceholder.com/420x320/ff7f7f/333333/fa-image" alt="Card image cap">
-                <div class="card-body">
-                    <div class="card-title">
-                        <h2>{{$course->title}}</h2>
-                    </div>
-                    <div class="card-text">
-                        <p>{{$course->description}}</p>
-                    </div>
 
-                </div>
-                <div class="card-footer">
-                    <a href="{{route('course', [$courseType->slug, $course->slug])}}" class="btn btn-info col-12">Full Info</a>
-                </div>
-            </div>
+
+            <div class="card m-2" style="width: 18rem; ">
+                    <img style="height: 13rem;" class="card-img-top" src="{{$course->getImage()}}"
+                      alt="Card image cap">
+                    <div class="card-body">
+                      <div class="card-title">
+                        <h2>{{$course->title}}</h2>
+                      </div>
+                      <div class="card-text">
+                        <p>
+                          {{ str_limit($course->description, $limit = 150, $end = '...') }}<a href=""> find more</a>
+                        </p>
+                      </div>
+              
+                    </div>
+                    <div class="card-footer">
+              
+                      <a href="{{route('course', [$courseType->slug, $course->slug])}}" class="btn btn-info col-12">Full Info</a>
+                    </div>
+                  </div>
             @endforeach
         </div>
 

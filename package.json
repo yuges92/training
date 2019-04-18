@@ -27,6 +27,7 @@
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^12.1.0",
         "ckeditor": "^4.11.2",
+        "codemirror": "^5.45.0",
         "datatables.net": "^1.10.19",
         "datatables.net-bs4": "^1.10.19",
         "datatables.net-dt": "^1.10.19",

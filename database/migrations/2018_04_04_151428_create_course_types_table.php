@@ -21,7 +21,7 @@ class CreateCourseTypesTable extends Migration
             $table->enum('status',['publish','draft','private']);
             $table->text('description')->nullable();
             $table->longText('body')->nullable();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->integer('createdBy');
             $table->integer('updatedBY')->nullable();
             $table->timestamps();

@@ -390,13 +390,11 @@ body{
   min-height: 100vh;
 }
 .footer {
-  background-color: orange;
-  position: absolute;
+  background: white;
+  padding-top: 1rem;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;
 }
 // sets ck-editor height
-.ck-editor__editable {
-  min-height: 300px;
-}

@@ -20,6 +20,6 @@ class AdminMiddleware
       if ($request->user() &&$request->user()->hasAdminAccess()) {
         return $next($request);
       }
-      return view('unauthorized');
+      return abort(401);
     }
 }

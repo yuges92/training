@@ -16,7 +16,7 @@ class FrontCourseController extends Controller
      */
     public function index()
     {
-      $courses=CourseType::with('courses')->get();
+      $courses=CourseType::with('courses')->where('status','publish')->get();
       // dd($courses);
 
         return view('courses.courses')->with('courses', $courses);

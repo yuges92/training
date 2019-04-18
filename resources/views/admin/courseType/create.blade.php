@@ -21,7 +21,7 @@
             <div class="form-group row">
               <label for="description" class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="Add course type description eg: "> Short Description:</label>
               <div class="col-sm-10">
-                <textarea id="description" class="form-control" name="description" rows="4" cols="80">{{ old('description') }}</textarea>
+                <textarea id="description" class="form-control" name="description" rows="4" cols="80" maxlength="300">{{ old('description') }}</textarea>
               </div>
             </div>
 
@@ -29,7 +29,7 @@
             <div class="form-group row">
               <label for="textareaEditor" class="col-sm-2 col-form-label">Body:</label>
               <div class="col-sm-10">
-                <textarea id="ckEditor" class="form-control ckEditor" name="body" rows="8" cols="80">{{ old('body') }}</textarea>
+                <textarea id="ckEditor" class="form-control summernote" name="body" rows="8" cols="80">{{ old('body') }}</textarea>
               </div>
             </div>
 
@@ -53,12 +53,12 @@
           <div class="box-body">
 
             <div class="form-group ">
-              <label for="type" class="col col-form-label">Publish:</label>
+              <label for="status" class="col col-form-label">Publish:</label>
               <div class="col">
-                <select class="form-control" name="type" id="type">
-                  <option {{ (old('description')=='course') ? 'selected' : '' }} value="course">Publish</option>
-                  <option {{ (old('description')=='conference') ? 'selected' : '' }} value="conference">Draft</option>
-                  <option {{ (old('description')=='refresher') ? 'selected' : '' }} value="refresher">private</option>
+                <select class="form-control" name="status" id="status">
+                  <option {{ (old('status')=='publish') ? 'selected' : '' }} value="publish">Publish</option>
+                  <option {{ (old('status')=='draft') ? 'selected' : '' }} value="draft">Draft</option>
+                  <option {{ (old('status')=='private') ? 'selected' : '' }} value="private">private</option>
                 </select>
               </div>
             </div>
@@ -80,20 +80,23 @@
     </div>
 
 
-    <input type="file" name="name[]" id="" >
-
-
   </form>
 </div>
+
+<div id="summernote"></div>
 @endsection
  @push('js')
 <script>
 
-// ClassicEditor
-//         .create( document.querySelector( '.ckEditor' ) )
-//         .catch( error => {
-//             console.error( error );
-//         } );
+document.addEventListener("DOMContentLoaded", function(event) { 
+  $('.summernote').summernote({
+        placeholder: '',
+        tabsize: 2,
+        height: 300
+      });
+
+      
+});
 </script>
 
 @endpush

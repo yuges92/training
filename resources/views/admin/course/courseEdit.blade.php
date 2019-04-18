@@ -3,7 +3,7 @@
 @section('content')
   <div class="container p-sm-0 px-md-5 ">
     <h1 class="mb-5">Edit Course</h1>
-    <form class="" action="{{route('updateCourse',[$course->id])}}" method="post" enctype="multipart/form-data">
+    <form class="" action="{{route('updateCourse',[$course->slug])}}" method="post" enctype="multipart/form-data">
       {{ csrf_field() }}
       @method('PUT')
       <div class="form-group row">
