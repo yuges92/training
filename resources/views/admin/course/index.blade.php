@@ -26,7 +26,7 @@
           <th scope="row">{{$course->id}}</th>
           <td>{{$course->title}}</td>
           <td>{{$course->status}}</td>
-          <td class="row"><a class="btn btn-success mr-1" href="{{route('editCourse', [$course->id])}}"><i class="fas fa-eye fa-1x"></i></a>
+          <td class="row"><a class="btn btn-success mr-1" href="{{route('courses.show', [$course->id])}}"><i class="fas fa-eye fa-1x"></i></a>
             <form class="deleteForm" action="{{route('deleteCourse',[$course->id])}}" method="post">
               {{ csrf_field() }}
               @method('Delete')

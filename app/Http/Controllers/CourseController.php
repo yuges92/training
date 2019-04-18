@@ -86,7 +86,7 @@ class CourseController extends Controller
   {
     $course = Course::find($course_id);
 
-    return view('admin.course.show');
+    return view('admin.course.show', compact('course'));
   }
 
   /**
