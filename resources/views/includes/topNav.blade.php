@@ -15,7 +15,7 @@
         <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
         <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
       @else
-        <li class="nav-item dropdown">
+        {{-- <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
             {{ Auth::user()->getFullname() }} <span class="caret"></span>
           </a>
@@ -29,13 +29,13 @@
               @csrf
             </form>
           </div>
-        </li>
+        </li> --}}
       @endguest
 
-      <li><a class="nav-link m-2" href="{{ route('adminDashboard') }}">{{ __('Admin') }}</a></li>
-      <li><a class="nav-link m-2" href="{{ route('learner') }}">{{ __('Learner') }}</a></li>
-      <li><a class="nav-link m-2" href="{{ route('commissioner') }}">{{ __('Commissioner') }}</a></li>
-      <li><a href="/cart"><i class="fa fa-shopping-cart"></i><span class="badge badge-pill badge-success">{{($cartCount=Cart::getCart()->count())?$cartCount :''}}</span></a></li>
+      {{-- <li><a class="nav-link m-2" href="{{ route('adminDashboard') }}">{{ __('Admin') }}</a></li> --}}
+      {{-- <li><a class="nav-link m-2" href="{{ route('learner') }}">{{ __('Learner') }}</a></li> --}}
+      {{-- <li><a class="nav-link m-2" href="{{ route('commissioner') }}">{{ __('Commissioner') }}</a></li> --}}
+      {{-- <li><a href="/cart"><i class="fa fa-shopping-cart"></i><span class="badge badge-pill badge-success">{{($cartCount=Cart::getCart()->count())?$cartCount :''}}</span></a></li> --}}
     </div>
   </ul>
 

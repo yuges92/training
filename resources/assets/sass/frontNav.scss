@@ -1,19 +1,19 @@
-.topNav{
+.topNav {
   // background: #000;
   padding: 1rem;
-  .navbar-nav{
+  .navbar-nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 
-    .navbar-brand{
+    .navbar-brand {
       font-size: 2rem;
       color: #255d67;
       font-weight: 550;
     }
 
-    .fa{
+    .fa {
       font-size: 2rem;
       justify-content: space-between;
       align-items: center;
@@ -21,47 +21,88 @@
   }
 }
 
-
-.nav-right{
+.nav-right {
   margin-left: auto !important;
 }
 
+.dropdown-user {
 
 
 
-  .searchbar{
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    flex-direction: column;
+    animation: fade 0.2s linear forwards;
+    a *{
+      color: #003066 !important;
+      font-size: 0.8rem;
+    }
+
+    a {
+      float: none;
+      color: black;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    a:hover {
+      background-color: #ddd;
+    }
+  }
+
+}
+
+.dropdown-user:hover  {
+  background: #e74c3c;
+  .dropdown-content{
+
+      display: flex;
+      background: #f9f9f9;
+      transition: 0.5s;
+  }
+
+}
+
+.searchbar {
   margin-bottom: auto;
   margin-top: auto;
   height: 60px;
   background-color: #353b48;
   border-radius: 30px;
   padding: 10px;
-  }
+}
 
-  .search_input{
+.search_input {
   color: white;
   border: 0;
   outline: 0;
   background: none;
   width: 0;
-  caret-color:transparent;
+  caret-color: transparent;
   line-height: 40px;
   transition: width 0.4s linear;
-  }
+}
 
-  .searchbar:hover > .search_input{
+.searchbar:hover > .search_input {
   padding: 0 10px;
   width: 450px;
-  caret-color:red;
+  caret-color: red;
   transition: width 0.4s linear;
-  }
+}
 
-  .searchbar:hover > .search_icon{
+.searchbar:hover > .search_icon {
   background: white;
   color: #e74c3c;
-  }
+}
 
-  .search_icon{
+.search_icon {
   height: 40px;
   width: 40px;
   float: right;
@@ -69,5 +110,20 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  color:white;
+  color: white;
+}
+
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
   }
+  to { 
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+

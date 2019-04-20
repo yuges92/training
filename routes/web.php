@@ -14,7 +14,7 @@
 
 
 Route::get('/', function () {
-  $title='Page Title';
+  $title = 'Page Title';
   return view('welcome')->with('title', $title);
 });
 
@@ -39,9 +39,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/logout', function () {
+  Auth::logout();
+  return redirect('/login');
+})->name('logout');
 
 //admin routes. Uses admin middleware to allow access to admin area
-Route::group(['prefix' => 'admin','middleware' => ['admin']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
   Route::get('/', 'AdminController@index')->name('adminDashboard');
   Route::get('/courses', 'CourseController@index')->name('adminCourses');
   Route::get('/courses/create', 'CourseController@create')->name('createCourse');
@@ -78,7 +82,6 @@ Route::group(['prefix' => 'admin','middleware' => ['admin']], function(){
 
   Route::post('/classEvent/{classEvent}/updateAttendance', 'ClassEventController@updateAttendance')->name('updateAttendance');
   Route::delete('/classEvent/{classEvent}/removeClassAccess', 'ClassEventController@removeClassAccess')->name('removeClassAccess');
-
 });
 
 
