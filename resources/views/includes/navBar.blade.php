@@ -5,57 +5,54 @@
   </button>
   <div class="container" id="navbarSupportedContent">
     <ul class="main-navbar row p-0 mx-auto">
-      <li class="dropdown">
-        <a class="nav-link active" href="{{ route('courses') }}">{{ __('Courses') }}<i class="fa fa-chevron-down"></i></a>
+      <li class="nav-item dropdown">
+        <a class="nav-link active" href="{{ route('courses') }}"><span>{{ __('Courses') }}</span> <i class="fa fa-chevron-down"></i></a>
       </li>
-      <li class="dropdown">
-        <a class="nav-link" href="{{ route('courses') }}">{{ __('Conferences') }}<i class="fa fa-chevron-down"></i></a>
-
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="{{ route('courses') }}"><span>{{ __('Conferences') }}</span> <i class="fa fa-chevron-down"></i></a>
       </li>
-      <li><a class="nav-link" href="{{ route('courses') }}">{{ __('Train Your Team') }}<i class="fa fa-chevron-down"></i></a></li>
-      <li><a class="nav-link" href="{{ route('courses') }}">{{ __('About') }}<i class="fa fa-chevron-down"></i></a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ route('courses') }}"><span>{{ __('Train Your Team') }}</span> <i class="fa fa-chevron-down"></i></a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ route('courses') }}"><span>{{ __('About') }}</span> <i class="fa fa-chevron-down"></i></a></li>
     </ul>
   </div>
+  
+</nav>
+<div class="container p-0">
+  <div class="dropdown-mega-menu">
+    <div>
 
-  {{-- <div class="dropdown-mega-menu p-0">
-    <ul class=" dropdown-tabs">
-      <li><button class=" dropdown-tab active" href="#trusted-assessor-tab-content">Trusted Assessor</button></li>
-      <li><button class=" dropdown-tab " href="#moving-handling-tab-content">Moving and Handling</button></li>
-    </ul>
+      <ul class=" dropdown-tabs">
+        <li><a data-target="" class=" dropdown-tab active" href=""><span>Trusted Assessor</span> <i class="fas fa-chevron-right"></i></a></li>
+        <li><a data-target="" class=" dropdown-tab active" href=""><span>Trusted Assessor</span> <i class="fas fa-chevron-right"></i></a></li>
+      </ul>
 
+    </div>
     <div class="tab-content" id="">
       <div class="tab-content-items active" id="trusted-assessor-tab-content">
-        <ul class="items text-left">
-          <li class="item">
             <ul class="item-list">
-              <li class="link"><a href="/trusted-advisor-level-1">Trusted Advisor Level 1</a></li>
-              <li class="link"><a href="/trusted-assessor-level-2">Trusted Assessor Level 2</a></li>
-              <li class="link"><a href="/trusted-assessor-level-3">Trusted Assessor Level 3</a></li>
-              <li class="link"><a href="/trusted-assessor-level-4">Trusted Assessor Level 4</a></li>
+              <li class="link"><a href="/trusted-advisor-level-1"><span>Trusted Advisor Level 1</span></a></li>
+              <li class="link"><a href="/trusted-assessor-level-2"><span>Trusted Assessor Level 2</span></a></li>
+              <li class="link"><a href="/trusted-assessor-level-3"><span>Trusted Assessor Level 3</span></a></li>
+              <li class="link"><a href="/trusted-assessor-level-4"><span>Trusted Assessor Level 4</span></a></li>
+              <li class="link"><a href="/trusted-assessor-level-4"><span>Trusted Assessor Level 5</span></a></li>
             </ul>
-          </li>
-          <li class="item">
-            <ul class="item-list">
-              <li class="link"><a href="/trusted-assessor-refresher">Trusted Assessor Refresher</a></li>
-            </ul>
-          </li>
-
-
-        </ul>
       </div>
+
       <div class="tab-content-items" id="moving-handling-tab-content">
         <ul class="items text-left">
 
           <li class="item">
             <ul class="item-list">
-              <li class="link"><a href="/manual-handling-refresher/">Moving And Handling Refresher</a></li>
+              <li class="link"><a href="/manual-handling-refresher/"><span>Moving And Handling Refresher</span></a></li>
             </ul>
           </li>
-
 
         </ul>
       </div>
 
     </div>
-  </div> --}}
-</nav>
+  </div>
+  <div class="all-course-link">
+      <a href="/courses">All Courses</a>
+    </div>
+</div>

@@ -67322,7 +67322,7 @@ if (typeof jQuery === 'undefined') {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\js\adminTheme.js */"./resources/assets/js/adminTheme.js");
+module.exports = __webpack_require__(/*! /Users/Yuges/Documents/LaravelProjects/training/resources/assets/js/adminTheme.js */"./resources/assets/js/adminTheme.js");
 
 
 /***/ })
