@@ -20,6 +20,8 @@ class CreateCoursesTable extends Migration
             $table->string('title')->unique();
             $table->string('slug')->unique();
             $table->enum('status', ['publish', 'draft', 'private']);
+            $table->boolean('enable_megamenu')->default(1);
+            $table->integer('position')->nullable();
             // $table->enum('type',['course','conference','refresher']);
             $table->string('password')->nullable();
             $table->text('description')->nullable();

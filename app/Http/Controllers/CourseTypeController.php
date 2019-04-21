@@ -38,10 +38,11 @@ class CourseTypeController extends Controller
      */
     public function store(Request $request)
     {
-       $this->validate($request, [
+        $this->validate($request, [
             'title' => 'required|unique:course_types',
             'body' => 'required',
             'status' => 'required',
+            'position' => 'required',
             'body' => 'required',
             'image' => 'required|image',
             // 'type' => 'required',
@@ -52,6 +53,8 @@ class CourseTypeController extends Controller
         $courseType->body = $request->body;
         $courseType->description = $request->description;
         $courseType->status = $request->status;
+        $courseType->position = $request->position;
+        $courseType->enable_megamenu = ($request->enable_megamenu) ? 1 : 0;
         $courseType->body = e($request->body);
         $courseType->createdBy = $request->user()->id;
         $courseType->save();
@@ -101,10 +104,11 @@ class CourseTypeController extends Controller
         $courseType = CourseType::find($courseTypeID);
 
         $this->validate($request, [
-            'title' => 'required|unique:course_types,title,'.$courseType->id,
-            'slug' => 'required|unique:course_types,slug,'.$courseType->id,
+            'title' => 'required|unique:course_types,title,' . $courseType->id,
+            'slug' => 'required|unique:course_types,slug,' . $courseType->id,
             'body' => 'required',
             'status' => 'required',
+            'position' => 'required',
             'body' => 'required',
             'image' => 'nullable|image',
         ]);
@@ -113,6 +117,8 @@ class CourseTypeController extends Controller
         $courseType->body = $request->body;
         $courseType->description = $request->description;
         $courseType->status = $request->status;
+        $courseType->position = $request->position;
+        $courseType->enable_megamenu = ($request->enable_megamenu) ? 1 : 0;
         $courseType->body = e($request->body);
         $courseType->updatedBy = $request->user()->id;
         if ($request->file('image')) {

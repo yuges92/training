@@ -32,4 +32,12 @@ class CourseType extends Model
         }
         return Storage::url($this->getImageFolder() . $this->image);
     }
+
+
+    public static function getNavMenu()
+    {
+        return self::with(['courses' => function ($query) {
+            $query->where('status', 'publish')->where('enable_megamenu', 1)->orderBy('position');
+        }])->where('status', 'publish')->where('enable_megamenu', 1)->orderBy('position')->get();
+    }
 }

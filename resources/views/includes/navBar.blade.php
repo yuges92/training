@@ -23,8 +23,8 @@
         <div class="dropdown-content" aria-labelledby="navbarDropdown">
           <a class="" href="{{ route('courses') }}"></i> <span>{{ Auth::user()->getFullname() }}</span> </a>
           <a class="" href="{{ route('adminDashboard') }}"></i> <span>Admin</span> </a>
-          <a class="" href="{{ route('learner') }}"></i> <span>Learner</span> </a>
-          <a class="" href="{{ route('commissioner') }}"></i> <span>Commissioner</span> </a>
+          <a class="" href="{{ route('learner') }}"></i> <span>View as learner</span> </a>
+          <a class="" href="{{ route('commissioner') }}"></i> <span>View as commissioner</span> </a>
           <a class="" href="/logout"><span>{{ __('Logout') }}</span> <i class="fas fa-sign-out-alt"></i></a>
         </div>
       </li>
@@ -42,21 +42,34 @@
     <div class="dropdown-mega-menu">
       <div class="tabs-container">
         <ul class=" dropdown-tabs">
-          <li class="tabLink"><a data-target-tab="tab1" class=" dropdown-tab active" href=""><span>Trusted Assessor</span> <i class="fas fa-chevron-right"></i></a></li>
-          <li class="tabLink"><a data-target-tab="tab2" class=" dropdown-tab" href=""><span>Trusted Assessor</span> <i class="fas fa-chevron-right"></i></a></li>
+          @php
+              $courseTypes=App\CourseType::getNavMenu();
+          @endphp
+          @if ($courseTypes)
+          @foreach ($courseTypes as $courseType)
+          @if ($courseType)
+              
+          <li class="tabLink"><a data-target-tab="tab{{$courseType->id}}" class=" dropdown-tab" href="{{route('courseType',$courseType->slug)}}"><span>{{$courseType->title}}</span> <i class="fas fa-chevron-right"></i></a></li>
+          @endif
+          @endforeach
+          @endif
         </ul>
       </div>
       <div class="tab-content" id="">
-        <div class="tab-content-items" id="tab1" >
+        @if ($courseTypes )
+        @foreach ($courseTypes as $courseType)
+        <div class="tab-content-items" id="tab{{$courseType->id}}" >
+          @if ($courses=$courseType->courses)
+              
           <ul class="item-list">
-            <li class="link"><a href="/trusted-advisor-level-1"><span>Trusted Advisor Level 1</span></a></li>
-            <li class="link"><a href="/trusted-assessor-level-2"><span>Trusted Assessor Level 2</span></a></li>
-            <li class="link"><a href="/trusted-assessor-level-3"><span>Trusted Assessor Level 3</span></a></li>
-            <li class="link"><a href="/trusted-assessor-level-4"><span>Trusted Assessor Level 4</span></a></li>
-            <li class="link"><a href="/trusted-assessor-level-4"><span>Trusted Assessor Level 5</span></a></li>
+            @foreach ($courses as $course)
+            <li class="link"><a href="{{route('course', [$courseType->slug,$course->slug])}}"><span>{{$course->title}}</span></a></li>
+            @endforeach
           </ul>
+          @endif
         </div>
-
+        @endforeach
+        @endif
         <div class="tab-content-items" id="tab2">
           <ul class="items text-left">
 

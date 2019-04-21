@@ -70,6 +70,22 @@
               </div>
             </div>
 
+            <div class="form-group ">
+                <div class="col">
+                  <input name="enable_megamenu" type="checkbox" id="enable_megamenu" class="filled-in chk-col-blue" {{ ($courseType->enable_megamenu==1) ? 'checked' : '' }} value="1">
+                  <label for="enable_megamenu">Display on MegaMenu</label>
+                </div>
+              </div>
+
+              <div class="form-group" id="passwordDiv" >
+                  <label for="position" class="col-sm-2 col-form-label">Position:</label>
+                  <div class="col">
+                      <div class="">
+                          <input name="position" type="number" class="form-control" id="position" value="{{ $courseType->position }}" placeholder="Position">
+                      </div>
+                  </div>
+              </div>
+
             <div class="form-group">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Image:</label>
                 <div class="col">
