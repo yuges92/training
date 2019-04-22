@@ -1,5 +1,5 @@
 @extends('layouts.adminLayout') 
-@section('title', 'Edit - '.$course->title) 
+@section('title', $course->title) 
 @section('content')
 <div class="my-2 container-fluid">
     <a class="btn btn-info" href="{{route('createCourse')}}"> <i class="fas fa-plus"></i> Add Class</a>
@@ -7,9 +7,14 @@
     <a class="btn btn-info" href="{{route('createCourse')}}"> <i class="fas fa-plus"></i> Assignments</a>
     <a class="btn btn-info" href="{{route('createCourse')}}"> <i class="fas fa-plus"></i> Add new course body</a>
 
+    <a class="btn btn-info btn-lg rounded" href="{{route('editCourse', $course->id)}}">
+        <i class="col-12 fas fa-edit fa-5x"></i> 
+        <span class="col-12">Edit</span>
+    </a>
 </div>
 
 
+{{--
 <div class="col-12">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
@@ -102,7 +107,8 @@
 
                                             <div class="form-group ">
                                                 <div class="col">
-                                                    <input name="enable_megamenu" type="checkbox" id="enable_megamenu" class="filled-in chk-col-blue" {{$course->enable_megamenu==1 ? 'checked':''}} value="1">
+                                                    <input name="enable_megamenu" type="checkbox" id="enable_megamenu" class="filled-in chk-col-blue" {{$course->enable_megamenu==1
+                                                    ? 'checked':''}} value="1">
                                                     <label for="enable_megamenu">Display on MegaMenu</label>
                                                 </div>
                                             </div>
@@ -154,5 +160,5 @@
 
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

@@ -98,8 +98,9 @@ class CourseController extends Controller
   public function edit($course_id)
   {
     $course = Course::find($course_id);
+    $courseTypes = CourseType::all();
     // echo  Storage::download($course->file);
-    return view('admin.course.courseEdit')->with('course', $course);
+    return view('admin.course.edit', compact('course', 'courseTypes'));
   }
 
   /**
