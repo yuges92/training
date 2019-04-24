@@ -45,12 +45,14 @@ class CourseController extends Controller
     // dd($request);
     $this->validate($request, [
       'title' => 'required|unique:courses',
-      'course_code' => 'required',
+      'course_code' => 'required|unique:courses',
       'description' => 'required',
       'course_type_id' => 'required',
       'body' => 'required',
       'status' => 'required',
       'image' => 'required|image',
+      'position' => 'required_if:enable_megamenu,1',
+
     ]);
 
     $course = new Course();
@@ -62,6 +64,7 @@ class CourseController extends Controller
     $course->body = $request->input('body');
     $course->status = $request->input('status');
     // $course->type = $request->input('type');
+    $course->enable_megamenu = ($request->enable_megamenu) ? 1 : 0;
     $course->createdBy = $request->user()->id;
     $course->save();
 
@@ -73,7 +76,8 @@ class CourseController extends Controller
       $course->update();
     }
 
-    return redirect()->route('adminCourses')->with('success', 'Course Created');
+    return redirect()->route('courses.show', $course->id)->with('success', 'Course Created');
+    // return redirect()->route('adminCourses')->with('success', 'Course Created');
   }
 
   /**
@@ -85,8 +89,9 @@ class CourseController extends Controller
   public function show($course_id)
   {
     $course = Course::find($course_id);
+    $courseTypes = CourseType::all();
 
-    return view('admin.course.show', compact('course'));
+    return view('admin.course.show', compact('course', 'courseTypes'));
   }
 
   /**
@@ -110,30 +115,43 @@ class CourseController extends Controller
    * @param  \App\Course  $course
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Course $course)
+  public function update(Request $request, $course_id)
   {
+    $course = Course::find($course_id);
+
     $this->validate($request, [
-      'title' => 'required',
+      'title' => 'required|unique:course_types,title,' . $course->id,
+      // 'slug' => 'required|unique:course_types,slug,' . $course->id,
+      'course_code' => 'required|unique:courses,course_code,' . $course->id,
+      'course_type_id' => 'required',
+      'description' => 'required',
       'body' => 'required',
-      'description' => 'required'
+      'status' => 'required',
+      'position' => 'required_if:enable_megamenu,1',
 
     ]);
-    if (!$request->input('oldFile')) {
-      Storage::delete($course->file);
-      $course->originFileName = '';
-      $course->file = '';
-      if ($request->file('file')) {
-        $course->originFileName = $request->file('file')->getClientOriginalName();
-        $course->file = $request->file('file')->storeAs('courseDocs', time() . '.' . $request->file('file')->getClientOriginalExtension());
-      }
-    }
+
     $course->title = $request->input('title');
-    $course->body = $request->input('body');
+    $course->slug = str_slug($request->input('title'));
+    $course->course_code = $request->input('course_code');
     $course->description = $request->input('description');
-    $course->type = $request->input('type');
-    $course->createdBy = 1;
+    $course->course_type_id = $request->input('course_type_id');
+    $course->enable_megamenu = ($request->enable_megamenu) ? 1 : 0;
+    $course->body = $request->input('body');
+    $course->status = $request->input('status');
+    $course->position = $request->input('position');
+    $course->updatedBy = $request->user()->id;
+
+
+    if ($request->file('image')) {
+      $imageFileName = $course->id . '.' . $request->file('image')->getClientOriginalExtension();
+      $request->file('image')->storeAs($course->getImageFolder(), $imageFileName);
+      $course->image = $imageFileName;
+    }
     $course->update();
-    return redirect()->back()->with('success', 'Course Updated');
+    return redirect()->route('courses.show', $course->id)->with('success', 'Course Updated');
+
+    // return redirect()->back()->with('success', 'Course Updated');
   }
 
   /**
@@ -142,9 +160,10 @@ class CourseController extends Controller
    * @param  \App\Course  $course
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Course $course)
+  public function destroy($course_id)
   {
-    Storage::delete($course->file);
+    $course = Course::find($course_id);
+    Storage::delete($course->getImage());
     $course->delete();
     return redirect()->route('adminCourses')->with('success', 'Course Deleted');
   }

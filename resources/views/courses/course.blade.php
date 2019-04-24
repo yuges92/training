@@ -117,7 +117,7 @@
                       
                     </button>
             </form>
-            <a class="ml-1 btn btn-info" href="{{route('showClassDetail', $class->id)}}">View Full Detail</a>
+            <a class="ml-1 btn btn-info" href="{{route('showClassDetail', $class->slug)}}">View Full Detail</a>
           </div>
         </div>
         @endforeach

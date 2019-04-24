@@ -105,7 +105,7 @@ class CourseTypeController extends Controller
 
         $this->validate($request, [
             'title' => 'required|unique:course_types,title,' . $courseType->id,
-            'slug' => 'required|unique:course_types,slug,' . $courseType->id,
+            // 'slug' => 'required|unique:course_types,slug,' . $courseType->id,
             'body' => 'required',
             'status' => 'required',
             'position' => 'required',
@@ -113,7 +113,7 @@ class CourseTypeController extends Controller
             'image' => 'nullable|image',
         ]);
         $courseType->title = $request->title;
-        $courseType->slug = str_slug($request->input('slug'));
+        $courseType->slug = str_slug($request->input('title'));
         $courseType->body = $request->body;
         $courseType->description = $request->description;
         $courseType->status = $request->status;

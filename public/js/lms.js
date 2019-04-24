@@ -442,7 +442,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/Yuges/Documents/LaravelProjects/training/resources/assets/js/lms.js */"./resources/assets/js/lms.js");
+module.exports = __webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\js\lms.js */"./resources/assets/js/lms.js");
 
 
 /***/ })

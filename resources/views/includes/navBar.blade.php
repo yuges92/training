@@ -70,18 +70,6 @@
         </div>
         @endforeach
         @endif
-        <div class="tab-content-items" id="tab2">
-          <ul class="items text-left">
-
-            <li class="item">
-              <ul class="item-list">
-                <li class="link"><a href="/manual-handling-refresher/"><span>Moving And Handling Refresher</span></a></li>
-              </ul>
-            </li>
-
-          </ul>
-        </div>
-
       </div>
     </div>
     <div class="all-course-link">

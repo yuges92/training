@@ -9,6 +9,7 @@ class CourseType extends Model
 {
 
     private $imageFolder = 'course/type/';
+    
     public function getRouteKeyName()
     {
         return 'slug';

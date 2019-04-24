@@ -3,8 +3,9 @@
 @section('title', 'Edit - '.$course->title) 
 @section('content')
 <div class="container-fluid p-sm-0 px-md-5 ">
-  <form class="" action="{{route('storeCourse')}}" method="post" enctype="multipart/form-data">
+  <form class="" action="{{route('updateCourse', $course->id)}}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
+    @method('PUT')
     <div class="col-12 row mx-auto">
 
       <div class=" col-md-8">
@@ -29,13 +30,13 @@
               <label for="course_type_id" class="col-sm-2 col-form-label">Course Type: </label>
               <div class="col-sm-10">
                 <select class="form-control" name="course_type_id" id="course_type_id">
-                                          <option value="">Please select a course type</option>
-                                              @if (($courseTypes))
-                                              @foreach ($courseTypes as $courseType)
-                                              <option {{ ($course->course_type_id==$courseType->id) ? 'selected' : '' }} value="{{$courseType->id}}">{{$courseType->title}}</option>
-                                              @endforeach
-                                              @endif
-                                          </select>
+                  <option value="">Please select a course type</option>
+                      @if (($courseTypes))
+                      @foreach ($courseTypes as $courseType)
+                      <option {{ ($course->course_type_id==$courseType->id) ? 'selected' : '' }} value="{{$courseType->id}}">{{$courseType->title}}</option>
+                      @endforeach
+                      @endif
+                  </select>
               </div>
             </div>
 

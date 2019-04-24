@@ -21,9 +21,9 @@ class ClassEventController extends Controller
   */
   public function index()
   {
-    $classes=ClassEvent::all();
+    $classes=ClassEvent::with('course')->get();
     // return view('admin.course.courses')->with('courses',$courses);
-    return view('admin.classEvent.classes', compact('classes'));
+    return view('admin.classEvent.index', compact('classes'));
 
   }
 
@@ -37,7 +37,7 @@ class ClassEventController extends Controller
     $addresses=ClassAddress::all();
     $courses= Course::all();
     // return view('admin.course.courses')->with('courses',$courses);
-    return view('admin.classEvent.createClassEvent', compact('courses', 'addresses'));
+    return view('admin.classEvent.create', compact('courses', 'addresses'));
   }
 
   /**
@@ -55,15 +55,15 @@ class ClassEventController extends Controller
       'title' => 'required',
       'address_id' => 'required',
       'description' => 'required',
+      'duration' => 'required',
       'startDate' => 'required',
       'startTimeStart' => 'required',
       'endTimeStart' => 'required',
-      'endDate' => 'required',
-      'startTimeEnd' => 'required',
-      'endTimeEnd' => 'required',
+      'endDate' => 'required_if:duration,2',
+      'startTimeEnd' => 'required_if:duration,2',
+      'endTimeEnd' => 'required_if:duration,2',
       'price' => 'required',
-      'space' => 'required'
-
+      'space' => 'required',
     ]);
 
     $classEvent=new ClassEvent();
@@ -82,15 +82,17 @@ class ClassEventController extends Controller
     $classEvent->availableSpace =$request->input('space');
     $classEvent->space =$request->input('space');
     $classEvent->price =$request->input('price');
-    if ($request->file('file')) {
+    $classEvent->duration =$request->duration;
+    // if ($request->file('file')) {
 
-      $classEvent->originFileName=$request->file('file')->getClientOriginalName();
-      $classEvent->file=$request->file('file')->storeAs('classDocs', time().'.'.$request->file('file')->getClientOriginalExtension());
-    }
+    //   $classEvent->originFileName=$request->file('file')->getClientOriginalName();
+    //   $classEvent->file=$request->file('file')->storeAs('classDocs', time().'.'.$request->file('file')->getClientOriginalExtension());
+    // }
 
 
     $classEvent->createdBy =$request->user()->id;
     $classEvent->save();
+    return redirect()->route('classEvent.show', $classEvent->id)->with('success', 'New class created');
     return redirect()->route('classEvent.index')->with('success', 'New class created');
 
   }
@@ -101,9 +103,12 @@ class ClassEventController extends Controller
   * @param  \App\ClassEvent  $classEvent
   * @return \Illuminate\Http\Response
   */
-  public function show(ClassEvent $classEvent)
+  public function show($class_id)
   {
-    dd($classEvent);
+    $class=ClassEvent::find($class_id);
+    // dd($classEvent);
+
+    return view('admin.classEvent.show', compact('class'));
   }
 
   /**
@@ -112,11 +117,12 @@ class ClassEventController extends Controller
   * @param  \App\ClassEvent  $classEvent
   * @return \Illuminate\Http\Response
   */
-  public function edit(ClassEvent $classEvent)
+  public function edit($class_id)
   {
+    $class=ClassEvent::find($class_id);
     $addresses=classAddress::all();
     $courses= Course::all();
-    return view('admin.classEvent.editClassEvent', compact('classEvent','courses', 'addresses'));
+    return view('admin.classEvent.editClassEvent', compact('class','courses', 'addresses'));
 
 
   }
@@ -128,52 +134,57 @@ class ClassEventController extends Controller
   * @param  \App\ClassEvent  $classEvent
   * @return \Illuminate\Http\Response
   */
-  public function update(Request $request, ClassEvent $classEvent)
+  public function update(Request $request, $class_id)
   {
+
+    $class=ClassEvent::find($class_id);
+
     $this->validate($request, [
       'course_id' => [ 'required'],
       'type' => 'required',
       'title' => 'required',
       'address_id' => 'required',
       'description' => 'required',
+      'duration' => 'required',
       'startDate' => 'required',
       'startTimeStart' => 'required',
       'endTimeStart' => 'required',
-      'endDate' => 'required',
-      'startTimeEnd' => 'required',
-      'endTimeEnd' => 'required',
+      'endDate' => 'required_if:duration,2',
+      'startTimeEnd' => 'required_if:duration,2',
+      'endTimeEnd' => 'required_if:duration,2',
       'price' => 'required',
       'space' => 'required',
       'availableSpace' => 'required'
     ]);
 
-    if(!$request->input('oldFile') ){
-      Storage::delete($classEvent->file);
-      $classEvent->originFileName='';
-      $classEvent->file='';
-      if ($request->file('file')) {
-        $classEvent->originFileName=$request->file('file')->getClientOriginalName();
-        $classEvent->file=$request->file('file')->storeAs('classDocs', time().'.'.$request->file('file')->getClientOriginalExtension());
+    // if(!$request->input('oldFile') ){
+    //   Storage::delete($classEvent->file);
+    //   $classEvent->originFileName='';
+    //   $classEvent->file='';
+    //   if ($request->file('file')) {
+    //     $classEvent->originFileName=$request->file('file')->getClientOriginalName();
+    //     $classEvent->file=$request->file('file')->storeAs('classDocs', time().'.'.$request->file('file')->getClientOriginalExtension());
 
-      }
+    //   }
 
-    }
+    // }
 
-    $classEvent->course_id =$request->input('course_id');
-    $classEvent->type =$request->input('type');
-    $classEvent->address_id =$request->input('address_id');
-    $classEvent->description =$request->input('description');
-    $classEvent->startDate =$request->input('startDate');
-    $classEvent->startTimeStart =$request->input('startTimeStart');
-    $classEvent->endTimeStart =$request->input('endTimeStart');
-    $classEvent->endDate =$request->input('endDate');
-    $classEvent->startTimeEnd =$request->input('startTimeEnd');
-    $classEvent->endTimeEnd =$request->input('endTimeEnd');
-    $classEvent->availableSpace =$request->input('availableSpace');
-    $classEvent->price =$request->input('price');
-    $classEvent->space =$request->input('space');
-    $classEvent->updatedBy =$request->user()->id;
-    $classEvent->update();
+    $class->course_id =$request->input('course_id');
+    $class->type =$request->input('type');
+    $class->address_id =$request->input('address_id');
+    $class->description =$request->input('description');
+    $class->startDate =$request->input('startDate');
+    $class->startTimeStart =$request->input('startTimeStart');
+    $class->endTimeStart =$request->input('endTimeStart');
+    $class->endDate =$request->input('endDate');
+    $class->startTimeEnd =$request->input('startTimeEnd');
+    $class->endTimeEnd =$request->input('endTimeEnd');
+    $class->availableSpace =$request->input('availableSpace');
+    $class->price =$request->input('price');
+    $class->space =$request->input('space');
+    $class->updatedBy =$request->user()->id;
+    $class->duration =$request->duration;
+    $class->update();
     return redirect()->back()->with('success', 'Class Updated');
 
   }
@@ -184,11 +195,13 @@ class ClassEventController extends Controller
   * @param  \App\ClassEvent  $classEvent
   * @return \Illuminate\Http\Response
   */
-  public function destroy(ClassEvent $classEvent)
+  public function destroy($class_id)
   {
-    Storage::delete($classEvent->file);
-    $classEvent->delete();
-    return redirect()->route('classEvent.index')->with('success', 'Assignment Deleted');
+    $class=ClassEvent::find($class_id);
+
+    // Storage::delete($classEvent->file);
+    $class->delete();
+    return redirect()->back()->with('success', 'Class Deleted');
   }
 
 

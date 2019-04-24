@@ -19,12 +19,12 @@
               </div>
             </div>
 
-            <div class="form-group row">
+            {{-- <div class="form-group row">
                 <label for="slug" class="col-sm-2 col-form-label">URL Slug: </label>
                 <div class="col-sm-10">
                   <input name="slug" type="text" class="form-control" id="slug" value="{{ $courseType->slug }}" placeholder="Slug">
                 </div>
-              </div>
+              </div> --}}
 
             <div class="form-group row">
               <label for="description" class="col-sm-2 col-form-label" data-toggle="tooltip" data-placement="top" title="Add course type description eg: "> Short Description:</label>

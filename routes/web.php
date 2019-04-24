@@ -62,7 +62,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
 
   Route::resource('/courseTypes', 'CourseTypeController');
   Route::resource('/assignments', 'AssignmentController');
-  Route::resource('/classEvent', 'ClassEventController');
+  Route::resource('/class', 'ClassEventController');
   Route::resource('/users', 'UserController');
   Route::resource('/classAddress', 'ClassAddressController');
   Route::resource('/learners', 'LearnerController');
@@ -80,8 +80,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
   // Route::post('/userDetail/store', 'UserDetailController@store')->name('addLearnerDetails');
   // Route::put('/userDetail/{user_id}', 'UserDetailController@update')->name('updateLearner');
 
-  Route::post('/classEvent/{classEvent}/updateAttendance', 'ClassEventController@updateAttendance')->name('updateAttendance');
-  Route::delete('/classEvent/{classEvent}/removeClassAccess', 'ClassEventController@removeClassAccess')->name('removeClassAccess');
+  Route::post('/class/{classEvent}/updateAttendance', 'ClassEventController@updateAttendance')->name('updateAttendance');
+  Route::delete('/class/{classEvent}/removeClassAccess', 'ClassEventController@removeClassAccess')->name('removeClassAccess');
 });
 
 
@@ -110,7 +110,7 @@ Route::post('checkout/someoneElse/paymentAndBilling', 'BuyForSomeoneElseControll
 Route::get('order/thankYou', 'OrderController@thankYou')->name('thankYou');
 
 Route::get('/course/{course}/classes', 'CourseController@getClasses');
-Route::get('/course/classEvent/{classEvent}', 'ClassEventController@getshowClassDetailC')->name('showClassDetail');
+Route::get('/course/class/{classEvent}', 'ClassEventController@getshowClassDetailC')->name('showClassDetail');
 
 //paypal payment.status
 // Route::get('paywithpaypal','PaypalController@payWithPaypal' )->name('addmoney.paywithpaypal');

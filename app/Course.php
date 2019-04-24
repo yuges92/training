@@ -31,6 +31,11 @@ class Course extends Model
     return $this->hasMany('App\ClassEvent');
   }
 
+  public function courseBodies()
+  {
+    return $this->hasMany(CourseBody::class);
+  }
+
   public function getImageFolder()
   {
       return $this->imageFolder;

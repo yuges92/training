@@ -31,6 +31,9 @@
         "datatables.net": "^1.10.19",
         "datatables.net-bs4": "^1.10.19",
         "datatables.net-dt": "^1.10.19",
-        "dropify": "^0.2.2"
+        "dropify": "^0.2.2",
+        "filepond": "^4.4.0",
+        "jquery-filepond": "^1.0.0",
+        "select2": "^4.0.6-rc.1"
     }
 }

@@ -23,6 +23,7 @@ $factory->define(ClassEvent::class, function (Faker $faker) {
       'space' => 15,
       'availableSpace' => 15,
       'price' => 150,
+      'duration' => 2,
       'createdBy' => 1
     ];
 });

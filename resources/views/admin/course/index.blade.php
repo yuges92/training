@@ -1,7 +1,8 @@
 @extends('layouts.adminLayout')
+@section('title', 'Courses')
 
 @section('content')
-  <h1>Courses</h1>
+
   <div class="my-2">
     <a class="btn btn-info" href="{{route('createCourse')}}"> <i class="fas fa-plus"></i> Add New</a>
 

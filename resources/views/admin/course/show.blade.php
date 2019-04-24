@@ -1,30 +1,40 @@
 @extends('layouts.adminLayout') 
 @section('title', $course->title) 
-@section('content')
-<div class="my-2 container-fluid">
-    <a class="btn btn-info" href="{{route('createCourse')}}"> <i class="fas fa-plus"></i> Add Class</a>
-    <a class="btn btn-info" href="{{route('createCourse')}}"> <i class="fas fa-plus"></i> Classes</a>
-    <a class="btn btn-info" href="{{route('createCourse')}}"> <i class="fas fa-plus"></i> Assignments</a>
-    <a class="btn btn-info" href="{{route('createCourse')}}"> <i class="fas fa-plus"></i> Add new course body</a>
+@section('content') {{--
+<div class="my-2 container-fluid d-flex justify-content-around">
 
+    <a class="btn btn-info btn-lg rounded" href="{{route('editCourse', $course->id)}}">
+        <i class="col-12 fas fa-edit  fa-5x"></i> 
+        <span class="col-12">Edit</span>
+    </a>
+    <a class="btn btn-info btn-lg rounded" href="{{route('editCourse', $course->id)}}">
+        <i class="col-12 fa fa-calendar fa-5x"></i>
+        <span class="col-12">Classes</span>
+    </a>
+    <a class="btn btn-info btn-lg rounded" href="{{route('editCourse', $course->id)}}">
+        <i class="col-12 fa fa-tasks fa-5x"></i>
+        <span class="col-12">Assignments</span>
+    </a>
+    <a class="btn btn-info btn-lg rounded" href="{{route('editCourse', $course->id)}}">
+        <i class="col-12 fas fa-paragraph fa-5x"></i>
+        <span class="col-12">Course body content</span>
+    </a>
     <a class="btn btn-info btn-lg rounded" href="{{route('editCourse', $course->id)}}">
         <i class="col-12 fas fa-edit fa-5x"></i> 
         <span class="col-12">Edit</span>
     </a>
-</div>
+</div> --}}
 
 
-{{--
+
 <div class="col-12">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
 
-            <li><a href="#detail" data-toggle="tab" class="active" aria-expanded="true">Info </a></li>
-            <li><a href="#additionalDetail" data-toggle="tab" class="" aria-expanded="false">Additional Details</a></li>
-            <li><a href="#addresses" data-toggle="tab" class="" aria-expanded="false">Addresses</a></li>
-            <li><a href="#bookings" data-toggle="tab" class="" aria-expanded="false">Bookings</a></li>
-            <li><a href="#gdpr" data-toggle="tab" class="" aria-expanded="false">GDPR</a></li>
-            <li><a href="#courses" data-toggle="tab" class="" aria-expanded="false">Courses</a></li>
+            <li><a href="#detail" data-toggle="tab" class="active" aria-expanded="true">Course Detail </a></li>
+            <li><a href="#content" data-toggle="tab" class="" aria-expanded="false">Course Content</a></li>
+            <li><a href="#assignments" data-toggle="tab" class="" aria-expanded="false">Assignments</a></li>
+            <li><a href="#classes" data-toggle="tab" class="" aria-expanded="false">Classes</a></li>
         </ul>
 
         <div class="tab-content">
@@ -32,8 +42,8 @@
             <div class="tab-pane active" id="detail" aria-expanded="false">
                 <div class="  ">
                     <div class=" ">
-                        <form class="" action="{{route('storeCourse')}}" method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
+                        <form class="" action="{{route('updateCourse', $course->id)}}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }} @method('PUT')
                             <div class="col-12 row mx-auto">
 
                                 <div class=" col-md-8">
@@ -58,13 +68,13 @@
                                                 <label for="course_type_id" class="col-sm-2 col-form-label">Course Type: </label>
                                                 <div class="col-sm-10">
                                                     <select class="form-control" name="course_type_id" id="course_type_id">
-                                                                <option value="">Please select a course type</option>
-                                                                    @if (isset($courseTypes))
-                                                                    @foreach ($courseTypes as $courseType)
-                                                                    <option {{ (old('course_type_id')==$courseType->id) ? 'selected' : '' }} value="{{$courseType->id}}">{{$courseType->title}}</option>
-                                                                    @endforeach
-                                                                    @endif
-                                                                </select>
+                                                  <option value="">Please select a course type</option>
+                                                      @if (($courseTypes))
+                                                      @foreach ($courseTypes as $courseType)
+                                                      <option {{ ($course->course_type_id==$courseType->id) ? 'selected' : '' }} value="{{$courseType->id}}">{{$courseType->title}}</option>
+                                                      @endforeach
+                                                      @endif
+                                                  </select>
                                                 </div>
                                             </div>
 
@@ -98,10 +108,10 @@
                                                 <label for="status" class="col col-form-label">Publish:</label>
                                                 <div class="col">
                                                     <select class="form-control" name="status" id="status">
-                                                                <option {{ ($course->status=='publish') ? 'selected' : '' }} value="publish">Publish</option>
-                                                                <option {{ ($course->status=='draft') ? 'selected' : '' }} value="draft">Draft</option>
-                                                                <option {{ ($course->status=='private') ? 'selected' : '' }} value="private">private</option>
-                                                            </select>
+                                                                          <option {{ ($course->status=='publish') ? 'selected' : '' }} value="publish">Publish</option>
+                                                                          <option {{ ($course->status=='draft') ? 'selected' : '' }} value="draft">Draft</option>
+                                                                          <option {{ ($course->status=='private') ? 'selected' : '' }} value="private">private</option>
+                                                                      </select>
                                                 </div>
                                             </div>
 
@@ -146,7 +156,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row float-right mt-3 p-3">
-                                            <button class="btn btn-success rounded px-5" type="submit"><i class="far fa-save "></i> Save</button>
+                                            <button class="btn btn-success rounded px-5" type="submit"><i class="far fa-save "></i> Update</button>
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +168,68 @@
                 </div>
             </div>
 
+            <div class="tab-pane " id="content" aria-expanded="false">
+                Course Content
+            </div>
+
+            <div class="tab-pane " id="assignments" aria-expanded="false">
+                Course Documents
+            </div>
+
+            <div class="tab-pane " id="classes" aria-expanded="false">
+                @if ($classes= $course->classes)
+                <div class="p-2">
+                    <div class="">
+                        <div>
+
+                            <a class="btn btn-info" href="{{route('editCourse', $course->id)}}">
+                                    <i class="fas fa-plus"></i>
+                                    <span class="">Add</span>
+                                </a>
+                        </div>
+                        <table class="table table-hover table-responsive-sm dataTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Start Date</th>
+                                    {{--
+                                    <th scope="col">End Date</th> --}}
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($classes as $class)
+
+                                <tr>
+                                    <th scope="row">{{$class->id}}</th>
+                                    <td>{{$class->title}}</td>
+                                    <td>{{$class->getFormattedStartDate()}}</td>
+                                    {{--
+                                    <td>{{$class->endDate->format('j F Y')}}</td> --}}
+                                    <td class="row"><a class="btn btn-success mr-1" href="{{route('class.show', $class->id)}}">Edit</a>
+                                        <form class="deleteForm" action="{{route('class.destroy',[$class->id])}}" method="post">
+                                            {{ csrf_field() }} @method('Delete')
+                                            <input class="btn btn-danger" type="submit" value="Delete">
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @else
+                <div class="text-center">
+
+                    <span class="text-danger">No courses found!</span>
+                </div>
+                @endif
+            </div>
+
         </div>
     </div>
-</div> --}}
+</div>
 @endsection
