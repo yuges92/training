@@ -7,6 +7,7 @@
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <script>window.Laravel={csrfToken:'{{csrf_token()}}'}</script>
   <title>{{ config('app.name', 'Learning Exchange')}} - @yield('title')</title>
   <!-- Fonts -->
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">

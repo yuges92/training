@@ -68157,6 +68157,15 @@ __webpack_require__(/*! ./plugins/summernote/dist/summernote-bs4.min */ "./resou
 $(document).ready(function () {
   $('.dataTable').DataTable();
   $('.dropify').dropify();
+  $('.summernote').summernote({
+    placeholder: '',
+    tabsize: 2,
+    height: 300,
+    codemirror: {
+      // codemirror options
+      theme: 'monokai'
+    }
+  });
 });
 
 /***/ }),

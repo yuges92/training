@@ -14,18 +14,20 @@ use App\User;
 |
 */
 
-Route::post('articles', function() {
-    // If the Content-Type and Accept headers are set to 'application/json',
-    // this will return a JSON structure. This will be cleaned up later.
-    return User::all();
+// Route::post('articles', function() {
+//     // If the Content-Type and Accept headers are set to 'application/json',
+//     // this will return a JSON structure. This will be cleaned up later.
+//     return User::all();
+// });
+
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::group([ 'namespace'=>'Api'], function(){
+  Route::get('/courses', 'CourseController@index');
+  Route::get('/courses/{course}', 'CourseController@show');
+  Route::resource('/courseTypes', 'CourseTypeController');
+
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('/users', function ()
-{
-  return response()->json(User::all());
-
-});

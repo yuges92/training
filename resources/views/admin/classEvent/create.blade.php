@@ -2,7 +2,7 @@
 @section('title', 'New Class') 
 @section('content')
 <div class="container-fluid p-sm-0 px-md-5 ">
-  <form class="dropzone" action="{{route('classEvent.store')}}" method="post" enctype="multipart/form-data">
+  <form class="dropzone" action="{{route('class.store')}}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="col-12 row mx-auto">
       <div class=" col-md-8">
