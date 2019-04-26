@@ -34,6 +34,10 @@
         "dropify": "^0.2.2",
         "filepond": "^4.4.0",
         "jquery-filepond": "^1.0.0",
-        "select2": "^4.0.6-rc.1"
+        "select2": "^4.0.6-rc.1",
+        "vue-dropify": "^0.3.0",
+        "vue-toast-notification": "0.0.2",
+        "vue2-dropzone": "^3.5.9",
+        "vuejs-datatable": "^1.7.0"
     }
 }

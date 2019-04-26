@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class>
+    <div class v-if="course">
       <div class>
         <form @submit.prevent="updateCourse()" enctype="multipart/form-data">
           <div class="col-12 row mx-auto">
@@ -156,7 +156,6 @@
                           value
                           placeholder="Password"
                           v-model="course.password"
-
                         >
                       </div>
                     </div>
@@ -172,37 +171,60 @@
                           class="dropify"
                           data-min-height="200"
                           data-min-width="300"
+                          :data-default-file="course.image"
                           data-allowed-file-extensions="png JPEG jpg"
                           data-max-file-size="1MB"
-                          v-bind:data-default-file="course.image"
                         >
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="form-group row float-right mt-3 p-3">
-                  <button class="btn btn-success rounded px-5" type="submit">
-                    <i class="far fa-save"></i> Update
-                  </button>
-                </div>
+                <SubmitButton :showBtn="showBtn"></SubmitButton>
               </div>
             </div>
           </div>
         </form>
       </div>
     </div>
+    <div v-else>
+      <div class="d-flex justify-content-center">
+        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import SubmitButton from "../SubmitButton";
+
 export default {
   name: "CourseDetail",
   props: ["course", "courseTypes"],
-
+  components: {
+    SubmitButton
+    // VueDropzone: vue2Dropzone
+  },
+  data() {
+    return {
+      loader: true,
+      showBtn: true
+    };
+  },
   methods: {
     updateCourse() {
       console.log("updated");
+      this.showBtn = false;
+Vue.$toast.success('message string')
+
     }
+  },
+  mounted() {
+    var explode = function() {
+      $(".dropify").dropify();
+    };
+    setTimeout(explode, 2000);
   }
 };
 </script>

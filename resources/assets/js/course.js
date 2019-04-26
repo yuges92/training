@@ -14,6 +14,12 @@ window.Vue = require('vue');
  */
 
 Vue.component('course-component', require('./components/course/CourseComponent.vue').default);
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/index.css';
+Vue.use(VueToast,{
+  position:'top-right'
+
+});
 
 const app = new Vue({
     el: '#app',

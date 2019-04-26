@@ -1,6 +1,13 @@
 <template>
   <div>
-    <div class="col-12">
+    <div v-if="loader">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12" v-else>
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
           <li>
@@ -21,8 +28,8 @@
           <li>
             <a href="#classes" data-toggle="tab" class aria-expanded="false">Classes</a>
           </li>
-                    <li>
-            <a href="#classes" data-toggle="tab" class aria-expanded="false">Documents</a>
+          <li>
+            <a href="#documents" data-toggle="tab" class aria-expanded="false">Documents</a>
           </li>
         </ul>
 
@@ -33,16 +40,20 @@
 
           <div class="tab-pane" id="content" aria-expanded="false">
             <CourseBodies :course="course" :courseTypes="courseTypes"></CourseBodies>
-
           </div>
 
-          <div class="tab-pane" id="assignments" aria-expanded="false">
-
+                    <div class="tab-pane" id="assignments" aria-expanded="false">
+            
           </div>
 
           <div class="tab-pane" id="classes" aria-expanded="false">
-            <Classes :course="course" :courseTypes="courseTypes"></Classes>
+            <Classes :course="course"></Classes>
+          </div>
 
+          
+
+          <div class="tab-pane" id="documents" aria-expanded="false">
+            <CourseDocuments></CourseDocuments>
           </div>
         </div>
       </div>
@@ -55,19 +66,22 @@
 import CourseDetail from "./CourseDetail";
 import CourseBodies from "./CourseBodies";
 import Classes from "./Classes";
+import CourseDocuments from "./CourseDocuments";
 
 export default {
   name: "course",
   components: {
     CourseDetail,
     CourseBodies,
-    Classes
+    Classes,
+    CourseDocuments
   },
   data() {
     return {
       courseTypes: [],
       courses: [],
-      course: ""
+      course: "",
+      loader:true
     };
   },
   mounted() {
@@ -112,6 +126,9 @@ export default {
     showtab() {
       this.refresh();
     }
-  }
+  },
+  mounted() {
+      this.loader=false;
+  },
 };
 </script>
