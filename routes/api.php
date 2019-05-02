@@ -24,9 +24,12 @@ use App\User;
 //     return $request->user();
 // });
 
-Route::group([ 'namespace'=>'Api'], function(){
-  Route::get('/courses', 'CourseController@index');
-  Route::get('/courses/{course}', 'CourseController@show');
+Route::group([ 'namespace'=>'Api', 'middleware'=>['auth:api']], function(){
+  Route::resource('/courses', 'CourseController');
+  // Route::get('/courses/{course}', 'CourseController@show');
+  Route::post('/courses/{course}/courseBodies', 'CourseController@addBody');
+  Route::delete('/courseBodies/{courseBody}', 'CourseBodyController@destroy');
+  Route::patch('/courseBodies/{courseBody}', 'CourseBodyController@update');
   Route::resource('/courseTypes', 'CourseTypeController');
 
 });

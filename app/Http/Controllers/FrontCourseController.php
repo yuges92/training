@@ -47,7 +47,7 @@ class FrontCourseController extends Controller
      */
     public function showCourse(CourseType $courseType,Course $course)
     {
-      $course=$course->load('classes');
+      $course=$course->load('classes', 'courseBodies');
       // dd($course);
       return view('courses.course')->with('course', $course);
 

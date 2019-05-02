@@ -1,6 +1,14 @@
 <template>
   <div>
-    <div class v-if="course">
+    <Error :errors="errors" v-if="showError"></Error>
+    <div v-if="!course">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div class v-else>
       <div class>
         <form @submit.prevent="updateCourse()" enctype="multipart/form-data">
           <div class="col-12 row mx-auto">
@@ -74,20 +82,6 @@
                       ></textarea>
                     </div>
                   </div>
-
-                  <div class="form-group row">
-                    <label for="textareaEditor" class="col-sm-2 col-form-label">Body:</label>
-                    <div class="col-sm-10">
-                      <textarea
-                        id="ckEditor"
-                        class="form-control summernote"
-                        name="body"
-                        rows="8"
-                        cols="80"
-                        v-model="course.body"
-                      ></textarea>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -109,6 +103,7 @@
                         <option value="publish">Publish</option>
                         <option value="draft">Draft</option>
                         <option value="private">private</option>
+                        <option value="password_protected">Password Protected</option>
                       </select>
                     </div>
                   </div>
@@ -144,7 +139,11 @@
                     </div>
                   </div>
 
-                  <div class="form-group" id="passwordDiv" style="display:none">
+                  <div
+                    class="form-group"
+                    id="passwordDiv"
+                    v-if="course.status=='password_protected'"
+                  >
                     <label for="password" class="col-sm-2 col-form-label">Password:</label>
                     <div class="col">
                       <div class>
@@ -162,19 +161,24 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Image:</label>
-                    <div class="col">
-                      <div class>
-                        <input
-                          type="file"
-                          name="image"
-                          class="dropify"
-                          data-min-height="200"
-                          data-min-width="300"
-                          :data-default-file="course.image"
-                          data-allowed-file-extensions="png JPEG jpg"
-                          data-max-file-size="1MB"
-                        >
+                    <label for="image" class="col-sm-2 col-form-label">Image:</label>
+                    <div class>
+                      <div class="d-flex justify-content-center flex-wrap">
+                        <div class="mx-auto">
+                          <img :src="course.image" alt style="max-width:15rem;">
+                        </div>
+                        <div class="col-12 my-2">
+                          <div class="custom-file mt-3 mb-3">
+                            <input
+                              type="file"
+                              class="custom-file-input"
+                              ref="file"
+                              id="customFile"
+                              @change="previewFiles()"
+                            >
+                            <label class="custom-file-label" for="customFile">{{filename}}</label>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -186,45 +190,136 @@
         </form>
       </div>
     </div>
-    <div v-else>
-      <div class="d-flex justify-content-center">
-        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import SubmitButton from "../SubmitButton";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Error from "../Error";
 
 export default {
   name: "CourseDetail",
   props: ["course", "courseTypes"],
   components: {
-    SubmitButton
+    SubmitButton,
+    Error
+
     // VueDropzone: vue2Dropzone
   },
   data() {
     return {
       loader: true,
-      showBtn: true
+      showBtn: true,
+      editor: ClassicEditor,
+      filename: "Choose File",
+      imageFile: {},
+      isPasswordProtected: false,
+      errors: {},
+      showError: false,
+      editorData: "<p>Content of the editor.</p>",
+      editorConfig: {
+        // The configuration of the editor.
+      }
     };
   },
   methods: {
     updateCourse() {
-      console.log("updated");
+      let url = "/api/courses/" + this.course.id;
       this.showBtn = false;
-Vue.$toast.success('message string')
+      this.showError = false;
+      var _this = this;
+      let formData = new FormData();
 
+      formData.append("image", this.imageFile);
+      formData.append("responseType", "json");
+      formData.append("title", this.course.title);
+      formData.append("course_code", this.course.course_code);
+      formData.append("description", this.course.description);
+      formData.append("course_type_id", this.course.course_type_id);
+      formData.append("enable_megamenu", this.course.enable_megamenu);
+      formData.append("password", this.course.password);
+      formData.append("status", this.course.status);
+      formData.append("position", this.course.position);
+      formData.append("_method", "PUT");
+
+      const config = {
+        headers: { "content-type": "multipart/form-data" }
+      };
+
+      axios
+        .post(url, formData, config)
+        .then(function(response) {
+          Vue.toasted.show(
+            '<i class="fas fa-check-circle fa-3x"></i> Course details updated',
+            {
+              type: "success",
+              duration: 4000,
+              className: "py-3"
+            }
+          );
+
+          // console.log(response);
+          _this.showBtn = true;
+        })
+        .catch(function(error) {
+          console.log(error.response.data);
+          if (error.response.status == 422) {
+            _this.errors = error.response.data.errors;
+            _this.showError = true;
+          }
+          // console.log(error);
+        })
+        .then(function() {
+          _this.showBtn = true;
+        });
+    },
+    someHandler() {
+      console.log("added");
+      // this.$emit('updatedata','Hello World')
+      this.course.title = this.course.status;
+    },
+    previewFiles(event) {
+      const file = this.$refs.file.files[0];
+      if (!file) {
+        this.filename = "Choose a file";
+        return;
+      }
+      if (!file.type.match("image.*")) {
+        this.filename = "not a picture";
+        return;
+      }
+      console.log(file.name);
+      
+        this.filename = file.name;
+
+      this.imageFile = file;
+
+      // console.log(this.imageFile);
+
+      const reader = new FileReader();
+      const _this = this;
+      reader.onload = function(e) {
+        _this.course.image = e.target.result;
+        //  this.imageFile = e.target.files[0];
+      };
+      reader.readAsDataURL(file);
     }
   },
   mounted() {
-    var explode = function() {
-      $(".dropify").dropify();
-    };
-    setTimeout(explode, 2000);
+    // var explode = function() {
+    //   $(".dropify").dropify();
+    // };
+    // setTimeout(explode, 2000);
+  },
+  computed: {
+    onStatusChange() {
+      if (this.course.status == "password_protected") {
+        this.isPasswordProtected = true;
+      } else {
+        this.isPasswordProtected = false;
+      }
+    }
   }
 };
 </script>

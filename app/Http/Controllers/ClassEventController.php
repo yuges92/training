@@ -32,12 +32,13 @@ class ClassEventController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
-  public function create()
+  public function create(Request $request)
   {
+    $course_id=$request->course_id ? $request->course_id : null;
     $addresses=ClassAddress::all();
     $courses= Course::all();
     // return view('admin.course.courses')->with('courses',$courses);
-    return view('admin.classEvent.create', compact('courses', 'addresses'));
+    return view('admin.classEvent.create', compact('courses', 'addresses', 'course_id'));
   }
 
   /**

@@ -7,86 +7,38 @@
       <p>{{$course->description}}</p>
     </div>
   </div>
+  @if ($course->courseBodies)
+  <div class="  container ">
 
-  <div class="container">
-    <h2>Pre-requisites </h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-      Perspiciatis optio vero velit aliquid accusantium adipisci sit animi fugiat, 
-      ipsa maxime temporibus? Dolores esse doloribus laboriosam dolore inventore fugit sit porro!
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-      Corporis nisi eveniet aut maiores harum doloremque delectus, cupiditate unde pariatur tenetur, 
-      a mollitia, hic sed voluptates consequatur ab magni similique! Ullam.
-      <ul>
-        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-      </ul>
-    </p>
-  </div>
-  <div class="container">
-    <h2>learning outcome </h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-        Perspiciatis optio vero velit aliquid accusantium adipisci sit animi fugiat, 
-        ipsa maxime temporibus? Dolores esse doloribus laboriosam dolore inventore fugit sit porro!
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-        Corporis nisi eveniet aut maiores harum doloremque delectus, cupiditate unde pariatur tenetur, 
-        a mollitia, hic sed voluptates consequatur ab magni similique! Ullam.
-        <ul>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-        </ul>
-      </p>
-  </div>
+    @foreach ($course->courseBodies as $body) @if ($body)
 
-  <div class="container">
-    <h2>who the course is aimed at </h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-        Perspiciatis optio vero velit aliquid accusantium adipisci sit animi fugiat, 
-        ipsa maxime temporibus? Dolores esse doloribus laboriosam dolore inventore fugit sit porro!
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-        Corporis nisi eveniet aut maiores harum doloremque delectus, cupiditate unde pariatur tenetur, 
-        a mollitia, hic sed voluptates consequatur ab magni similique! Ullam.
-        <ul>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-        </ul>
-      </p>
-  </div>
+    <div class="container my-2">
+      <div class="card ">
 
-  <div class="container">
-    <h2>assignment requirements </h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-        Perspiciatis optio vero velit aliquid accusantium adipisci sit animi fugiat, 
-        ipsa maxime temporibus? Dolores esse doloribus laboriosam dolore inventore fugit sit porro!
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-        Corporis nisi eveniet aut maiores harum doloremque delectus, cupiditate unde pariatur tenetur, 
-        a mollitia, hic sed voluptates consequatur ab magni similique! Ullam.
-        <ul>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia dolor repellat in perferendis eaque maxime nihil quidem ullam atque neque. </li>
-        </ul>
-      </p>
-  </div>
+        <div class="card-body">
 
-  <div class="container">
-      <h2>the length of the course </h2>
+          <h2>{{$body->title}} </h2>
+          <p>{!!$body->content!!}</p>
+        </div>
+      </div>
     </div>
-  
-    <div class="container">
-        
-      <a href="" class="display-4"><i class="far fa-file-pdf" style="font-size:5rem;"></i>Download  </a>
-    </div>
+    @endif @endforeach
+  </div>
+  @endif
+
+
+
+
+
+
+  <div class="container">
+    <h2>the length of the course </h2>
+  </div>
+
+  <div class="container">
+
+    <a href="" class="display-4"><i class="far fa-file-pdf" style="font-size:5rem;"></i>Download  </a>
+  </div>
   <div class="container-fluid ">
 
     <div class="upcoming-courses mx-auto">
@@ -124,7 +76,7 @@
       </div>
     </div>
 
-    
+
   </div>
 </div>
 @endsection

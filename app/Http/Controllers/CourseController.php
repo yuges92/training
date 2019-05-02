@@ -52,6 +52,7 @@ class CourseController extends Controller
       'status' => 'required',
       'image' => 'required|image',
       'position' => 'required_if:enable_megamenu,1',
+      'password' => 'required_if:status,password_protected',
 
     ]);
 
@@ -128,6 +129,7 @@ class CourseController extends Controller
       'body' => 'required',
       'status' => 'required',
       'position' => 'required_if:enable_megamenu,1',
+      'password' => 'status:enable_megamenu,password_protected',
 
     ]);
 
@@ -167,6 +169,7 @@ class CourseController extends Controller
     $course->delete();
     return redirect()->route('adminCourses')->with('success', 'Course Deleted');
   }
+
 
 
   public function getClasses(Course $course)

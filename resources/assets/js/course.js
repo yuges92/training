@@ -3,7 +3,6 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 require('./bootstrap');
 window.Vue = require('vue');
 
@@ -14,12 +13,17 @@ window.Vue = require('vue');
  */
 
 Vue.component('course-component', require('./components/course/CourseComponent.vue').default);
-import VueToast from 'vue-toast-notification';
-import 'vue-toast-notification/dist/index.css';
-Vue.use(VueToast,{
-  position:'top-right'
+import CKEditor from '@ckeditor/ckeditor5-vue';
+import axios from "axios";
+import Toasted from 'vue-toasted';
+import VueSweetalert2 from 'vue-sweetalert2';
+ 
+Vue.use(VueSweetalert2);
+Vue.use(Toasted);
+Vue.use( CKEditor );
 
-});
+
+
 
 const app = new Vue({
     el: '#app',

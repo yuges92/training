@@ -10,6 +10,7 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@babel/preset-env": "^7.4.4",
         "@fortawesome/fontawesome-free": "^5.7.2",
         "axios": "^0.18",
         "bootstrap": "^4.3.1",
@@ -25,7 +26,9 @@
         "vue-template-compiler": "^2.6.7"
     },
     "dependencies": {
+        "@babel/polyfill": "^7.4.4",
         "@ckeditor/ckeditor5-build-classic": "^12.1.0",
+        "@ckeditor/ckeditor5-vue": "^1.0.0-beta.2",
         "ckeditor": "^4.11.2",
         "codemirror": "^5.45.0",
         "datatables.net": "^1.10.19",
@@ -36,7 +39,9 @@
         "jquery-filepond": "^1.0.0",
         "select2": "^4.0.6-rc.1",
         "vue-dropify": "^0.3.0",
+        "vue-sweetalert2": "^1.6.4",
         "vue-toast-notification": "0.0.2",
+        "vue-toasted": "^1.1.26",
         "vue2-dropzone": "^3.5.9",
         "vuejs-datatable": "^1.7.0"
     }

@@ -19,7 +19,7 @@ class CreateCoursesTable extends Migration
             $table->unsignedBigInteger('course_type_id');
             $table->string('title')->unique();
             $table->string('slug')->unique();
-            $table->enum('status', ['publish', 'draft', 'private']);
+            $table->enum('status', ['publish', 'draft', 'private','password_protected']);
             $table->boolean('enable_megamenu')->default(1);
             $table->integer('position')->nullable();
             // $table->enum('type',['course','conference','refresher']);

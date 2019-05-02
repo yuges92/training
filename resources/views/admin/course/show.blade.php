@@ -2,7 +2,7 @@
 @section('title', $course->title) 
 @section('content') 
 <div id="app">
-    <course-component></course-component>
+    <course-component :course_id={{ $course->id}}></course-component>
 </div>
 @endsection
 

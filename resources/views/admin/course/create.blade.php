@@ -96,6 +96,7 @@
                                     <option {{ (old('status')=='publish') ? 'selected' : '' }} value="publish">Publish</option>
                                     <option {{ (old('status')=='draft') ? 'selected' : '' }} value="draft">Draft</option>
                                     <option {{ (old('status')=='private') ? 'selected' : '' }} value="private">private</option>
+                                    <option {{ (old('status')=='password_protected') ? 'selected' : '' }} value="password_protected">Password Protected</option>
                                 </select>
                             </div>
                         </div>
@@ -107,7 +108,7 @@
                                 </div>
                               </div>
 
-                              <div class="form-group" id="passwordDiv" >
+                              <div class="form-group" >
                                     <label for="position" class="col-sm-2 col-form-label">Position:</label>
                                     <div class="col">
                                         <div class="">
@@ -118,7 +119,7 @@
 
                               
 
-                        <div class="form-group" id="passwordDiv" style="display:none">
+                        <div class="form-group" id="passwordDiv" style="{{ (old('status')=='password_protected') ? '' : 'display:none' }}">
                             <label for="password" class="col-sm-2 col-form-label">Password:</label>
                             <div class="col">
                                 <div class="">
@@ -168,7 +169,7 @@ $('#addBodyContent').on('click', function(){
 });
 
 $('#status').change(function () { 
-   if($(this).val()=='private'){
+   if($(this).val()=='password_protected'){
 $('#passwordDiv').show();
    }else{
 $('#passwordDiv').hide();

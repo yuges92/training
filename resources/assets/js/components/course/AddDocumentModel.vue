@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div
+  <div>
+    <div
       class="modal fade"
       tabindex="-1"
       role="dialog"
@@ -10,7 +10,7 @@
       id="model_add_document"
     >
       <div class="modal-dialog modal-lg">
-        <form @submit.prevent enctype="multipart/form-data">
+        <form @submit.prevent="submitForm()" enctype="multipart/form-data">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title" id="myLargeModalLabel">Add New Document</h4>
@@ -18,13 +18,13 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="title" class="col col-form-label">Title:</label>
+                <label for="title" class="col col-form-label">Description:</label>
                 <div class="col-sm-12">
                   <input
                     name="title"
                     type="text"
                     class="form-control"
-                    id="title"
+                    id="description"
                     placeholder="Title"
                   >
                 </div>
@@ -33,46 +33,78 @@
               <div class="form-group">
                 <label
                   for="description"
-                  class="col-form-label"
+                  class="col col-form-label"
                   data-toggle="tooltip"
                   data-placement="top"
                   title="Add course type description eg: "
-                >Body:</label>
+                >Document:</label>
                 <div class="col-sm-12">
-
+                  <!-- <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone> -->
+                  <!-- <input type="file"> -->
+                  <div class="custom-file">
+                    <input
+                      type="file"
+                      class="custom-file-input"
+                      id="customFile"
+                      @change="fileChange"
+                    >
+                    <label class="custom-file-label" for="customFile">{{filename}}</label>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <div class="form-group d-flex justify-content-between mt-3 p-3">
-                <button
-                  type="button"
-                  class="btn btn-danger waves-effect text-left"
-                  data-dismiss="modal"
-                >Close</button>
-                <button class="btn btn-success rounded px-5" type="submit">
-                  <i class="far fa-save"></i> Save
-                </button>
+              <div class="form-group d-flex justify-content-end mt-3">
+                <SubmitButton :showBtn="showBtn"></SubmitButton>
+ 
               </div>
             </div>
+
+
           </div>
           <!-- /.modal-content -->
         </form>
       </div>
       <!-- /.modal-dialog -->
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
-export default {
-    name:'AddDocumentModel',
-    props:[],
-    data() {
-        return {
-            
-        }
-    },
+import vue2Dropzone from "vue2-dropzone";
+import "vue2-dropzone/dist/vue2Dropzone.min.css";
+import SubmitButton from "../SubmitButton";
 
-}
+export default {
+  name: "AddDocumentModel",
+  props: [],
+  data() {
+    return {
+      dropzoneOptions: {
+        url: "/",
+        thumbnailWidth: 300,
+        maxFilesize: 2,
+        maxFiles: 1,
+        header: "",
+        addRemoveLinks: true
+      },
+      filename: "Choose a file",
+      showBtn: true,
+
+    };
+  },
+  components: {
+    vueDropzone: vue2Dropzone,
+SubmitButton
+  },
+  methods: {
+    submitForm() {
+      this.showBtn=false;
+    },
+    fileChange(event) {
+      var fileData = event.target.files[0];
+      this.filename = fileData.name;
+    }
+  }
+};
 </script>

@@ -23,37 +23,36 @@
             <a href="#content" data-toggle="tab" class aria-expanded="false">Course Content</a>
           </li>
           <li>
-            <a href="#assignments" data-toggle="tab" class aria-expanded="false">Assignments</a>
+            <a href="#documents" data-toggle="tab" class aria-expanded="false">Documents</a>
           </li>
           <li>
             <a href="#classes" data-toggle="tab" class aria-expanded="false">Classes</a>
           </li>
           <li>
-            <a href="#documents" data-toggle="tab" class aria-expanded="false">Documents</a>
+            <a href="#assignments" data-toggle="tab" class aria-expanded="false">Assignments</a>
           </li>
         </ul>
 
         <div class="tab-content">
           <div class="tab-pane active" id="detail" aria-expanded="false">
-            <CourseDetail :course="course" :courseTypes="courseTypes"></CourseDetail>
+            <CourseDetail @updatedata="updatedataArray" :course="course" :courseTypes="courseTypes"></CourseDetail>
           </div>
 
           <div class="tab-pane" id="content" aria-expanded="false">
-            <CourseBodies :course="course" :courseTypes="courseTypes"></CourseBodies>
+            <CourseBodies :course="course" @refresh="refresh"></CourseBodies>
           </div>
 
-                    <div class="tab-pane" id="assignments" aria-expanded="false">
-            
-          </div>
 
           <div class="tab-pane" id="classes" aria-expanded="false">
             <Classes :course="course"></Classes>
           </div>
 
-          
-
           <div class="tab-pane" id="documents" aria-expanded="false">
             <CourseDocuments></CourseDocuments>
+          </div>
+
+          <div class="tab-pane" id="assignments" aria-expanded="false">
+
           </div>
         </div>
       </div>
@@ -76,16 +75,17 @@ export default {
     Classes,
     CourseDocuments
   },
+  props:['course_id'],
   data() {
     return {
       courseTypes: [],
       courses: [],
       course: "",
-      loader:true
+      loader: true
     };
   },
   mounted() {
-    console.log("Component mounted.");
+    // console.log("Component mounted.");
   },
   created() {
     this.getCourse();
@@ -94,29 +94,23 @@ export default {
   },
   methods: {
     getCourse() {
-      fetch("/api/courses/1")
-        .then(res => res.json())
-        .then(res => {
-          this.course = res;
-        });
+      axios.get("/api/courses/"+this.course_id).then(response => {
+        this.course=response.data;
+        // console.log(response.data);
+      });
     },
     getCourses() {
-      fetch("/api/courses")
-        .then(res => res.json())
-        .then(res => {
-          console.log(res);
+      axios.get("/api/courses").then(response => {
+        this.courses=response.data;
+      });
 
-          this.courses = res;
-        });
     },
     getCourseTypes() {
-      fetch("/api/courseTypes")
-        .then(res => res.json())
-        .then(res => {
-          console.log(res);
+            axios.get("/api/courseTypes").then(response => {
+        this.courseTypes=response.data;
+        // console.log(response.data);
+      });
 
-          this.courseTypes = res;
-        });
     },
     refresh() {
       this.getCourse();
@@ -125,10 +119,13 @@ export default {
     },
     showtab() {
       this.refresh();
+    },
+    updatedataArray(val) {
+      this.course.description = "sssssss sdfsdf sdf sdf d";
     }
   },
   mounted() {
-      this.loader=false;
-  },
+    this.loader = false;
+  }
 };
 </script>
