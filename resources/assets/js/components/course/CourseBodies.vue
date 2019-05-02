@@ -143,6 +143,19 @@
               </div>
             </div>
 
+                        <div class="form-group">
+              <label for="title" class="col col-form-label">Order:</label>
+              <div class="col-sm-12">
+                <input
+                  name="order"
+                  type="number"
+                  class="form-control"
+                  id="title"
+                  v-model="currentBody.order"
+                >
+              </div>
+            </div>
+
             <div class="form-group">
               <label
                 for="description"
@@ -211,7 +224,8 @@ export default {
       axios
         .post(url, {
           title: this.courseBody.title,
-          content: this.courseBody.content
+          content: this.courseBody.content,
+          order: this.courseBody.order
         })
         .then(function(response) {
           Vue.toasted.show(
@@ -249,7 +263,9 @@ export default {
       axios
         .patch(url, {
           title: this.currentBody.title,
-          content: this.currentBody.content
+          content: this.currentBody.content,
+          order: this.currentBody.order
+
         })
         .then(function(response) {
           Vue.toasted.show(

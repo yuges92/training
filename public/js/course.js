@@ -2251,6 +2251,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2284,7 +2297,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post(url, {
         title: this.courseBody.title,
-        content: this.courseBody.content
+        content: this.courseBody.content,
+        order: this.courseBody.order
       }).then(function (response) {
         Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course body added', {
           type: "success",
@@ -2319,7 +2333,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.patch(url, {
         title: this.currentBody.title,
-        content: this.currentBody.content
+        content: this.currentBody.content,
+        order: this.currentBody.order
       }).then(function (response) {
         Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course body updated', {
           type: "success",
@@ -39416,6 +39431,45 @@ var render = function() {
                               _vm.$set(
                                 _vm.currentBody,
                                 "title",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col col-form-label",
+                          attrs: { for: "title" }
+                        },
+                        [_vm._v("Order:")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-12" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.currentBody.order,
+                              expression: "currentBody.order"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "order", type: "number", id: "title" },
+                          domProps: { value: _vm.currentBody.order },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.currentBody,
+                                "order",
                                 $event.target.value
                               )
                             }

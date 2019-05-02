@@ -85,6 +85,7 @@ class CourseController extends Controller
             // 'body' => 'required',
             'status' => 'required',
             'position' => 'required_if:enable_megamenu,1',
+            'password' => 'required_if:status,password_protected',
       
           ]);
       
@@ -97,6 +98,7 @@ class CourseController extends Controller
           $course->body = $request->input('body');
           $course->status = $request->input('status');
           $course->position = $request->input('position');
+          $course->password = $request->password ? $request->password :'';
           $course->updatedBy = $request->user()->id;
       
       

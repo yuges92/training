@@ -27,10 +27,12 @@ class CourseBodyController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
+            'order'    => 'required'
         ]);
 
         $courseBody->title = $request->title;
         $courseBody->content = $request->content;
+        $courseBody->order = $request->order;
         $courseBody->updatedBy = $request->user()->id;
         $courseBody->update();
 
