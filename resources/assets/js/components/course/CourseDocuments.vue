@@ -8,7 +8,7 @@
     >
       <i class="fas fa-plus"></i> Add Document
     </button>
-    <AddDocumentModel></AddDocumentModel>
+    <AddDocumentModel :course="course"></AddDocumentModel>
 
     <div class="box">
       <div class="box-body">
@@ -32,7 +32,6 @@
               </td>
               <td>
                 <div>
-                  <button class="btn btn-info">Edit</button>
                   <button class="btn btn-danger">Remove</button>
                 </div>
               </td>
@@ -50,9 +49,19 @@ import AddDocumentModel from "./AddDocumentModel";
 
 export default {
   name: "CourseDocuments",
-  props: [],
+  props: ['course'],
   components: {
     AddDocumentModel
-  }
+  },
+  methods: {
+    saveDocument(){
+      console.log(this.course);
+      
+    }
+  },
+  mounted() {
+      console.log(this.course);
+    
+  },
 };
 </script>

@@ -2838,8 +2838,13 @@ __webpack_require__.r(__webpack_exports__);
         if (error.response.status == 422) {
           _this.errors = error.response.data.errors;
           _this.showError = true;
-        } // console.log(error);
+        }
 
+        Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Update Failed', {
+          type: "error",
+          duration: 4000,
+          className: "py-3"
+        }); // console.log(error);
       }).then(function () {
         _this.showBtn = true;
       });
@@ -2951,13 +2956,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CourseDocuments",
-  props: [],
+  props: ['course'],
   components: {
     AddDocumentModel: _AddDocumentModel__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    saveDocument: function saveDocument() {
+      console.log(this.course);
+    }
+  },
+  mounted: function mounted() {
+    console.log(this.course);
   }
 });
 
@@ -39687,7 +39699,7 @@ var render = function() {
                   staticClass: "tab-pane",
                   attrs: { id: "documents", "aria-expanded": "false" }
                 },
-                [_c("CourseDocuments")],
+                [_c("CourseDocuments", { attrs: { course: _vm.course } })],
                 1
               ),
               _vm._v(" "),
@@ -40450,7 +40462,13 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "container-fluid" },
-    [_vm._m(0), _vm._v(" "), _c("AddDocumentModel"), _vm._v(" "), _vm._m(1)],
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("AddDocumentModel", { attrs: { course: _vm.course } }),
+      _vm._v(" "),
+      _vm._m(1)
+    ],
     1
   )
 }
@@ -40517,10 +40535,6 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("td", [
                 _c("div", [
-                  _c("button", { staticClass: "btn btn-info" }, [
-                    _vm._v("Edit")
-                  ]),
-                  _vm._v(" "),
                   _c("button", { staticClass: "btn btn-danger" }, [
                     _vm._v("Remove")
                   ])

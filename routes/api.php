@@ -31,6 +31,7 @@ Route::group([ 'namespace'=>'Api', 'middleware'=>['auth:api']], function(){
   Route::delete('/courseBodies/{courseBody}', 'CourseBodyController@destroy');
   Route::patch('/courseBodies/{courseBody}', 'CourseBodyController@update');
   Route::resource('/courseTypes', 'CourseTypeController');
+  // Route::resource('/courseTypes', 'CourseTypeController');
 
 });
 

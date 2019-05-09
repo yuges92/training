@@ -11,12 +11,13 @@ class CourseControllerTest extends TestCase
     /**
      * A basic feature test example.
      *
-     * @return void
+     * @test
      */
-    public function testExample()
-    {
-        $response = $this->get('/');
 
-        $response->assertStatus(200);
+    public function can_add_document_to_a_course()
+    {
+        $this->assertTrue(true);
     }
+
+
 }

@@ -268,6 +268,14 @@ export default {
             _this.errors = error.response.data.errors;
             _this.showError = true;
           }
+                    Vue.toasted.show(
+            '<i class="fas fa-exclamation-circle"></i> Update Failed',
+            {
+              type: "error",
+              duration: 4000,
+              className: "py-3"
+            }
+          );
           // console.log(error);
         })
         .then(function() {

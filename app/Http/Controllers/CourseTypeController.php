@@ -42,7 +42,7 @@ class CourseTypeController extends Controller
             'title' => 'required|unique:course_types',
             'body' => 'required',
             'status' => 'required',
-            'position' => 'required',
+            'position' => 'required_if:enable_megamenu,1',
             'image' => 'nullable|image',
             // 'type' => 'required',
         ]);

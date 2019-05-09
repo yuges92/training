@@ -48,7 +48,7 @@
           </div>
 
           <div class="tab-pane" id="documents" aria-expanded="false">
-            <CourseDocuments></CourseDocuments>
+            <CourseDocuments :course="course"></CourseDocuments>
           </div>
 
           <div class="tab-pane" id="assignments" aria-expanded="false">
