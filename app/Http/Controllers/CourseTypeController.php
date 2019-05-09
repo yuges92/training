@@ -43,7 +43,7 @@ class CourseTypeController extends Controller
             'body' => 'required',
             'status' => 'required',
             'position' => 'required_if:enable_megamenu,1',
-            'image' => 'nullable|image',
+            'image' => 'required|image',
             // 'type' => 'required',
         ]);
         $courseType = new CourseType();
@@ -106,7 +106,7 @@ class CourseTypeController extends Controller
             // 'slug' => 'required|unique:course_types,slug,' . $courseType->id,
             'body' => 'required',
             'status' => 'required',
-            'position' => 'required',
+            'position' => 'required_if:enable_megamenu,1',
             'body' => 'required',
             'image' => 'nullable|image',
         ]);

@@ -48,7 +48,7 @@ class CourseController extends Controller
       'course_code' => 'required|unique:courses',
       'description' => 'required',
       'course_type_id' => 'required',
-      'body' => 'required',
+      // 'body' => 'required',
       'status' => 'required',
       'image' => 'required|image',
       'position' => 'required_if:enable_megamenu,1',
@@ -62,10 +62,10 @@ class CourseController extends Controller
     $course->course_code = $request->input('course_code');
     $course->description = $request->input('description');
     $course->course_type_id = $request->input('course_type_id');
-    $course->body = $request->input('body');
+    // $course->body = $request->input('body');
     $course->status = $request->input('status');
-    // $course->type = $request->input('type');
     $course->enable_megamenu = ($request->enable_megamenu) ? 1 : 0;
+    $course->position = ($position=$request->input('position'))? $position: null;
     $course->createdBy = $request->user()->id;
     $course->save();
 

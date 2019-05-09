@@ -2,51 +2,18 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\User;
-use Faker\Factory;
 use App\CourseType;
 use Tests\TestCase;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class CourseTypeControllerTest extends TestCase
 {
 
-    /**
-     * A basic feature test example.
-     *
-     * @
-     */
-    public function canCreateCourseType()
-    {
-        $faker = $this->faker;
-        $user = User::where('email', 'admin@training.dlf.org.uk')->first();
-        // print_r($user);
-        $this->actingAs($user);
-        $response = $this->post(route('courseTypes.store'), [
-            'title' => $title = $faker->sentence(3),
-            'body' => $body = $faker->paragraph(100),
-            'description' => $description = $faker->paragraph,
-            'enable_megamenu' => 1,
-            'status' => 'publish',
-            'position' => $position = 2,
+    use WithoutMiddleware;
 
-        ]);
-        // $response->assertStatus(201);
-        // dd('/admin/courseTypes');
-        // $this->get('/admin/courseTypes')->assertSee($title);
 
-        // $this->assertDatabaseHas('course_types', [
-        //     'title' => $title,
-        //     'body' => $body,
-        //     'description' => $description,
-        //     'enable_megamenu' => 1,
-        //     'status' => 'publish',
-        //     'position' => $position,
-        // ]);
-        $this->assertTrue(true);
-    }
     /**
      * 
      *
@@ -54,26 +21,83 @@ class CourseTypeControllerTest extends TestCase
      */
     public function can_view_courses()
     {
-        $user = User::where('email', 'sivayuges@gmail.com')->first();
-        $this->actingAs($user);
+        $this->actingAs($this->user);
         $response = $this->get(route('courseTypes.index'));
-        $response->assertStatus(200)->dump()->assertSee('Course Types');
-        //   $response->assertViewIs('admin.courseType.index');
-
+        $response->assertStatus(200)->assertSee('Course Types');
+        $response->assertViewIs('admin.courseType.index');
     }
 
-    // public function can_update_course_type()
-    // {
-    //  $this->assertTrue(true);  
-    // }
-
-    // public function can_delete_a_course_type()
-    // {
-    //  $this->assertTrue(true);  
-
-    // }
 
 
+    /**
+     * 
+     *
+     * @test
+     */
+    public function can_create_a_course_Type()
+    {
+        Storage::fake('public');
+        $this->actingAs($this->user);
+        $data = [
+            'title' =>  $this->faker->sentence(3),
+            'body' => $this->faker->paragraph(100),
+            'description' => $this->faker->paragraph,
+            'enable_megamenu' => 1,
+            'status' => 'publish',
+            'position' => 2,
+            'image' => $file = UploadedFile::fake()->image('image.jpg', 1, 1)
+
+        ];
+        $response = $this->post(route('courseTypes.store'), $data);
+        $response->assertSessionHas('success')
+        ->assertStatus(302);
+        $data = array_except($data, 'image');
+        $this->get('/admin/courseTypes')->assertSee($data['title']);
+        $this->assertDatabaseHas('course_types', $data);
+    }
+
+    /**
+     * 
+     *
+     * @test
+     */
+    public function can_update_a_course_type()
+    {
+        $courseType = CourseType::find(1);
+        $this->actingAs($this->user);
+        $data = [
+            'title' =>  $this->faker->sentence(3),
+            'body' => $this->faker->paragraph(100),
+            'description' => $this->faker->paragraph,
+            'enable_megamenu' => 1,
+            'status' => 'publish',
+            'position' => 2,
+            'image' => $file = UploadedFile::fake()->image('differentImage.jpg', 1, 1)
+        ];
+        $response = $this->put(route('courseTypes.update', $courseType->id), $data);
+        $response->assertSessionHas('success')
+        ->assertStatus(302);
+        $courseTypeUpdated = CourseType::find(1);
+        $data['image'] = $courseType->id . '.jpg';
+
+        $this->assertDatabaseHas('course_types', $data);
+        $this->assertEquals($data['title'], $courseTypeUpdated->title);
+        $this->assertEquals($data['body'], $courseTypeUpdated->body);
+        $this->assertEquals($data['description'], $courseTypeUpdated->description);
+    }
 
 
+    /**
+     * 
+     *
+     * @test
+     */
+    public function can_delete_a_course_type()
+    {
+        $courseType = CourseType::find(1);
+        $response = $this->delete(route('courseTypes.destroy', $courseType->id));
+        $response->assertSessionHas('success')
+        ->assertStatus(302);
+        $this->assertDatabaseMissing('course_types', ['id' => $courseType->id]);
+    }
 }

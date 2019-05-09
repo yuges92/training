@@ -35,12 +35,12 @@ class UsersTableSeeder extends Seeder
     $admin->save();
     $admin->roles()->attach($role_SA);
 
-    // factory(App\User::class, 5)->create();
-    factory(App\User::class, 5)->create()->each(function ($u) {
-      $role_learner = Role::where('name', 'Learner')->first();
-      $u->roles()->attach($role_learner);
+  //   // factory(App\User::class, 5)->create();
+  //   factory(App\User::class, 5)->create()->each(function ($u) {
+  //     $role_learner = Role::where('name', 'Learner')->first();
+  //     $u->roles()->attach($role_learner);
 
-   });
+  //  });
 
    
   }
