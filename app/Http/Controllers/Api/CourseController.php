@@ -6,6 +6,7 @@ use App\Course;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CourseResource;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -75,18 +76,15 @@ class CourseController extends Controller
     {
         $course = Course::find($id);
         // return response()->json($request, 200);
-
-       $validatedData= $this->validate($request,[
-            'title' => 'required|unique:course_types,title,' . $course->id,
-            // 'slug' => 'required|unique:course_types,slug,' . $course->id,
-            'course_code' => 'required|unique:courses,course_code,' . $course->id,
-            'course_type_id' => 'required',
-            'description' => 'required',
-            // 'body' => 'required',
-            'status' => 'required',
-            'position' => 'required_if:enable_megamenu,1',
-            'password' => 'required_if:status,password_protected',
-      
+        
+        $validatedData= $this->validate($request,[
+          'title' => 'required|unique:course_types,title,' . $course->id,
+          'course_code' => 'required|unique:courses,course_code,' . $course->id,
+          'course_type_id' => 'required',
+          'description' => 'required',
+          'status' => 'required',
+          'position' => 'required_if:enable_megamenu,1',
+          'password' => 'required_if:status,password_protected',
           ]);
       
           $course->title = $request->input('title');
@@ -109,7 +107,7 @@ class CourseController extends Controller
           }
           $course->update();
 
-        return response()->json($request, 200);
+        return response()->json($course);
     }
 
     public function addBody(Request $request, $course_id)
@@ -117,7 +115,6 @@ class CourseController extends Controller
      $request->validate([
         'title' => 'required',
         'content' => 'required',
-        'createdBy' => '1'
       ]);
 
 
@@ -140,8 +137,11 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($course_id)
     {
-        //
+      $course = Course::find($course_id);
+      Storage::delete($course->getImage());
+      $course->delete();
+      return response()->json($course, 204);
     }
 }

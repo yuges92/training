@@ -50,12 +50,12 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="textareaEditor" class="col-sm-2 col-form-label">Body:</label>
                             <div class="col-sm-10">
                                 <textarea id="ckEditor" class="form-control summernote" name="body" rows="8" cols="80">{{ old('body') }}</textarea>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                         {{--

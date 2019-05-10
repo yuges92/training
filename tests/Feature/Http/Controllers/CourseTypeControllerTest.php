@@ -36,7 +36,6 @@ class CourseTypeControllerTest extends TestCase
      */
     public function can_create_a_course_Type()
     {
-        Storage::fake('public');
         $this->actingAs($this->user);
         $data = [
             'title' =>  $this->faker->sentence(3),

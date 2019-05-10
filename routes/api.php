@@ -27,9 +27,9 @@ use App\User;
 Route::group([ 'namespace'=>'Api', 'middleware'=>['auth:api']], function(){
   Route::resource('/courses', 'CourseController');
   // Route::get('/courses/{course}', 'CourseController@show');
-  Route::post('/courses/{course}/courseBodies', 'CourseController@addBody');
-  Route::delete('/courseBodies/{courseBody}', 'CourseBodyController@destroy');
-  Route::patch('/courseBodies/{courseBody}', 'CourseBodyController@update');
+  Route::post('/courses/{course}/courseBodies', 'CourseController@addBody')->name('courses.addBody');
+  Route::delete('/courseBodies/{courseBody}', 'CourseBodyController@destroy')->name('courseBodies.destroy');
+  Route::patch('/courseBodies/{courseBody}', 'CourseBodyController@update')->name('courseBodies.update');
   Route::resource('/courseTypes', 'CourseTypeController');
   // Route::resource('/courseTypes', 'CourseTypeController');
 

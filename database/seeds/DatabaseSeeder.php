@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
           UsersTableSeeder::class,
           CourseTypeTableSeeder::class,
           // ClassAddressTableSeeder::class,
-          // CourseTableSeeder::class,
+          CourseTableSeeder::class,
           // ClassEventSeeder::class,
 
-
         ]);
+
     }
 }

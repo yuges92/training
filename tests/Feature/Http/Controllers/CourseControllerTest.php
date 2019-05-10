@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use App\Course;
 
 class CourseControllerTest extends TestCase
 {
 
     // use RefreshDatabase;
-    use WithoutMiddleware; // use this trait
+    use WithoutMiddleware; 
 
     /**
      * A basic feature test example.
@@ -22,10 +23,9 @@ class CourseControllerTest extends TestCase
      */
     public function can_create_course()
     {
-        Storage::fake('public');
         $this->actingAs($this->user);
         $data = [
-            'course_code' => 'TAL2',
+            'course_code' => $this->faker->ean8,
             'course_type_id' => 1,
             'title' =>  $this->faker->sentence(3),
             'description' => $this->faker->paragraph,
@@ -44,5 +44,4 @@ class CourseControllerTest extends TestCase
         $this->get('/admin/courses')->assertSee($data['title']);
     }
 
-    
 }

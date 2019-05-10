@@ -50,5 +50,8 @@ class CourseTableSeeder extends Seeder
     $course->description = 'description';
     $course->createdBy = 1;
     $course->save();
+
+    factory(App\Course::class)->create();
+
   }
 }
