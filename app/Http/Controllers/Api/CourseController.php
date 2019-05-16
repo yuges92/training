@@ -115,6 +115,8 @@ class CourseController extends Controller
      $request->validate([
         'title' => 'required',
         'content' => 'required',
+        'order'    => 'required'
+
       ]);
 
 
@@ -123,6 +125,7 @@ class CourseController extends Controller
       $course->courseBodies()->create([
         'title' => $request->title,
         'content' => $request->content,
+        'order' => $request->order,
         'createdBy' => $request->user()->id
       ]);
 

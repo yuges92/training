@@ -3,14 +3,15 @@
     <button
       alt="default"
       data-toggle="modal"
-      data-target="#model_add_document"
       class="btn btn-info mb-3"
+      @click="showAddDocumentForm()"
+      v-if="!showAddDocument"
     >
       <i class="fas fa-plus"></i> Add Document
     </button>
-    <AddDocumentModel :course="course"></AddDocumentModel>
+    <AddDocumentForm v-if="showAddDocument" :course="course"></AddDocumentForm>
 
-    <div class="box">
+    <div class="box" v-if="!showAddDocument">
       <div class="box-body">
         <table class="table table-hover table-sm-responsive">
           <thead>
@@ -45,23 +46,29 @@
 </template>
 
 <script>
-import AddDocumentModel from "./AddDocumentModel";
+import AddDocumentForm from "./AddDocumentForm";
 
 export default {
   name: "CourseDocuments",
-  props: ['course'],
+  props: ["course"],
+  data() {
+    return {
+      showAddDocument: false
+    };
+  },
   components: {
-    AddDocumentModel
+    AddDocumentForm
   },
   methods: {
-    saveDocument(){
+    showAddDocumentForm() {
+      this.showAddDocument = true;
+    },
+    saveDocument() {
       console.log(this.course);
-      
     }
   },
   mounted() {
-      console.log(this.course);
-    
-  },
+    console.log(this.course);
+  }
 };
 </script>

@@ -33,6 +33,26 @@
                 </div>
               </div>
 
+                <div class="form-group">
+                <label
+                  for="description"
+                  class="col col-form-label"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Order"
+                >Order:</label>
+                <div class="col-sm-12">
+                  <input
+                    name="title"
+                    type="number"
+                    class="form-control"
+                    id="title"
+                    v-model="courseBody.order"
+                    placeholder="Title"
+                  >
+                </div>
+              </div>
+
               <div class="form-group">
                 <label
                   for="description"
@@ -301,7 +321,6 @@ export default {
 
     cancel(body) {
       this.showEditModel = false;
-      console.log(body);
     },
     deleteContent(id) {
       let url = "/api/courseBodies/" + id;

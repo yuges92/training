@@ -31,6 +31,7 @@ Route::group([ 'namespace'=>'Api', 'middleware'=>['auth:api']], function(){
   Route::delete('/courseBodies/{courseBody}', 'CourseBodyController@destroy')->name('courseBodies.destroy');
   Route::patch('/courseBodies/{courseBody}', 'CourseBodyController@update')->name('courseBodies.update');
   Route::resource('/courseTypes', 'CourseTypeController');
+  Route::post('/courses/{course}/courseDocuments', 'CourseDocumentController@store')->name('courseDocuments.store');
   // Route::resource('/courseTypes', 'CourseTypeController');
 
 });

@@ -15,15 +15,18 @@ class CourseBodyController extends Controller
      * @param  \App\CourseBody  $courseBody
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CourseBody $courseBody)
+    public function destroy( $courseBody_id)
     {
+        $courseBody=CourseBody::find($courseBody_id);
         $courseBody->delete();
         return response()->json(200);
     }
 
 
-    public function update(Request $request, CourseBody $courseBody)
+    public function update(Request $request,$courseBody_id)
     {
+        $courseBody=CourseBody::find($courseBody_id);
+
         $request->validate([
             'title' => 'required',
             'content' => 'required',
