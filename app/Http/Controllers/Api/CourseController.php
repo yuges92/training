@@ -48,7 +48,7 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $course = new CourseResource(Course::with('classes', 'courseBodies')->find($id));
+        $course = new CourseResource(Course::with('classes', 'courseBodies', 'documents')->find($id));
         \Debugbar::error($course);
 
         return response()->json($course, 200);

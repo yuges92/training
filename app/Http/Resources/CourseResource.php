@@ -25,6 +25,7 @@ class CourseResource extends JsonResource
             "password"=>$this->password,
             "description"=>$this->description,
             "courseBodies"=>$this->courseBodies,
+            "documents"=>$this->documents,
             "image"=>$this->getImage(),
             "course_type_id"=>$this->course_type_id,
             "classes"=>$this->classes,

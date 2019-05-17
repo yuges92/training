@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Course;
 use App\CourseDocument;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class CourseDocumentController extends Controller
 {
@@ -21,24 +22,23 @@ class CourseDocumentController extends Controller
     {
         // die();
 
-        $this->validate($request,[
+        $this->validate($request, [
             'title' => 'required',
             'filename' => 'required|file',
         ]);
-        $course=Course::find($course_id);
+        $course = Course::find($course_id);
         if ($request->file('filename')) {
             $filename = $request->file('filename')->getClientOriginalName();
-            $storedName = uniqid().'.'.$request->file('filename')->getClientOriginalExtension();
+            $storedName = uniqid() . '.' . $request->file('filename')->getClientOriginalExtension();
             $request->file('filename')->storeAs(CourseDocument::getFolderName(), $storedName);
-            $document=CourseDocument::create([
-                'course_id'=>$course_id,
-                'title'=>$request->title,
-                'filename'=>$filename,
-                'storedName'=>$storedName,
+            $document = CourseDocument::create([
+                'course_id' => $course_id,
+                'title' => $request->title,
+                'filename' => $filename,
+                'storedName' => $storedName,
             ]);
             return response()->json($document, 201);
-          }
-
+        }
     }
 
     /**
@@ -81,8 +81,12 @@ class CourseDocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($course_id, $document_id)
     {
-        //
+        $document = CourseDocument::find($document_id);
+        Storage::delete(CourseDocument::getFolderName() . $document->storedName);
+        $document->delete();
+
+        return response()->json(204);
     }
 }

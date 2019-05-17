@@ -35,7 +35,7 @@
 
                 <div class="form-group">
                 <label
-                  for="description"
+                  for="Order"
                   class="col col-form-label"
                   data-toggle="tooltip"
                   data-placement="top"
@@ -43,12 +43,12 @@
                 >Order:</label>
                 <div class="col-sm-12">
                   <input
-                    name="title"
+                    name="order"
                     type="number"
                     class="form-control"
-                    id="title"
+                    id="order"
                     v-model="courseBody.order"
-                    placeholder="Title"
+                    placeholder="Order"
                   >
                 </div>
               </div>
@@ -164,14 +164,16 @@
             </div>
 
                         <div class="form-group">
-              <label for="title" class="col col-form-label">Order:</label>
+              <label for="order" class="col col-form-label">Order:</label>
               <div class="col-sm-12">
                 <input
                   name="order"
                   type="number"
                   class="form-control"
-                  id="title"
+                  id="order"
                   v-model="currentBody.order"
+                  placeholder="Order"
+
                 >
               </div>
             </div>

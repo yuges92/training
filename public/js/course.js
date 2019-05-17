@@ -1919,7 +1919,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1932,7 +1931,7 @@ __webpack_require__.r(__webpack_exports__);
       showBtn: true,
       errors: [],
       showError: false,
-      title: title
+      title: ''
     };
   },
   components: {
@@ -1949,7 +1948,7 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append("filename", this.file);
       formData.append("title", this.title);
-      console.log(this.file);
+      console.log(this.title);
       axios({
         method: "post",
         url: url,
@@ -1958,8 +1957,15 @@ __webpack_require__.r(__webpack_exports__);
           "Content-Type": "multipart/form-data"
         }
       }).then(function (response) {
-        console.log(response);
-        console.log("SUCCESS!!");
+        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course details updated', {
+          type: "success",
+          duration: 4000,
+          className: "py-3"
+        });
+
+        _this.$parent.$parent.refresh();
+
+        _this.cancel();
       })["catch"](function (error) {
         console.log(error);
         console.log(error.response.data);
@@ -1974,6 +1980,9 @@ __webpack_require__.r(__webpack_exports__);
       this.filename = fileData.name;
     },
     cancel: function cancel() {
+      this.file = {};
+      this.filename = '';
+      this.title = '';
       this.$parent.showAddDocument = false;
     }
   }
@@ -2077,6 +2086,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Error__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Error */ "./resources/assets/js/components/Error.vue");
+//
+//
 //
 //
 //
@@ -2456,7 +2467,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CourseDocuments__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CourseDocuments */ "./resources/assets/js/components/course/CourseDocuments.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -2979,13 +2989,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CourseDocuments",
   props: ["course"],
   data: function data() {
     return {
-      showAddDocument: false
+      showAddDocument: false,
+      course: {
+        documents: true
+      },
+      activeButtons: []
     };
   },
   components: {
@@ -2995,11 +3015,48 @@ __webpack_require__.r(__webpack_exports__);
     showAddDocumentForm: function showAddDocumentForm() {
       this.showAddDocument = true;
     },
-    saveDocument: function saveDocument() {
-      console.log(this.course);
+    deleteDocument: function deleteDocument(id) {
+      var _this2 = this;
+
+      var url = "/api/courses/" + this.course.id + "/courseDocuments/" + id;
+
+      var _this = this;
+
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          Vue.set(_this2.activeButtons, id, 1);
+          axios["delete"](url).then(function (response) {
+            Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course document deleted', {
+              type: "success",
+              duration: 4000,
+              className: "py-3"
+            });
+
+            _this.$parent.refresh();
+          })["catch"](function (error) {
+            console.log(error.response.data);
+            Vue.toasted.show('<i class="fas fa-times"></i> Failed to delete', {
+              type: "error",
+              duration: 4000,
+              className: "py-3"
+            });
+            Vue.set(_this.activeButtons, id, 0);
+          }).then(function () {});
+          console.log(id);
+        }
+      });
     }
   },
   mounted: function mounted() {
+    console.log("mounted");
     console.log(this.course);
   }
 });
@@ -38843,18 +38900,33 @@ var render = function() {
                       staticClass: "col col-form-label",
                       attrs: { for: "title" }
                     },
-                    [_vm._v("Description:")]
+                    [_vm._v("Title:")]
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-12" }, [
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.title,
+                          expression: "title"
+                        }
+                      ],
                       staticClass: "form-control",
                       attrs: {
-                        name: "title",
                         type: "text",
                         id: "description",
-                        placeholder: "Title",
-                        "v-bind": _vm.title
+                        placeholder: "Title"
+                      },
+                      domProps: { value: _vm.title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.title = $event.target.value
+                        }
                       }
                     })
                   ])
@@ -39188,7 +39260,7 @@ var render = function() {
                             {
                               staticClass: "col col-form-label",
                               attrs: {
-                                for: "description",
+                                for: "Order",
                                 "data-toggle": "tooltip",
                                 "data-placement": "top",
                                 title: "Order"
@@ -39209,10 +39281,10 @@ var render = function() {
                               ],
                               staticClass: "form-control",
                               attrs: {
-                                name: "title",
+                                name: "order",
                                 type: "number",
-                                id: "title",
-                                placeholder: "Title"
+                                id: "order",
+                                placeholder: "Order"
                               },
                               domProps: { value: _vm.courseBody.order },
                               on: {
@@ -39500,7 +39572,7 @@ var render = function() {
                         "label",
                         {
                           staticClass: "col col-form-label",
-                          attrs: { for: "title" }
+                          attrs: { for: "order" }
                         },
                         [_vm._v("Order:")]
                       ),
@@ -39516,7 +39588,12 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { name: "order", type: "number", id: "title" },
+                          attrs: {
+                            name: "order",
+                            type: "number",
+                            id: "order",
+                            placeholder: "Order"
+                          },
                           domProps: { value: _vm.currentBody.order },
                           on: {
                             input: function($event) {
@@ -39666,35 +39743,7 @@ var render = function() {
       ? _c("div", [_vm._m(0)])
       : _c("div", { staticClass: "col-12" }, [
           _c("div", { staticClass: "nav-tabs-custom" }, [
-            _c("ul", { staticClass: "nav nav-tabs" }, [
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "active",
-                    attrs: {
-                      href: "#detail",
-                      "data-toggle": "tab",
-                      "aria-expanded": "true"
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm.showtab()
-                      }
-                    }
-                  },
-                  [_vm._v("Course Detail")]
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._m(2),
-              _vm._v(" "),
-              _vm._m(3),
-              _vm._v(" "),
-              _vm._m(4)
-            ]),
+            _vm._m(1),
             _vm._v(" "),
             _c("div", { staticClass: "tab-content" }, [
               _c(
@@ -39777,72 +39826,77 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        {
-          attrs: {
-            href: "#content",
-            "data-toggle": "tab",
-            "aria-expanded": "false"
-          }
-        },
-        [_vm._v("Course Content")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        {
-          attrs: {
-            href: "#documents",
-            "data-toggle": "tab",
-            "aria-expanded": "false"
-          }
-        },
-        [_vm._v("Documents")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        {
-          attrs: {
-            href: "#classes",
-            "data-toggle": "tab",
-            "aria-expanded": "false"
-          }
-        },
-        [_vm._v("Classes")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        {
-          attrs: {
-            href: "#assignments",
-            "data-toggle": "tab",
-            "aria-expanded": "false"
-          }
-        },
-        [_vm._v("Assignments")]
-      )
+    return _c("ul", { staticClass: "nav nav-tabs" }, [
+      _c("li", [
+        _c(
+          "a",
+          {
+            staticClass: "active",
+            attrs: {
+              href: "#detail",
+              "data-toggle": "tab",
+              "aria-expanded": "true"
+            }
+          },
+          [_vm._v("Course Detail")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "#content",
+              "data-toggle": "tab",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("Course Content")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "#documents",
+              "data-toggle": "tab",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("Documents")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "#classes",
+              "data-toggle": "tab",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("Classes")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "#assignments",
+              "data-toggle": "tab",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("Assignments")]
+        )
+      ])
     ])
   }
 ]
@@ -40531,7 +40585,71 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       !_vm.showAddDocument
-        ? _c("div", { staticClass: "box" }, [_vm._m(0)])
+        ? _c("div", { staticClass: "box" }, [
+            _c("div", { staticClass: "box-body" }, [
+              _c(
+                "table",
+                { staticClass: "table table-hover table-sm-responsive" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.course.documents, function(document) {
+                      return _c("tr", { key: document.id }, [
+                        _c("th", { attrs: { scope: "row" } }, [
+                          _vm._v(_vm._s(document.id))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(document.title))]),
+                        _vm._v(" "),
+                        _vm._m(1, true),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("div", [
+                            !_vm.activeButtons[document.id]
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteDocument(document.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Remove")]
+                                )
+                              : _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger",
+                                    attrs: { disabled: "" }
+                                  },
+                                  [
+                                    _c("span", {
+                                      staticClass:
+                                        "spinner-grow spinner-grow-sm",
+                                      attrs: {
+                                        role: "status",
+                                        "aria-hidden": "true"
+                                      }
+                                    }),
+                                    _vm._v(
+                                      "\n                  Deleting...\n                "
+                                    )
+                                  ]
+                                )
+                          ])
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
+            ])
+          ])
         : _vm._e()
     ],
     1
@@ -40542,54 +40660,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-body" }, [
-      _c("table", { staticClass: "table table-hover table-sm-responsive" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", [_vm._v("#")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Description")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Position")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Document")]),
-            _vm._v(" "),
-            _c("th")
-          ])
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td"),
-            _vm._v(" "),
-            _c("td", [_vm._v("Description")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Top")]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "a",
-                {
-                  attrs: {
-                    href: "",
-                    target: "_blank",
-                    rel: "noopener noreferrer"
-                  }
-                },
-                [_vm._v("Download")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c("div", [
-                _c("button", { staticClass: "btn btn-danger" }, [
-                  _vm._v("Remove")
-                ])
-              ])
-            ])
-          ])
-        ])
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Document")]),
+        _vm._v(" "),
+        _c("th")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        { attrs: { href: "", target: "_blank", rel: "noopener noreferrer" } },
+        [_vm._v("Download")]
+      )
     ])
   }
 ]

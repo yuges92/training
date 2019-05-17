@@ -12,15 +12,14 @@
           </div>
           <div class>
             <div class="form-group">
-              <label for="title" class="col col-form-label">Description:</label>
+              <label for="title" class="col col-form-label">Title:</label>
               <div class="col-sm-12">
                 <input
-                  name="title"
                   type="text"
                   class="form-control"
                   id="description"
                   placeholder="Title"
-                  :v-bind="title"
+                  v-model="title"
                 >
               </div>
             </div>
@@ -66,7 +65,7 @@ export default {
       showBtn: true,
       errors: [],
       showError: false,
-      title
+        title:'',
     };
   },
   components: {
@@ -83,7 +82,7 @@ export default {
       let formData = new FormData();
       formData.append("filename", this.file);
       formData.append("title", this.title);
-      console.log(this.file);
+      console.log(this.title);
       axios({
         method: "post",
         url,
@@ -93,9 +92,16 @@ export default {
         }
       })
         .then(function(response) {
-          console.log(response);
-          
-          console.log("SUCCESS!!");
+          Vue.toasted.show(
+            '<i class="fas fa-check-circle fa-3x"></i> Course details updated',
+            {
+              type: "success",
+              duration: 4000,
+              className: "py-3"
+            }
+          );
+          _this.$parent.$parent.refresh();
+          _this.cancel();
         })
         .catch(function(error) {
           console.log(error);
@@ -113,6 +119,9 @@ export default {
       this.filename = fileData.name;
     },
     cancel() {
+      this.file={};
+      this.filename='';
+      this.title='';
       this.$parent.showAddDocument = false;
     }
   }

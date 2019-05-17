@@ -12,7 +12,6 @@
         <ul class="nav nav-tabs">
           <li>
             <a
-              v-on:click="(showtab())"
               href="#detail"
               data-toggle="tab"
               class="active"

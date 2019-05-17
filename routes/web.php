@@ -1,4 +1,5 @@
 <?php
+use App\CourseDocument;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +13,7 @@
 */
 // set_time_limit(0);
 
-
+// factory(CourseDocument::class)->create();
 Route::get('/', function () {
   $title = 'Page Title';
   return view('welcome')->with('title', $title);
