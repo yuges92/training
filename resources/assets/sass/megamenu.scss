@@ -1,0 +1,220 @@
+.front-nav {
+  * {
+    list-style: none;
+    // padding: 0;
+    // margin: 0;
+  }
+  background: #36577a;
+  * {
+    color: #fff;
+  }
+  .humburger {
+    display: none;
+  }
+  .main-navbar {
+    display: flex;
+    width: 100%;
+    // justify-content: space-evenly;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+
+    .nav-item {
+      // padding: 0.5rem 1rem;
+      .nav-link {
+        border-bottom: 4px solid transparent;
+        display: flex;
+        align-items: center;
+        flex: 1;
+        span {
+          flex-grow: 1;
+        }
+        i {
+          display: inline-flex;
+          align-items: center;
+          margin: 0 4px;
+          flex: 0 0 auto;
+        }
+      }
+    }
+
+    .nav-item:hover {
+      background: #fff;
+      transition: 0.5s;
+      color: #36577a !important;
+      * {
+        color: #36577a !important;
+      }
+
+      .nav-link {
+        border-bottom: 4px solid #72bbf7;
+      }
+      
+    }
+
+    .nav-item .active{
+      background: #fff;
+      transition: 0.5s;
+      color: #36577a !important;
+      border-bottom: 4px solid #72bbf7;
+      * {
+        color: #36577a !important;
+      }
+    }
+
+    // .nav-link:hover {
+    //   // border-bottom: 4px solid #72bbf7;
+    //   // background: #fff;
+    //   // transition: 0.5s;
+    //   // color: #36577a !important;
+
+    //   * {
+    //     color: #36577a !important;
+    //   }
+    // }
+  }
+}
+.mega-menu {
+  display: none;
+  .active{
+    display: block;
+  }
+  position: relative;
+  z-index: 2;
+  .mega-menu-items {
+    position: absolute;
+    background: #fff;
+    width: 100%;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    flex-direction: column;
+    animation: fade 0.2s linear forwards;
+    .dropdown-mega-menu {
+      * {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      //   background: #72bbf7;
+      display: flex;
+
+      .nav-links {
+        display: flex;
+        padding-left: 1rem;
+        padding-top: 2rem;
+        a {
+          color: red;
+        }
+        a:hover {
+          color: #72bbf7;
+        }
+      }
+      .dropdown-tabs {
+        // background: #ffffff;
+        display: flex;
+        flex-direction: column;
+
+        li {
+          width: 100%;
+          // margin: auto;
+        }
+
+        // li a.active {
+        //   background: #a3d3ff;
+        // }
+        .dropdown-tab {
+          transition: 0.2s;
+
+          display: flex;
+          padding: 1rem;
+          align-items: center;
+          span {
+            min-width: 10rem;
+            max-width: 15rem;
+            flex-grow: 1;
+          }
+          i {
+            width: 1em;
+            height: 1em;
+            display: inline-flex;
+            align-items: center;
+            margin: 0 4px;
+            flex: 0 0 auto;
+          }
+        }
+        .dropdown-tab:hover, .dropdown-tab.active {
+          background: #e2edf8;
+          color: #1e32a3;
+          font-weight: 700;
+          //   font-size: 1rem;
+        }
+      }
+
+      .tab-content {
+        flex: 3;
+        padding: 1rem 2rem;
+        background: #fff;
+        border-left: 2px solid #f2f2f2;
+        .tab-content-items {
+          display: none;
+          .item-list {
+            display: flex;
+            //   flex-direction: column;
+            //   width: 50%;
+            flex-wrap: wrap;
+            .link {
+              width: 50%;
+              a {
+                display: flex;
+                flex: 1;
+
+                span {
+                  border-bottom: 2px solid transparent;
+                }
+              }
+              a:hover {
+                span {
+                  border-bottom: 2px solid #007add;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.all-course-link {
+  display: flex;
+  background: #f2f1f1;
+
+  a {
+    display: flex;
+    color: #0084ff;
+    display: flex;
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid #e2eaf1;
+
+    span {
+      flex-grow: 1;
+    }
+    i {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 4px;
+      flex: 0 0 auto;
+    }
+  }
+  a:hover {
+    color: #72bbf7;
+  }
+}
+
+
+.active{
+  display: block;
+}

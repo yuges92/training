@@ -11,8 +11,13 @@ class ClassEvent extends Model
 
 {
   public $timestamps = true;
-
   protected $dates = ['date', 'startDate', 'endDate'];
+
+  public function getRouteKeyName()
+  {
+      return 'slug';
+  }
+  
 
   public function address()
   {

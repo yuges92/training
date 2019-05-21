@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 
 use Illuminate\Http\Request;
+use App\CourseType;
 
 class FrontCourseController extends Controller
 {
@@ -15,7 +16,8 @@ class FrontCourseController extends Controller
      */
     public function index()
     {
-      $courses=Course::all();
+      $courses=CourseType::with('courses')->where('status','publish')->get();
+      // dd($courses);
 
         return view('courses.courses')->with('courses', $courses);
     }
@@ -27,8 +29,26 @@ class FrontCourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show(CourseType $courseType)
     {
+      $courseType=$courseType->load('courses','courses.classes');
+      // dd($course);
+      return view('courses.courseType')->with('courseType', $courseType);
+
+    }
+
+
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showCourse(CourseType $courseType,Course $course)
+    {
+      $course=$course->load('classes');
+      // dd($course);
       return view('courses.course')->with('course', $course);
 
     }

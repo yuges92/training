@@ -1,7 +1,17 @@
 require('./bootstrap');
 require('./theme/theme');
-import dt from 'datatables.net';
+// var $ = require('jquery');
+require('dropify');
+require('select2');
+require('./plugins/summernote/dist/summernote-bs4.min')
+// const ClassicEditor = require('@ckeditor/ckeditor5-build-classic');
 
-$(document).ready(function() {
+import dt from 'datatables.net'
+
+$(document).ready(function () {
     $('.dataTable').DataTable();
+    $('.dropify').dropify();
+
 });
+
+

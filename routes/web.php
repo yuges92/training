@@ -14,7 +14,7 @@
 
 
 Route::get('/', function () {
-  $title='Page Title';
+  $title = 'Page Title';
   return view('welcome')->with('title', $title);
 });
 
@@ -29,7 +29,8 @@ Route::get('/email', function () {
 });
 Route::get('/courses', 'FrontCourseController@index')->name('courses');
 
-Route::get('/courses/{course}', 'FrontCourseController@show')->name('course');
+Route::get('/courses/{courseType}', 'FrontCourseController@show')->name('courseType');
+Route::get('/courses/{courseType}/{course}', 'FrontCourseController@showCourse')->name('course');
 Route::post('/customlogin', 'LoginController@authenticate')->name('customLogin');
 Route::post('/customlogout', 'LoginController@logout')->name('customLogout');
 // Route::resource('/register', 'RegisterController');
@@ -38,45 +39,49 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/logout', function () {
+  Auth::logout();
+  return redirect('/login');
+})->name('logout');
 
 //admin routes. Uses admin middleware to allow access to admin area
-Route::group(['middleware' => ['admin']], function(){
-  Route::get('/admin', 'AdminController@index')->name('adminDashboard');
-  Route::get('/admin/courses', 'CourseController@index')->name('adminCourses');
-  Route::get('/admin/courses/create', 'CourseController@create')->name('createCourse');
-  Route::get('/admin/courses/{course}', 'CourseController@show')->name('viewCourse');
-  Route::get('/admin/courses/{course}/dashboard', 'CourseController@dashboard')->name('viewCourseDashboard');
-  Route::get('/admin/courses/{course}/learner/{learner}', 'CourseController@learnerCourseOverview')->name('learnerCourseOverview');
-  Route::get('/admin/assignmentMarking', 'CourseController@assignmentMarking')->name('assignmentMarking');
-  Route::get('/admin/courses/{course}/edit', 'CourseController@edit')->name('editCourse');
-  Route::post('/admin/courses/store', 'CourseController@store')->name('storeCourse');
-  Route::put('/admin/courses/{course}', 'CourseController@update')->name('updateCourse');
-  Route::delete('/admin/courses/{course}', 'CourseController@destroy')->name('deleteCourse');
-  Route::post('/admin/courses/deleteFile/{course}', 'CourseController@removeCourseFile')->name('deleteCourseFile');
+Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
+  Route::get('/', 'AdminController@index')->name('adminDashboard');
+  Route::get('/courses', 'CourseController@index')->name('adminCourses');
+  Route::get('/courses/create', 'CourseController@create')->name('createCourse');
+  Route::get('/courses/{course}', 'CourseController@show')->name('viewCourse');
+  Route::get('/courses/{course}/dashboard', 'CourseController@dashboard')->name('viewCourseDashboard');
+  Route::get('/courses/{course}/learner/{learner}', 'CourseController@learnerCourseOverview')->name('learnerCourseOverview');
+  Route::get('/assignmentMarking', 'CourseController@assignmentMarking')->name('assignmentMarking');
+  Route::get('/courses/{course}', 'CourseController@show')->name('courses.show');
+  Route::get('/courses/{course}/edit', 'CourseController@edit')->name('editCourse');
+  Route::post('/courses/store', 'CourseController@store')->name('storeCourse');
+  Route::put('/courses/{course}', 'CourseController@update')->name('updateCourse');
+  Route::delete('/courses/{course}', 'CourseController@destroy')->name('deleteCourse');
+  Route::post('/courses/deleteFile/{course}', 'CourseController@removeCourseFile')->name('deleteCourseFile');
 
-  Route::resource('/admin/courseTypes', 'CourseTypeController');
-  Route::resource('/admin/assignments', 'AssignmentController');
-  Route::resource('/admin/classEvent', 'ClassEventController');
-  Route::resource('/admin/users', 'UserController');
-  Route::resource('/admin/classAddress', 'ClassAddressController');
-  Route::resource('/admin/learners', 'LearnerController');
-  Route::resource('/admin/classTrainer', 'ClassTrainerController');
-  Route::delete('/admin/classTrainer/{class_id}/{trainer_id}', 'ClassTrainerController@destroy')->name('classTrainer.destroy');
+  Route::resource('/courseTypes', 'CourseTypeController');
+  Route::resource('/assignments', 'AssignmentController');
+  Route::resource('/class', 'ClassEventController');
+  Route::resource('/users', 'UserController');
+  Route::resource('/classAddress', 'ClassAddressController');
+  Route::resource('/learners', 'LearnerController');
+  Route::resource('/classTrainer', 'ClassTrainerController');
+  Route::delete('/classTrainer/{class_id}/{trainer_id}', 'ClassTrainerController@destroy')->name('classTrainer.destroy');
 
-  Route::resource('/admin/attendance', 'AttendanceController');
-  Route::get('/admin/attendance/class/{class_id}', 'AttendanceController@showClassLearners');
-  Route::resource('/admin/userDetail', 'UserDetailController');
-  Route::resource('/admin/address', 'AddressController');
-  Route::resource('/admin/accessCode', 'AccessCodeController');
-  Route::resource('/admin/order', 'BookingController');
+  Route::resource('/attendance', 'AttendanceController');
+  Route::get('/attendance/class/{class_id}', 'AttendanceController@showClassLearners');
+  Route::resource('/userDetail', 'UserDetailController');
+  Route::resource('/address', 'AddressController');
+  Route::resource('/accessCode', 'AccessCodeController');
+  Route::resource('/order', 'BookingController');
 
-  Route::post('/admin/classStudent', 'ClassStudentController@store')->name('giveStudentClassAccess');
-  // Route::post('/admin/userDetail/store', 'UserDetailController@store')->name('addLearnerDetails');
-  // Route::put('/admin/userDetail/{user_id}', 'UserDetailController@update')->name('updateLearner');
+  Route::post('/classStudent', 'ClassStudentController@store')->name('giveStudentClassAccess');
+  // Route::post('/userDetail/store', 'UserDetailController@store')->name('addLearnerDetails');
+  // Route::put('/userDetail/{user_id}', 'UserDetailController@update')->name('updateLearner');
 
-  Route::post('/admin/classEvent/{classEvent}/updateAttendance', 'ClassEventController@updateAttendance')->name('updateAttendance');
-  Route::delete('/admin/classEvent/{classEvent}/removeClassAccess', 'ClassEventController@removeClassAccess')->name('removeClassAccess');
-
+  Route::post('/class/{classEvent}/updateAttendance', 'ClassEventController@updateAttendance')->name('updateAttendance');
+  Route::delete('/class/{classEvent}/removeClassAccess', 'ClassEventController@removeClassAccess')->name('removeClassAccess');
 });
 
 
@@ -105,7 +110,7 @@ Route::post('checkout/someoneElse/paymentAndBilling', 'BuyForSomeoneElseControll
 Route::get('order/thankYou', 'OrderController@thankYou')->name('thankYou');
 
 Route::get('/course/{course}/classes', 'CourseController@getClasses');
-Route::get('/course/classEvent/{classEvent}', 'ClassEventController@getshowClassDetailC')->name('showClassDetail');
+Route::get('/course/class/{classEvent}', 'ClassEventController@getshowClassDetailC')->name('showClassDetail');
 
 //paypal payment.status
 // Route::get('paywithpaypal','PaypalController@payWithPaypal' )->name('addmoney.paywithpaypal');

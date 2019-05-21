@@ -25,8 +25,15 @@
         "vue-template-compiler": "^2.6.7"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^12.1.0",
         "ckeditor": "^4.11.2",
+        "codemirror": "^5.45.0",
         "datatables.net": "^1.10.19",
-        "datatables.net-dt": "^1.10.19"
+        "datatables.net-bs4": "^1.10.19",
+        "datatables.net-dt": "^1.10.19",
+        "dropify": "^0.2.2",
+        "filepond": "^4.4.0",
+        "jquery-filepond": "^1.0.0",
+        "select2": "^4.0.6-rc.1"
     }
 }

@@ -28,7 +28,7 @@
       <li><a class="{{ Request::is('admin/courseTypes*') ? 'active' : '' }}" href="{{route('courseTypes.index')}}"><i class="fa fa-graduation-cap"></i> <span>Course Type</span></a></li>
       <li class="{{ Request::is('admin/courses*') ? 'active' : '' }}"><a  href="{{route('adminCourses')}}"><i class="fa fa-graduation-cap"></i> <span>Courses</span></a></li>
       <li class="{{ Request::is('admin/assignments*') ? 'active' : '' }}"><a  href="/admin/assignments"><i class="fa fa-tasks"></i> <span>Course Assignments</span></a></li>
-      <li class="{{ Request::is('admin/classEvent*') ? 'active' : '' }}"><a  href="/admin/classEvent"><i class="fa fa-calendar"></i> <span>Classes/Events</span></a></li>
+      <li class="{{ Request::is('admin/class*') ? 'active' : '' }}"><a  href="/admin/class"><i class="fa fa-calendar"></i> <span>Classes/Events</span></a></li>
       <li class="{{ Request::is('admin/classTrainer*') ? 'active' : '' }}"><a  href="/admin/classTrainer"><i class="fa fa-chalkboard-teacher"></i> <span>Trainers</span></a></li>
       <li class="{{ Request::is('admin/classAddress*') ? 'active' : '' }}"><a  href="/admin/classAddress"><i class="fa fa-address-card"></i> <span>Class Address</span></a></li>
       <li class="{{ Request::is('admin/accessCodes*') ? 'active' : '' }}"><a  href="{{route('accessCode.index')}}"><i class="fa fa-hashtag"></i> <span>Access Codes</span></a></li>
