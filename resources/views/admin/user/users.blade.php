@@ -7,7 +7,7 @@
 
   </div>
   @if (count($users)>0)
-  <table class="table table-hover table-responsive-sm">
+  <table class="table table-hover table-responsive-sm data-table">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -24,7 +24,7 @@
           <th scope="row">{{$user->id}}</th>
           <td>{{$user->getFullname()}}</td>
           <td>{{$user->email}}</td>
-          <td>{{$user->role}}</td>
+          <td>{{$user->roles->pluck('name')}}</td>
           <td class="row"><a class="btn btn-success mr-1" href="{{route('users.edit', [$user->id])}}">Edit</a>
             <form class="deleteForm" action="{{route('users.destroy',[$user->id])}}" method="post">
               {{ csrf_field() }}

@@ -18,7 +18,7 @@ class UserController extends Controller
   */
   public function index()
   {
-    $users=User::all();
+    $users=User::with('roles')->get();
 
     // return view('admin.course.courses')->with('courses',$courses);
     return view('admin.user.users', compact('users'));
@@ -47,6 +47,7 @@ class UserController extends Controller
   {
     $this->validate($request, [
       'email' => [ 'required', 'string', 'email', 'max:255', 'unique:users,email'],
+      'username' => [ 'required', 'string', 'max:255', 'unique:users,username'],
       'firstName' => 'required|string|alpha',
       'lastName' => 'required|string|alpha',
       'role' => 'required',
@@ -54,6 +55,7 @@ class UserController extends Controller
     $roles=$request->input('role');
     $user = new User();
     $user->email=$request->input('email');
+    $user->username=$request->username;
     $user->firstName=$request->input('firstName');
     $user->lastName=$request->input('lastName');
     $user->password=Hash::make('password');
@@ -117,7 +119,7 @@ class UserController extends Controller
     $user->update();
     $user->roles()->sync($roles);
 
-    return redirect()->route('users.index')->with('success', 'User updated');
+    return redirect()->back()->with('success', 'User updated');
   }
 
   /**
