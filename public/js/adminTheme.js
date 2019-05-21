@@ -68248,7 +68248,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 }(this, function (k) {
   "use strict";
 
-  k = k && k.hasOwnProperty("default") ? k.default : k;
+  k = k && k.hasOwnProperty("default") ? k["default"] : k;
 
   var i = function () {
     function t(t, e, o, n) {
