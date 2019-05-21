@@ -127,7 +127,7 @@
                     @if ($roles)
                       @foreach ($roles as $role)
                         <div class="checkbox col-6">
-                          <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}" {{ ($role->name==$user->hasRole($role->name)) ? 'checked' : '' }} value="{{$role->id}}">
+                          <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}" {{ ($user->roles->contains('name', $role->name)) ? 'checked' : '' }} value="{{$role->id}}">
                           <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
                         </div>
                       @endforeach
@@ -154,14 +154,14 @@
                 <div class="form-group row">
                   <label for="email" class="col-sm-2 col-form-label">Username:</label>
                   <div class="col-sm-10">
-                    <input name="username" type="text" class="form-control" id="username" value="{{ $user->email }}" placeholder="Username" readonly>
+                    <input name="username" type="text" class="form-control" id="username" value="{{ $user->username }}" placeholder="Username" readonly>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label for="email" class="col-sm-2 col-form-label">Email:</label>
                   <div class="col-sm-10">
-                    <input name="email" type="text" class="form-control" id="email" value="{{ $user->username }}" placeholder="Email">
+                    <input name="email" type="text" class="form-control" id="email" value="{{ $user->email }}" placeholder="Email">
                   </div>
                 </div>
 

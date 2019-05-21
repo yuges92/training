@@ -1,10 +1,14 @@
 @extends('layouts.adminLayout')
 
 @section('content')
-  <div class="container p-sm-0 px-md-5 ">
+  <div class="container-fluid">
     <h1 class="mb-5">New User</h1>
 
-      <form class="" action="{{route('users.store')}}" method="post">
+    <div class="box">
+      <div class="box-body">
+
+      
+      <form class="p-md-5" action="{{route('users.store')}}" method="post">
       {{ csrf_field() }}
 
       <div class="form-group row">
@@ -42,6 +46,13 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <label for="username" class="col-sm-2 col-form-label">Username:</label>
+        <div class="col-sm-10">
+          <input name="username" type="text" class="form-control" id="username" value="{{ old('username') }}" placeholder="Username">
+        </div>
+      </div>
+
 
       <div class="form-group ">
         <div class="col-sm-10 offset-sm-2 ">
@@ -53,16 +64,14 @@
         </div>
       </div>
 
-
-
-
-
       <div class="form-group row float-right mt-3 p-3">
-        <input class="btn btn-secondary px-5" type="submit" value="Add">
+        <input class="btn btn-primary px-5" type="submit" value="Add">
       </div>
 
 
     </form>
   </div>
+</div>
+</div>
 
 @endsection
