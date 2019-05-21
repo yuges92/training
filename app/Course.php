@@ -9,7 +9,7 @@ class Course extends Model
 {
 
   public $timestamps = true;
-  private $imageFolder = 'course/type/';
+  private static $imageFolder = 'course/type/';
 
 
   public function getRouteKeyName()
@@ -36,6 +36,11 @@ class Course extends Model
     return $this->hasMany(CourseBody::class);
   }
 
+  public function documents()
+  {
+    return $this->hasMany(CourseDocument::class);
+  }
+
   public function getImageFolder()
   {
       return $this->imageFolder;
@@ -49,4 +54,6 @@ class Course extends Model
       }
       return Storage::url($this->getImageFolder() . $this->image);
   }
+  
+
 }

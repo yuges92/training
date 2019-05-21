@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
-  use Notifiable;
+  use Notifiable, \Laravel\Passport\HasApiTokens;
 
   public $timestamps = true;
 

@@ -32,12 +32,13 @@ class ClassEventController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
-  public function create()
+  public function create(Request $request)
   {
+    $course_id=$request->course_id ? $request->course_id : null;
     $addresses=ClassAddress::all();
     $courses= Course::all();
     // return view('admin.course.courses')->with('courses',$courses);
-    return view('admin.classEvent.create', compact('courses', 'addresses'));
+    return view('admin.classEvent.create', compact('courses', 'addresses', 'course_id'));
   }
 
   /**
@@ -92,8 +93,8 @@ class ClassEventController extends Controller
 
     $classEvent->createdBy =$request->user()->id;
     $classEvent->save();
-    return redirect()->route('classEvent.show', $classEvent->id)->with('success', 'New class created');
-    return redirect()->route('classEvent.index')->with('success', 'New class created');
+    return redirect()->route('class.show', $classEvent->id)->with('success', 'New class created');
+    return redirect()->route('class.index')->with('success', 'New class created');
 
   }
 

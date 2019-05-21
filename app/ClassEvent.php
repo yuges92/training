@@ -41,6 +41,7 @@ class ClassEvent extends Model
 
   public function getStartEndDate()
   {
+    return 1;
     return $this->startDate->format('j F Y').' - '. $this->endDate->format('j F Y');
 
   }

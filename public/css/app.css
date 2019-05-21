@@ -11950,6 +11950,10 @@ body {
   width: 100%;
 }
 
+.toasted-container.top-right {
+  right: 4% !important;
+}
+
 .nav-bar-top {
   background: #00456d;
   padding: 1rem;
