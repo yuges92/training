@@ -18,7 +18,7 @@ class CreateCourseTypesTable extends Migration
             $table->string('title')->unique();
             $table->string('slug')->unique();
             $table->unsignedInteger('parent_id')->nullable();
-            $table->enum('status', ['publish', 'draft', 'private']);
+            $table->enum('status', ['publish', 'draft', 'private'])->default('draft');
             $table->text('description')->nullable();
             $table->boolean('enable_megamenu')->default(1);
             $table->integer('position')->nullable();

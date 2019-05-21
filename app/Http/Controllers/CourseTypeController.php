@@ -42,8 +42,7 @@ class CourseTypeController extends Controller
             'title' => 'required|unique:course_types',
             'body' => 'required',
             'status' => 'required',
-            'position' => 'required',
-            'body' => 'required',
+            'position' => 'required_if:enable_megamenu,1',
             'image' => 'required|image',
             // 'type' => 'required',
         ]);
@@ -55,7 +54,6 @@ class CourseTypeController extends Controller
         $courseType->status = $request->status;
         $courseType->position = $request->position;
         $courseType->enable_megamenu = ($request->enable_megamenu) ? 1 : 0;
-        $courseType->body = e($request->body);
         $courseType->createdBy = $request->user()->id;
         $courseType->save();
 
@@ -108,7 +106,7 @@ class CourseTypeController extends Controller
             // 'slug' => 'required|unique:course_types,slug,' . $courseType->id,
             'body' => 'required',
             'status' => 'required',
-            'position' => 'required',
+            'position' => 'required_if:enable_megamenu,1',
             'body' => 'required',
             'image' => 'nullable|image',
         ]);

@@ -14,18 +14,25 @@ use App\User;
 |
 */
 
-Route::post('articles', function() {
-    // If the Content-Type and Accept headers are set to 'application/json',
-    // this will return a JSON structure. This will be cleaned up later.
-    return User::all();
+// Route::post('articles', function() {
+//     // If the Content-Type and Accept headers are set to 'application/json',
+//     // this will return a JSON structure. This will be cleaned up later.
+//     return User::all();
+// });
+
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::group([ 'namespace'=>'Api', 'middleware'=>['auth:api']], function(){
+  Route::resource('/courses', 'CourseController');
+  // Route::get('/courses/{course}', 'CourseController@show');
+  Route::post('/courses/{course}/courseBodies', 'CourseController@addBody')->name('courses.addBody');
+  Route::delete('/courseBodies/{courseBody}', 'CourseBodyController@destroy')->name('courseBodies.destroy');
+  Route::patch('/courseBodies/{courseBody}', 'CourseBodyController@update')->name('courseBodies.update');
+  Route::resource('/courseTypes', 'CourseTypeController');
+  Route::resource('/courses/{course}/courseDocuments', 'CourseDocumentController');
+  // Route::resource('/courseTypes', 'CourseTypeController');
+
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('/users', function ()
-{
-  return response()->json(User::all());
-
-});

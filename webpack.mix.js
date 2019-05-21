@@ -19,3 +19,4 @@ mix.js('resources/assets/js/adminTheme.js', 'public/js')
     .sass('resources/assets/sass/theme/theme.scss', 'public/css');
 
 mix.js('resources/assets/js/lms.js', 'public/js');
+mix.js('resources/assets/js/course.js', 'public/js');

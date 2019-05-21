@@ -11,7 +11,14 @@ import dt from 'datatables.net'
 $(document).ready(function () {
     $('.dataTable').DataTable();
     $('.dropify').dropify();
-
+    $('.summernote').summernote({
+        placeholder: '',
+        tabsize: 2,
+        height: 300,
+        codemirror: { // codemirror options
+    theme: 'monokai'
+}
+      });
 });
 
 

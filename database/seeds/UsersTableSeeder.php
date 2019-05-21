@@ -25,11 +25,23 @@ class UsersTableSeeder extends Seeder
     $user->save();
     $user->roles()->attach($role_SA);
 
-    // factory(App\User::class, 5)->create();
-    factory(App\User::class, 5)->create()->each(function ($u) {
-      $role_learner = Role::where('name', 'Learner')->first();
-      $u->roles()->attach($role_learner);
 
-   });
+    $admin= new User();
+    $admin->firstName='Admin';
+    $admin->lastName='Admin';
+    $admin->email='admin@training.dlf.org.uk';
+    $admin->username='admin';
+    $admin->password=Hash::make('password');
+    $admin->save();
+    $admin->roles()->attach($role_SA);
+
+  //   // factory(App\User::class, 5)->create();
+  //   factory(App\User::class, 5)->create()->each(function ($u) {
+  //     $role_learner = Role::where('name', 'Learner')->first();
+  //     $u->roles()->attach($role_learner);
+
+  //  });
+
+   
   }
 }
