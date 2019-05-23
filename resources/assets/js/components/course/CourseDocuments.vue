@@ -27,7 +27,8 @@
               <th scope="row">{{document.id}}</th>
               <td>{{document.title}}</td>
               <td>
-                <a href target="_blank" rel="noopener noreferrer">Download</a>
+                <a class="btn btn-info rounded" :href="document.filename" target="_blank" rel="noopener noreferrer">Download</a>
+                
               </td>
               <td>
                 <div>
@@ -60,9 +61,7 @@ export default {
   data() {
     return {
       showAddDocument: false,
-      course: {
-        documents: true
-      },
+
       activeButtons: []
     };
   },
@@ -120,9 +119,7 @@ export default {
     }
   },
   mounted() {
-    console.log("mounted");
 
-    console.log(this.course);
   }
 };
 </script>

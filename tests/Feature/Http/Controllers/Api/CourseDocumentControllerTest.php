@@ -35,7 +35,9 @@ class CourseDocumentControllerTest extends TestCase
             'filename' => $data['filename']->getClientOriginalName(),
             'course_id' => $course->id
         ]);
-        Storage::disk('public')->assertExists(CourseDocument::getFolderName(), $response['storedName']);
+        // Storage::disk('public')->assertExists( $response['filename']);
+        Storage::disk('public')->assertExists(CourseDocument::getFolderName(), $response['filename']);
+
     }
 
 
@@ -62,12 +64,12 @@ class CourseDocumentControllerTest extends TestCase
             'course_id' => $course->id
         ]);
         
-        Storage::disk('public')->assertExists(CourseDocument::getFolderName(), $responseData['storedName']);
+        Storage::disk('public')->assertExists(CourseDocument::getFolderName(), $responseData['filename']);
 // dump($responseData);
 // dump($responseData['storedName']);
         $response = $this->deleteJson(route('courseDocuments.destroy',[$course->id,$responseData['id']]));
         $response->assertStatus(200);
-        Storage::disk('public')->assertMissing(CourseDocument::getFolderName().$responseData['storedName']);
+        Storage::disk('public')->assertMissing(CourseDocument::getFolderName().$responseData['filename']);
 
         $this->assertDatabaseMissing('course_documents', [
             'title' => $data['title'],

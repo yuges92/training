@@ -16,9 +16,17 @@ class UserController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
-  public function index()
+  public function index(Request $request)
   {
-    $users=User::with('roles')->get();
+    if ($request->user()->isSuperAdmin()) {
+      $users=User::with('roles')->get();
+      
+    }else {
+      $users=User::whereHas('roles', function ($query){
+        $query->where('name','!=', 'Super Admin');
+      })->get();
+      
+    }
 
     // return view('admin.course.courses')->with('courses',$courses);
     return view('admin.user.users', compact('users'));
@@ -88,7 +96,7 @@ class UserController extends Controller
   public function edit(User $user)
   {
 
-    $user=$user->load('roles');
+    // $user=$user->load('roles');
     $roles=Role::all();
     return view('admin.user.editUser', compact('user', 'roles'));
 

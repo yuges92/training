@@ -16,7 +16,7 @@ class FrontCourseController extends Controller
      */
     public function index()
     {
-      $courses=CourseType::with('courses')->where('status','publish')->get();
+      $courses=Course::with('courseType')->where('status','publish')->get();
       // dd($courses);
 
         return view('courses.courses')->with('courses', $courses);
@@ -47,7 +47,7 @@ class FrontCourseController extends Controller
      */
     public function showCourse(CourseType $courseType,Course $course)
     {
-      $course=$course->load('classes', 'courseBodies');
+      $course=$course->load('classes', 'courseBodies','documents');
       // dd($course);
       return view('courses.course')->with('course', $course);
 

@@ -60,6 +60,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
   Route::put('/courses/{course}', 'CourseController@update')->name('updateCourse');
   Route::delete('/courses/{course}', 'CourseController@destroy')->name('deleteCourse');
   Route::post('/courses/deleteFile/{course}', 'CourseController@removeCourseFile')->name('deleteCourseFile');
+  Route::get('/myProfile', 'MyProfileController@index')->name('myProfile.index');
+  Route::post('/myProfile', 'MyProfileController@update')->name('myProfile.update');
+  Route::post('/myProfile/password', 'MyProfileController@updatePassword')->name('myProfile.changePassword');
 
   Route::resource('/courseTypes', 'CourseTypeController');
   Route::resource('/assignments', 'AssignmentController');

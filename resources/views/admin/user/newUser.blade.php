@@ -16,10 +16,22 @@
         <div class="col-sm-10 row">
           @if ($roles)
             @foreach ($roles as $role)
-              <div class="checkbox col-6">
+            @if ($role->name=="Super Admin" )
+            @if (Auth::user()->isSuperAdmin())
+                
+                    
+            <div class="checkbox col-6">
+              <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}" {{ (old('role')==$role->id) ? 'checked' : '' }} value="{{$role->id}}">
+              <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
+            </div>
+            @endif
+
+            @else
+            <div class="checkbox col-6">
                 <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}" {{ (old('role')==$role->id) ? 'checked' : '' }} value="{{$role->id}}">
                 <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
               </div>
+            @endif
             @endforeach
           @endif
         </div>

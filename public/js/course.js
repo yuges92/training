@@ -2995,6 +2995,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CourseDocuments",
@@ -3002,9 +3003,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showAddDocument: false,
-      course: {
-        documents: true
-      },
       activeButtons: []
     };
   },
@@ -3055,10 +3053,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {
-    console.log("mounted");
-    console.log(this.course);
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -40603,7 +40598,20 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(document.title))]),
                         _vm._v(" "),
-                        _vm._m(1, true),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-info rounded",
+                              attrs: {
+                                href: document.filename,
+                                target: "_blank",
+                                rel: "noopener noreferrer"
+                              }
+                            },
+                            [_vm._v("Download")]
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("td", [
                           _c("div", [
@@ -40670,18 +40678,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        { attrs: { href: "", target: "_blank", rel: "noopener noreferrer" } },
-        [_vm._v("Download")]
-      )
     ])
   }
 ]

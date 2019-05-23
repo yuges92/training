@@ -22,6 +22,7 @@ class User extends Authenticatable
     'name', 'email', 'password',
   ];
 
+  protected $with = ['roles'];
 
 
   /**
@@ -50,6 +51,15 @@ class User extends Authenticatable
   public function roles()
   {
     return $this->belongsToMany(Role::class)->withTimestamps();;
+  }
+
+  public function isSuperAdmin()
+  {
+    // $this->load('roles');
+    \Debugbar::info($this->roles->where('name','Super Admin')->first());
+
+    return null !== $this->roles->where('name','Super Admin')->first();
+
   }
 
 
@@ -86,12 +96,9 @@ class User extends Authenticatable
   public function hasAdminAccess()
   {
     $allowedRoles = array('Super Admin', 'Admin', 'Manager', 'Trainer', 'Moderator', 'OCN');
-    // if(in_array($this->role,$allowedRoles)){
-    //   return true;
-    // }
-    //
-    // return false;
-    return null !== $this->roles()->where('name', $allowedRoles)->first();
+    // $this->load('roles');
+    $result= null !== $this->roles->whereIn('name',$allowedRoles)->first();
+    return $result;
   }
 
 

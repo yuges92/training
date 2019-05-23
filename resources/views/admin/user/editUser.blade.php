@@ -1,55 +1,59 @@
 @extends('layouts.adminLayout')
 
 @section('content')
-  {{-- <div class="container p-sm-0 px-md-5 ">
+{{-- <div class="container p-sm-0 px-md-5 ">
   <h1 class="mb-5">New User</h1>
 
   <form class="" action="{{route('users.update', $user->id)}}" method="post">
-  {{ csrf_field() }}
-  @method('PUT')
+{{ csrf_field() }}
+@method('PUT')
 
-  <div class="form-group row">
+<div class="form-group row">
   <label for="role" class="col-sm-2 col-form-label">Role:</label>
   <div class="col-sm-10 row">
 
-  @if ($roles)
-  @foreach ($roles as $role)
-  <div class="checkbox col-6">
-  <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}" {{ ($role->name==$user->hasRole($role->name)) ? 'checked' : '' }} value="{{$role->id}}">
-  <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
-</div>
-@endforeach
-@endif
+    @if ($roles)
+    @foreach ($roles as $role)
+    <div class="checkbox col-6">
+      <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}"
+        {{ ($role->name==$user->hasRole($role->name)) ? 'checked' : '' }} value="{{$role->id}}">
+      <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
+    </div>
+    @endforeach
+    @endif
 
 
-</div>
+  </div>
 </div>
 
 
 <div class="form-group row">
-<label for="firstName" class="col-sm-2 col-form-label">First name:</label>
-<div class="col-sm-10">
-<input name="firstName" type="text" class="form-control" id="firstName" value="{{ $user->firstName}}" placeholder="First name">
-</div>
-</div>
-
-<div class="form-group row">
-<label for="lastName" class="col-sm-2 col-form-label">Last name:</label>
-<div class="col-sm-10">
-<input name="lastName" type="text" class="form-control" id="lastName" value="{{ $user->lastName }}" placeholder="Last name">
-</div>
+  <label for="firstName" class="col-sm-2 col-form-label">First name:</label>
+  <div class="col-sm-10">
+    <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $user->firstName}}"
+      placeholder="First name">
+  </div>
 </div>
 
 <div class="form-group row">
-<label for="email" class="col-sm-2 col-form-label">Email:</label>
-<div class="col-sm-10">
-<input name="email" type="text" class="form-control" id="email" value="{{ $user->email }}" placeholder="Email" readonly>
+  <label for="lastName" class="col-sm-2 col-form-label">Last name:</label>
+  <div class="col-sm-10">
+    <input name="lastName" type="text" class="form-control" id="lastName" value="{{ $user->lastName }}"
+      placeholder="Last name">
+  </div>
 </div>
+
+<div class="form-group row">
+  <label for="email" class="col-sm-2 col-form-label">Email:</label>
+  <div class="col-sm-10">
+    <input name="email" type="text" class="form-control" id="email" value="{{ $user->email }}" placeholder="Email"
+      readonly>
+  </div>
 </div>
 
 
 <div class="form-group row float-right mt-3 p-3">
-<input class="btn btn-secondary px-5" type="submit" value="Update">
+  <input class="btn btn-secondary px-5" type="submit" value="Update">
 </div>
 
 
@@ -63,7 +67,9 @@
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
-          <img class="profile-user-img rounded-circle img-fluid mx-auto d-block" src="//www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg" alt="User profile picture">
+          <img class="profile-user-img rounded-circle img-fluid mx-auto d-block"
+            src="//www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg"
+            alt="User profile picture">
           <h3 class="profile-username text-center">{{$user->getFullname()}}</h3>
           <div class="d-flex justify-content-center">
             <form class="" action="" method="post">
@@ -83,16 +89,16 @@
                 <h6 class="margin-bottom">{{$user->phone}}</h6>
                 @if ($address=$user->getAddressByType('home'))
 
-                  <p>Address</p>
-                  <h6 class="">
-                    <address class="">
-                      {{$address->line1}}<br>
-                      {{$address->town}}<br>
-                      {{$address->county}}<br>
-                      {{$address->postcode}}<br>
-                      {{$address->country}}<br>
-                    </address>
-                  </h6>
+                <p>Address</p>
+                <h6 class="">
+                  <address class="">
+                    {{$address->line1}}<br>
+                    {{$address->town}}<br>
+                    {{$address->county}}<br>
+                    {{$address->postcode}}<br>
+                    {{$address->country}}<br>
+                  </address>
+                </h6>
                 @endif
               </div>
             </div>
@@ -125,12 +131,25 @@
                   <div class="col-sm-10 row">
 
                     @if ($roles)
-                      @foreach ($roles as $role)
-                        <div class="checkbox col-6">
-                          <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}" {{ ($user->roles->contains('name', $role->name)) ? 'checked' : '' }} value="{{$role->id}}">
-                          <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
-                        </div>
-                      @endforeach
+                    @foreach ($roles as $role)
+                    @if ($role->name=="Super Admin" )
+                    @if (Auth::user()->isSuperAdmin())
+                        
+                    <div class="checkbox col-6">
+                      <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}"
+                      {{ ($user->roles->contains('name', $role->name)) ? 'checked' : '' }} value="{{$role->id}}">
+                      <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
+                    </div>
+                    @endif
+
+                    @else
+                    <div class="checkbox col-6">
+                      <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}"
+                        {{ ($user->roles->contains('name', $role->name)) ? 'checked' : '' }} value="{{$role->id}}">
+                      <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
+                    </div>
+                    @endif
+                    @endforeach
                     @endif
 
                   </div>
@@ -140,28 +159,32 @@
                 <div class="form-group row">
                   <label for="firstName" class="col-sm-2 col-form-label">First name:</label>
                   <div class="col-sm-10">
-                    <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $user->firstName}}" placeholder="First name">
+                    <input name="firstName" type="text" class="form-control" id="firstName"
+                      value="{{ $user->firstName}}" placeholder="First name">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label for="lastName" class="col-sm-2 col-form-label">Last name:</label>
                   <div class="col-sm-10">
-                    <input name="lastName" type="text" class="form-control" id="lastName" value="{{ $user->lastName }}" placeholder="Last name">
+                    <input name="lastName" type="text" class="form-control" id="lastName" value="{{ $user->lastName }}"
+                      placeholder="Last name">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label for="email" class="col-sm-2 col-form-label">Username:</label>
                   <div class="col-sm-10">
-                    <input name="username" type="text" class="form-control" id="username" value="{{ $user->username }}" placeholder="Username" readonly>
+                    <input name="username" type="text" class="form-control" id="username" value="{{ $user->username }}"
+                      placeholder="Username" readonly>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label for="email" class="col-sm-2 col-form-label">Email:</label>
                   <div class="col-sm-10">
-                    <input name="email" type="text" class="form-control" id="email" value="{{ $user->email }}" placeholder="Email">
+                    <input name="email" type="text" class="form-control" id="email" value="{{ $user->email }}"
+                      placeholder="Email">
                   </div>
                 </div>
 
@@ -170,8 +193,8 @@
                   <div class="col-sm-10">
                     <select class="form-control">
                       <option value="approved" {{($user->type=='approved') ?'selected' :''}}>Approved</option>
-                      <option value="blocked"  {{($user->type=='blocked') ?'selected' :''}}>Blocked</option>
-                      <option value="pending"  {{($user->type=='pending') ?'selected' :''}}>Pending</option>
+                      <option value="blocked" {{($user->type=='blocked') ?'selected' :''}}>Blocked</option>
+                      <option value="pending" {{($user->type=='pending') ?'selected' :''}}>Pending</option>
                     </select>
                   </div>
                 </div>

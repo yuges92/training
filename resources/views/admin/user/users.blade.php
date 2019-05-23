@@ -7,7 +7,11 @@
 
   </div>
   @if (count($users)>0)
-  <table class="table table-hover table-responsive-sm data-table">
+  <div class="box">
+    <div class="box-body">
+
+    
+  <table class="table table-hover table-responsive-sm dataTable">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -37,6 +41,8 @@
 
       </tbody>
     </table>
+  </div>
+</div>
   @else
     <div class="text-center">
 

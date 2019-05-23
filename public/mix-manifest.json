@@ -4,5 +4,6 @@
     "/css/app.css": "/css/app.css",
     "/css/theme.css": "/css/theme.css",
     "/js/course.js": "/js/course.js",
-    "/js/lms.js": "/js/lms.js"
+    "/js/lms.js": "/js/lms.js",
+    "/js/vueApp.js": "/js/vueApp.js"
 }

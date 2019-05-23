@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Response;
 
-class AdminMiddleware
+class BackEndAccessMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,10 +15,11 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-
-      if ($request->user() && $request->user()->hasAdminAccess()) {
+        // $allowedRoles=collect(['Super Admin', 'Admin', 'Trainer']);
+        // if ($request->user()->role!='Super Admin') {
+        //     return new Response(view('unauthorized')->with('role', 'Super Admin'));
+    
+        //   }
         return $next($request);
-      }
-      return abort(401);
     }
 }
