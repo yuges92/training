@@ -32,6 +32,7 @@ Route::group([ 'namespace'=>'Api', 'middleware'=>['auth:api']], function(){
   Route::patch('/courseBodies/{courseBody}', 'CourseBodyController@update')->name('courseBodies.update');
   Route::resource('/courseTypes', 'CourseTypeController');
   Route::resource('/courses/{course}/courseDocuments', 'CourseDocumentController');
+  Route::resource('/classEvents', 'ClassEventController');
   // Route::resource('/courseTypes', 'CourseTypeController');
 
 });

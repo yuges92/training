@@ -21,12 +21,12 @@ class CreateClassEventsTable extends Migration
       $table->string('title')->unique();
       $table->string('slug')->unique();
       $table->text('description');
-      $table->date('startDate');
-      $table->time('startTimeStart');
-      $table->time('endTimeStart');
-      $table->date('endDate')->nullable();
-      $table->time('startTimeEnd')->nullable();
-      $table->time('endTimeEnd')->nullable();
+      // $table->date('startDate');
+      // $table->time('startTimeStart');
+      // $table->time('endTimeStart');
+      // $table->date('endDate')->nullable();
+      // $table->time('startTimeEnd')->nullable();
+      // $table->time('endTimeEnd')->nullable();
       $table->enum('type',['public','private','draft']);
       $table->integer('space');
       $table->integer('availableSpace');

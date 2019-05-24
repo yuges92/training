@@ -1,5 +1,6 @@
 <?php
 use App\CourseDocument;
+use App\ClassEvent;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,7 @@ use App\CourseDocument;
 */
 // set_time_limit(0);
 
-// factory(CourseDocument::class)->create();
+// factory(ClassEvent::class)->create();
 Route::get('/', function () {
   $title = 'Page Title';
   return view('welcome')->with('title', $title);
@@ -66,7 +67,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
 
   Route::resource('/courseTypes', 'CourseTypeController');
   Route::resource('/assignments', 'AssignmentController');
-  Route::resource('/class', 'ClassEventController');
+  Route::resource('/classes', 'ClassEventController');
   Route::resource('/users', 'UserController');
   Route::resource('/classAddress', 'ClassAddressController');
   Route::resource('/learners', 'LearnerController');
