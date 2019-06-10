@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
           RoleTableSeeder::class,
           UsersTableSeeder::class,
           CourseTypeTableSeeder::class,
-          // ClassAddressTableSeeder::class,
+          ClassAddressTableSeeder::class,
           CourseTableSeeder::class,
           // ClassEventSeeder::class,
 

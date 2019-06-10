@@ -22,7 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('lastName');
             $table->string('phone')->nullable();
             $table->string('organisation')->nullable();
-            $table->enum('type',['approved','blocked','pending'])->default('pending');
+            $table->string('image')->nullable();
+            $table->enum('status',['approved','blocked','pending'])->default('pending');
             // $table->enum('role',['Super Admin','Admin','Manager','Trainer','Moderator','OCN','Learner','Commissioner'])->default('Learner');
             $table->rememberToken();
             // $table->string('api_token', 60)->unique()->nullable()->default(null);

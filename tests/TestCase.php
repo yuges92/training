@@ -16,7 +16,6 @@ abstract class TestCase extends BaseTestCase
 
     use CreatesApplication;
     use RefreshDatabase;
-    use WithoutMiddleware; // use this trait
 
 
     protected  function setUp():void 

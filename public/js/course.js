@@ -2882,8 +2882,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     someHandler: function someHandler() {
-      console.log("added"); // this.$emit('updatedata','Hello World')
-
+      console.log("added");
       this.course.title = this.course.status;
     },
     previewFiles: function previewFiles(event) {
@@ -38813,7 +38812,7 @@ var render = function() {
               staticClass: "btn btn-success rounded px-5",
               attrs: { type: "submit" }
             },
-            [_c("i", { staticClass: "far fa-save" }), _vm._v(" Update\n    ")]
+            [_c("i", { staticClass: "far fa-save" }), _vm._v(" Save\n    ")]
           )
         : _c(
             "button",
@@ -38826,7 +38825,7 @@ var render = function() {
                 staticClass: "spinner-border spinner-border-sm",
                 attrs: { role: "status", "aria-hidden": "true" }
               }),
-              _vm._v("\n      Loading...\n    ")
+              _vm._v("\n      Saving...\n    ")
             ]
           )
     ])

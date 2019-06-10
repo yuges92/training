@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\ClassEvent;
-use App\Course;
-use App\ClassAddress;
 use App\User;
+use App\Course;
+use App\Trainer;
+use App\ClassEvent;
+use App\ClassAddress;
+use Illuminate\Http\Request;
 
 class ClassTrainerController extends Controller
 {
@@ -17,7 +18,8 @@ class ClassTrainerController extends Controller
   */
   public function index()
   {
-    $classes=ClassEvent::all();
+    $trainers=Trainer::all();
+    dd($trainers);
     return view('admin.classTrainer.trainers', compact('classes'));
 
   }

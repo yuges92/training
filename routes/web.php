@@ -1,6 +1,10 @@
 <?php
-use App\CourseDocument;
+use App\User;
 use App\ClassEvent;
+use App\CourseDocument;
+use App\Mail\NewUserMail;
+use App\Notifications\NewUser;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +21,17 @@ use App\ClassEvent;
 // factory(ClassEvent::class)->create();
 Route::get('/', function () {
   $title = 'Page Title';
+  // $user=User::where('email','sivayuges@gmail.com')->first();
+  // Mail::to($user)->send(new NewUserMail());
+
   return view('welcome')->with('title', $title);
+});
+
+Route::get('/mailable', function () {
+  // $title = 'Page Title';
+  $user=User::where('email','sivayuges@gmail.com')->first();
+  // Mail::to($user)->send(new NewUserMail());
+  return new NewUserMail($user);
 });
 
 // Route::get('/download/{file}', function ($file='') {
@@ -68,6 +82,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
   Route::resource('/courseTypes', 'CourseTypeController');
   Route::resource('/assignments', 'AssignmentController');
   Route::resource('/classes', 'ClassEventController');
+  Route::post('/users/{user}/images', 'UserController@updateImage')->name('profile.changeImage');
   Route::resource('/users', 'UserController');
   Route::resource('/classAddress', 'ClassAddressController');
   Route::resource('/learners', 'LearnerController');

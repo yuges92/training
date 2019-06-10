@@ -11,17 +11,17 @@ class LoginController extends Controller
 {
 
   /**
-  * Where to redirect users after login.
-  *
-  * @var string
-  */
+   * Where to redirect users after login.
+   *
+   * @var string
+   */
   protected $redirectTo = '/admin';
 
   /**
-  * Create a new controller instance.
-  *
-  * @return void
-  */
+   * Create a new controller instance.
+   *
+   * @return void
+   */
   public function __construct()
   {
     $this->middleware('guest')->except('logout');
@@ -29,17 +29,19 @@ class LoginController extends Controller
 
 
   /**
-  * Handle an authentication attempt.
-  *
-  * @param  \Illuminate\Http\Request $request
-  *
-  * @return Response
-  */
+   * Handle an authentication attempt.
+   *
+   * @param  \Illuminate\Http\Request $request
+   *
+   * @return Response
+   */
   public function authenticate(Request $request)
   {
-    $credentials = $request->only('email', 'password');
-
-    if (Auth::attempt($credentials)) {
+    $emailOrUsername = request()->input('email');
+ 
+    $fieldType = filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+    
+    if (Auth::attempt([$fieldType => $emailOrUsername, 'password'=>$request->password])) {
       Cart::storeToDatabase();
 
       // return redirect()->route('adminDashboard');
@@ -47,8 +49,6 @@ class LoginController extends Controller
     }
 
     return redirect()->back()->with('error', 'Login Failed. Please check your credentials');
-
-
   }
 
   public function register(Request $request)
@@ -63,6 +63,17 @@ class LoginController extends Controller
     // Cart::destroy();
     Auth::logout();
     return redirect()->route('home');
+  }
 
+
+  protected function credentials(Request $request)
+  {
+      $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
+          ? $this->username()
+          : 'username';
+      return [
+          $field => $request->get($this->username()),
+          'password' => $request->password,
+      ];
   }
 }

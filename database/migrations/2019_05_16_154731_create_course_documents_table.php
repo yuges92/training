@@ -20,6 +20,8 @@ class CreateCourseDocumentsTable extends Migration
             $table->string('filename')->nullable();
             $table->string('storedName')->nullable();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->integer('createdBy')->nullable();
+            $table->integer('updatedBY')->nullable();
             $table->timestamps();
         });
     }

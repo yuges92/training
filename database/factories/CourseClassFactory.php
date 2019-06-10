@@ -19,7 +19,7 @@ $factory->define(ClassEvent::class, function (Faker $faker) {
             'type' => 'public',
             'space' => '15',
             'availableSpace' => '15',
-            'duration' => 1,
+            // 'duration' => 1,
             'price' => 100,
             'createdBy' => 1,
             'updatedBY' => 1,

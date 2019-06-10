@@ -23,7 +23,7 @@ class CourseControllerTest extends TestCase
     public function can_update_a_course()
     {
         $course = Course::find(1);
-        $this->actingAs($this->user);
+        $this->actingAs($this->user, 'api');
 
         $data = [
             'course_code' => $course_code = $this->faker->ean8,
@@ -70,7 +70,7 @@ class CourseControllerTest extends TestCase
     public function can_delete_a_course()
     {
         $course = Course::find(1);
-
+        $this->actingAs($this->user, 'api');
         $this->deleteJson(route('courses.destroy', $course->id))
             ->assertStatus(204);
         $this->assertDatabaseMissing('courses', ['id' => $course->id]);

@@ -18,16 +18,21 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 import axios from "axios";
 import Toasted from 'vue-toasted';
 import VueSweetalert2 from 'vue-sweetalert2';
- 
+import vSelect from 'vue-select'
+
+
 Vue.use(VueSweetalert2);
 Vue.use(Toasted);
 Vue.use( CKEditor );
+Vue.component('v-select', vSelect);
+
 
 
 
 
 const app = new Vue({
     el: '#app',
+
 
 });
 

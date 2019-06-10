@@ -24,15 +24,17 @@ use App\User;
 //     return $request->user();
 // });
 
-Route::group([ 'namespace'=>'Api', 'middleware'=>['auth:api']], function(){
-  Route::resource('/courses', 'CourseController');
-  // Route::get('/courses/{course}', 'CourseController@show');
-  Route::post('/courses/{course}/courseBodies', 'CourseController@addBody')->name('courses.addBody');
-  Route::delete('/courseBodies/{courseBody}', 'CourseBodyController@destroy')->name('courseBodies.destroy');
-  Route::patch('/courseBodies/{courseBody}', 'CourseBodyController@update')->name('courseBodies.update');
-  Route::resource('/courseTypes', 'CourseTypeController');
-  Route::resource('/courses/{course}/courseDocuments', 'CourseDocumentController');
-  Route::resource('/classEvents', 'ClassEventController');
+Route::group(['middleware'=>['auth:api']], function(){
+  Route::resource('/courses', 'Api\CourseController');
+  Route::get('/classAddresses', 'ClassAddressController@index');
+  // Route::get('/courses/{course}', 'Api/CourseController@show');
+  Route::post('/courses/{course}/courseBodies', 'Api\CourseController@addBody')->name('courses.addBody');
+  Route::delete('/courseBodies/{courseBody}', 'Api\CourseBodyController@destroy')->name('courseBodies.destroy');
+  Route::patch('/courseBodies/{courseBody}', 'Api\CourseBodyController@update')->name('courseBodies.update');
+  Route::resource('/courseTypes', 'Api\CourseTypeController');
+  Route::resource('/courses/{course}/courseDocuments', 'Api\CourseDocumentController');
+  Route::resource('/classEvents', 'Api\ClassEventController');
+  Route::resource('/classEvents/{classEvent}/classDates', 'Api\ClassDateController');
   // Route::resource('/courseTypes', 'CourseTypeController');
 
 });

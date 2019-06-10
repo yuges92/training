@@ -17,7 +17,7 @@ class CourseBodyControllerTest extends TestCase
     public function can_add_course_body()
     {
         $course = Course::find(1);
-        $this->actingAs($this->user);
+        $this->actingAs($this->user, 'api');        
         $this->assertNotEmpty($course);
 
         $data = [
@@ -38,7 +38,7 @@ class CourseBodyControllerTest extends TestCase
      */
     public function can_update_course_body()
     {
-        $this->actingAs($this->user);
+        $this->actingAs($this->user, 'api');
         $courseBody = factory(CourseBody::class)->create();
         $data = [
             'title' => $title = $this->faker->sentence(3),
@@ -62,7 +62,7 @@ class CourseBodyControllerTest extends TestCase
      */
     public function can_delete_body()
     {
-        $this->actingAs($this->user);
+        $this->actingAs($this->user, 'api');
         $courseBody = factory(CourseBody::class)->create();
 
         $this->deleteJson(route('courseBodies.destroy',$courseBody->id))->assertSuccessful();

@@ -56,13 +56,13 @@ class ClassEventController extends Controller
       'title' => 'required',
       'address_id' => 'required',
       'description' => 'required',
-      'duration' => 'required',
-      'startDate' => 'required',
-      'startTimeStart' => 'required',
-      'endTimeStart' => 'required',
-      'endDate' => 'required_if:duration,2',
-      'startTimeEnd' => 'required_if:duration,2',
-      'endTimeEnd' => 'required_if:duration,2',
+      // 'duration' => 'required',
+      // 'startDate' => 'required',
+      // 'startTimeStart' => 'required',
+      // 'endTimeStart' => 'required',
+      // 'endDate' => 'required_if:duration,2',
+      // 'startTimeEnd' => 'required_if:duration,2',
+      // 'endTimeEnd' => 'required_if:duration,2',
       'price' => 'required',
       'space' => 'required',
     ]);
@@ -74,16 +74,16 @@ class ClassEventController extends Controller
     $classEvent->slug =str_slug($request->input('title'));
     $classEvent->address_id =$request->input('address_id');
     $classEvent->description =$request->input('description');
-    $classEvent->startDate =$request->input('startDate');
-    $classEvent->startTimeStart =$request->input('startTimeStart');
-    $classEvent->endTimeStart =$request->input('endTimeStart');
-    $classEvent->endDate =$request->input('endDate');
-    $classEvent->startTimeEnd =$request->input('startTimeEnd');
-    $classEvent->endTimeEnd =$request->input('endTimeEnd');
+    // $classEvent->startDate =$request->input('startDate');
+    // $classEvent->startTimeStart =$request->input('startTimeStart');
+    // $classEvent->endTimeStart =$request->input('endTimeStart');
+    // $classEvent->endDate =$request->input('endDate');
+    // $classEvent->startTimeEnd =$request->input('startTimeEnd');
+    // $classEvent->endTimeEnd =$request->input('endTimeEnd');
     $classEvent->availableSpace =$request->input('space');
     $classEvent->space =$request->input('space');
     $classEvent->price =$request->input('price');
-    $classEvent->duration =$request->duration;
+    // $classEvent->duration =$request->duration;
     // if ($request->file('file')) {
 
     //   $classEvent->originFileName=$request->file('file')->getClientOriginalName();

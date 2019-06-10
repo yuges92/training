@@ -1,5 +1,7 @@
 <template>
   <div>
+    <Error :errors="errors" v-if="errors"></Error>
+
     <div v-if="!isLoaded">
       <div class="d-flex justify-content-center">
         <div class="spinner-border text-info" style="width: 3rem; height: 3rem;" role="status">
@@ -30,7 +32,7 @@
 
           <div class="tab-content">
             <div class="tab-pane active" id="detail" aria-expanded="false">
-                <ClassDetail :courseClass="courseClass" ></ClassDetail>
+                <ClassDetail :courseClass="courseClass" @update-errors="updateErrors"></ClassDetail>
             </div>
           </div>
         </div>
@@ -41,6 +43,9 @@
 
 <script>
 import ClassDetail from "./ClassDetail";
+import Error from "../Error";
+import SubmitButton from "../SubmitButton";
+Vue.component('SubmitButton', SubmitButton);
 
 export default {
   props: ["class_id"],
@@ -49,14 +54,16 @@ export default {
     return {
       isLoaded: false,
       courseClass: '',
+      errors:null,
+      showError:false,
     };
   },
   components:{
-      ClassDetail
+      ClassDetail,
+    Error, 
   },
 
   mounted() {
-    console.log("Logged");
     // console.log(this.getClass());
   },
   created() {
@@ -68,8 +75,14 @@ export default {
       axios.get("/api/classEvents/" + this.class_id).then(response => {
         this.courseClass = response.data;
         this.isLoaded = true;
+        console.log(this.courseClass);
+        
       });
     },
+
+    updateErrors(errors){
+       this.errors=errors;
+    }
     
   }
 };

@@ -39,6 +39,8 @@ class MyProfileControllerTest extends TestCase
     public function can_change_password()
     {
         $user=factory(User::class)->create();
+        $user->roles()->attach([1]);
+
         $this->actingAs($user);
         $data=[
             'current_password' => 'secret',

@@ -17,7 +17,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = CourseResource::collection(Course::all());
+        $courses = CourseResource::collection(Course::with('courseBodies', 'documents','classes')->get());
         return response()->json($courses, 200);
     }
 

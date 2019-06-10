@@ -1,6 +1,34 @@
 <template>
   <div>
-    <div class>
+    <div v-if="!isLoaded">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border text-info" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <button v-if="!showNewClass"
+        alt="default"
+        data-toggle="modal"
+        class="btn btn-info mb-3"
+        @click="showNewClassForm()"
+      >
+        <i class="fas fa-plus"></i> Add Class Date
+      </button>
+            <button v-else
+        alt="default"
+        data-toggle="modal"
+        class="btn btn-warning mb-3"
+        @click="hideNewClassForm()"
+      >
+        <i class="fas fa-close"></i> Close Form
+      </button>
+      <div class="row mx-md-5" v-if="showNewClass">
+        <div class="col-md-4 my-3" >
+          <NewClassDate :class_id="courseClass.id"></NewClassDate>
+        </div>
+      </div>
       <form @submit.prevent="updateClass()" enctype="multipart/form-data">
         <div class="col-12 row mx-auto">
           <div class="col-md-8">
@@ -59,20 +87,6 @@
                 </div>
 
                 <div class="form-group row">
-                  <label for="course_code" class="col-sm-2 col-form-label">Course Code:</label>
-                  <div class="col-sm-10">
-                    <input
-                      name="course_code"
-                      type="text"
-                      class="form-control"
-                      id="course_code"
-                      v-model="courseClass.course_id"
-                      placeholder="Course Code"
-                    >
-                  </div>
-                </div>
-
-                <div class="form-group row">
                   <label
                     for="description"
                     class="col-sm-2 col-form-label"
@@ -85,31 +99,16 @@
                       id="description"
                       class="form-control"
                       name="description"
-                      rows="4"
+                      rows="14"
                       cols="80"
                       maxlength="300"
                       v-model="courseClass.description"
                     ></textarea>
                   </div>
                 </div>
-
-                <div class="form-group row" v-for="index in duration" :key="index">
-                  <label for="course_code" class="col-sm-2 col-form-label">Day {{index}}: </label>
-                  <div class="col-sm-10">
-                    <input
-                      name="course_code"
-                      type="text"
-                      class="form-control"
-                      id="course_code"
-                      v-model="courseClass.course_id"
-                      placeholder="Course Code"
-                    >
-                  </div>
-                </div>
               </div>
             </div>
           </div>
-
 
           <div class="col-md-4 fixed">
             <div class="box">
@@ -134,33 +133,9 @@
                 </div>
 
                 <!-- <div class="form-group">
-                    <label for="image" class="col-sm-2 col-form-label">Image:</label>
-                    <div class>
-                      <div class="d-flex justify-content-center flex-wrap">
-                        <div class="mx-auto">
-                          <img :src="courseClass.image" alt style="max-width:15rem;">
-                        </div>
-                        <div class="col-12 my-2">
-                          <div class="custom-file mt-3 mb-3">
-                            <input
-                              type="file"
-                              class="custom-file-input"
-                              ref="file"
-                              id="customFile"
-                              @change="previewFiles()"
-                            >
-                            <label class="custom-file-label" for="customFile">{{filename}}</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>-->
-
-                <div class="form-group">
                   <label for="title" class="col col-form-label">No of Days:</label>
                   <div class="col">
                     <input
-                    @change="changeDuration()"
                       name="title"
                       type="number"
                       class="form-control"
@@ -171,6 +146,48 @@
                       placeholder="Title"
                     >
                   </div>
+                </div> -->
+
+                <div class="form-group">
+                  <label for="price" class="col col-form-label">Price:</label>
+                  <div class="col">
+                    <input
+                      name="price"
+                      type="number"
+                      class="form-control"
+                      id="price"
+                      v-model="courseClass.price"
+                      placeholder="Price"
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="space" class="col col-form-label">Allocated Space:</label>
+                  <div class="col">
+                    <input
+                      name="space"
+                      type="number"
+                      class="form-control"
+                      id="space"
+                      v-model="courseClass.space"
+                      placeholder="Allocated Space"
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="availableSpace" class="col col-form-label">Remaining Space:</label>
+                  <div class="col">
+                    <input
+                      name="availableSpace"
+                      type="number"
+                      class="form-control"
+                      id="availableSpace"
+                      v-model="courseClass.availableSpace"
+                      placeholder="Remaining Space"
+                    >
+                  </div>
                 </div>
               </div>
               <SubmitButton :showBtn="showBtn"></SubmitButton>
@@ -178,12 +195,24 @@
           </div>
         </div>
       </form>
+
+      <div class="row mx-md-5">
+        <div class="col-sm-4 my-3" v-for="classDate in courseClass.class_dates" :key="classDate.id">
+          <ShowClassDate :classDate="classDate"></ShowClassDate>
+        </div>
+      </div>
+      <!-- <div class="row mx-md-5">
+        <div class="col-md-4 my-3" v-for="index in duration" :key="index">
+          <NewClassDate :day="index" :class_id="courseClass.id"></NewClassDate>
+        </div>
+      </div>-->
     </div>
   </div>
 </template>
 
 <script>
-import SubmitButton from "../SubmitButton";
+import NewClassDate from "./NewClassDate";
+import ShowClassDate from "./ShowClassDate";
 
 export default {
   props: ["courseClass"],
@@ -192,22 +221,101 @@ export default {
       showBtn: true,
       addresses: [],
       courses: [],
-      duration:this.courseClass.duration,
+      duration: this.courseClass.duration,
+      isLoaded: false,
+      activeButtons: [],
+showNewClass:false,
+      newClassDates: []
     };
   },
   created() {
-      this.changeDuration();
+    // this.changeDuration();
+    this.getCourses();
+    this.getClassAddress();
+    console.log(this.courseClass.class_dates);
   },
+  mounted() {},
   methods: {
-    updateClass() {},
-    getCourses() {},
-    getClassAddress() {},
-    changeDuration(){
-        this.duration=Number(this.courseClass.duration);
+    updateClass() {
+      this.$emit("update-errors", null);
+
+      this.showBtn = false;
+      let url = "/api/classEvents/" + this.courseClass.id;
+
+      axios
+        .patch(url, {
+          course_id: this.courseClass.course_id,
+          address_id: this.courseClass.address_id,
+          type: this.courseClass.type,
+          title: this.courseClass.title,
+          description: this.courseClass.description,
+          // duration: this.courseClass.duration,
+          price: this.courseClass.price,
+          space: this.courseClass.space,
+          availableSpace: this.courseClass.availableSpace
+        })
+        .then(data => {
+          Vue.toasted.show(
+            '<i class="fas fa-check-circle fa-3x"></i> Class details updated',
+            {
+              type: "success",
+              duration: 4000,
+              className: "py-3"
+            }
+          );
+        })
+        .catch(error => {
+          this.$emit("update-errors", error.response.data.errors);
+          // console.log(error.response.data.errors);
+
+          Vue.toasted.show(
+            '<i class="fas fa-exclamation-circle"></i> Update Failed',
+            {
+              type: "error",
+              duration: 4000,
+              className: "py-3"
+            }
+          );
+        })
+        .then(response => {
+          this.showBtn = true;
+        });
+    },
+    getCourses() {
+      axios.get("/api/courses/").then(response => {
+        this.courses = response.data;
+        this.isLoaded = true;
+      });
+    },
+    getClassDates(){
+      // let url = "/api/classEvents/" + this.class_id + "/classDates";
+
+      axios.get("/api/classEvents/" + this.class_id + "/classDates").then(response => {
+        this.courseClass.class_dates = response.data;
+        this.isLoaded = true;
+        console.log(response.data);
+
+      });
+    },
+    
+    getClassAddress() {
+      axios.get("/api/classAddresses").then(response => {
+        this.addresses = response.data;
+        // console.log(response.data);
+      });
+    },
+    showNewClassForm() {
+      this.showNewClass= true;
+    },
+    hideNewClassForm(){
+      this.showNewClass= false;
+
     }
   },
   components: {
-    SubmitButton
+    // SubmitButton,
+    NewClassDate,
+    ShowClassDate
   }
 };
 </script>

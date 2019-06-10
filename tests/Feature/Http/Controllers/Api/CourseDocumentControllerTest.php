@@ -20,6 +20,7 @@ class CourseDocumentControllerTest extends TestCase
     public function can_add_a_document_to_a_course()
     {
         //  Storage::fake('public');
+        $this->actingAs($this->user, 'api');
         $course = factory(Course::class)->create();
         $data = [
             'title' => $this->faker->sentence(3),
@@ -48,6 +49,7 @@ class CourseDocumentControllerTest extends TestCase
      */
     public function can_delete_a_document()
     {
+        $this->actingAs($this->user, 'api');
         $course = factory(Course::class)->create();
         $data = [
             'title' => $this->faker->sentence(3),
