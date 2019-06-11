@@ -2,14 +2,18 @@
 
 namespace Tests\Feature\Http\Controllers\Api;
 
+use App\Role;
 use App\Course;
+use App\ClassDate;
 use Carbon\Carbon;
 use App\ClassEvent;
 use Tests\TestCase;
 use App\ClassAddress;
+use App\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\ClassDate;
+use App\Trainer;
+use Illuminate\Support\Facades\Log;
 
 class ClassEventControllerTest extends TestCase
 {
@@ -38,7 +42,7 @@ class ClassEventControllerTest extends TestCase
         $class = factory(ClassEvent::class)->create();
         $data = [
             'course_id' => factory(Course::class)->create()->id,
-            'type'=>'private',
+            'type' => 'private',
             'address_id' => factory(ClassAddress::class)->create()->id,
             'title' => $title = $this->faker->sentence(3),
             'slug' => str_slug($title),
@@ -48,66 +52,63 @@ class ClassEventControllerTest extends TestCase
             'price' => '178.0',
             'space' => '15',
         ];
-        $response=$this->putJson(route('classEvents.update', $class->id), $data);
+        $response = $this->putJson(route('classEvents.update', $class->id), $data);
         $response->assertStatus(201);
-        $classUpdated=ClassEvent::find($class->id);
+        $classUpdated = ClassEvent::find($class->id);
         $this->assertDatabaseHas('class_events', $data);
-        $this->assertEquals($classUpdated->course_id,$data['course_id']);
-        $this->assertEquals($classUpdated->type,$data['type']);
-        $this->assertEquals($classUpdated->address_id,$data['address_id']);
-        $this->assertEquals($classUpdated->title,$data['title']);
+        $this->assertEquals($classUpdated->course_id, $data['course_id']);
+        $this->assertEquals($classUpdated->type, $data['type']);
+        $this->assertEquals($classUpdated->address_id, $data['address_id']);
+        $this->assertEquals($classUpdated->title, $data['title']);
         // $this->assertEquals($classUpdated->duration,$data['duration']);
-        $this->assertEquals($classUpdated->description,$data['description']);
-
-
+        $this->assertEquals($classUpdated->description, $data['description']);
     }
 
-/**
- * 
- *
- * @test
- */
+    /**
+     * 
+     *
+     * @test
+     */
     public function can_add_class_date()
     {
-        $this->actingAs($this->user, 'api');        
+        $this->actingAs($this->user, 'api');
         $class = factory(ClassEvent::class)->create();
         $data = [
             'class_id' => $class->id,
-            'day' => rand(1,5),
+            'day' => rand(1, 5),
             'date' => Carbon::now()->subMinutes(rand(1, 55)),
             'startTime' => '12:00',
             'endTime' => '17:00',
 
         ];
-        $response=$this->postJson(route('classDates.store', $class->id), $data);
+        $response = $this->postJson(route('classDates.store', $class->id), $data);
         $responseData = $response->decodeResponseJson();
         $response->assertStatus(201);
         $this->assertEquals($data['class_id'], $responseData['class_id']);
         $this->assertEquals($data['day'], $responseData['day']);
         // $this->assertEquals($data['date'], $responseData['date']);
         $this->assertEquals($data['startTime'], $responseData['startTime']);
-
     }
 
 
-        /**
+    /**
      *
      * @test
      */
     public function can_get_class_dates()
     {
         $this->actingAs($this->user, 'api');
-        
+
         $classDate = factory(ClassDate::class)->create();
-        $classDates=ClassDate::where('class_id', $classDate->class_id)->get();
-        $response = $this->getJson(route('classDates.index',$classDate->class_id));
+        $classDates = ClassDate::where('class_id', $classDate->class_id)->get();
+        $response = $this->getJson(route('classDates.index', $classDate->class_id));
         $response->assertStatus(201);
         $responseData = $response->decodeResponseJson();
         $this->assertEquals(count($classDates), count($responseData));
     }
 
 
-            /**
+    /**
      * 
      *
      * @test
@@ -117,7 +118,7 @@ class ClassEventControllerTest extends TestCase
         $this->actingAs($this->user, 'api');
         $classDate = factory(ClassDate::class)->create();
         $data = [
-            'day' => rand(1,5),
+            'day' => rand(1, 5),
             'date' => Carbon::now()->subMinutes(rand(1, 55)),
             'startTime' => '12:00',
             'endTime' => '17:00',
@@ -139,17 +140,33 @@ class ClassEventControllerTest extends TestCase
      */
     public function can_delate_a_class_date()
     {
-        $this->actingAs($this->user, 'api');         
+        $this->actingAs($this->user, 'api');
         $classDate = factory(ClassDate::class)->create();
-        $response= $this->deleteJson(route('classDates.destroy', [$classDate->class_id, $classDate->id]));
+        $response = $this->deleteJson(route('classDates.destroy', [$classDate->class_id, $classDate->id]));
         $response->assertStatus(200);
         $this->assertDatabaseMissing('class_dates', ['id' => $classDate->id]);
-
-
     }
 
 
 
+    /**
+     * 
+     *
+     * @test
+     */
+    public function can_get_all_trainers()
+    {
+        $this->actingAs($this->user, 'api');
+        $role_Trainer = Role::where('name', 'Trainer')->first();
+        $trainers =   factory(User::class, 10)->create()->each(function ($user) use ($role_Trainer) {
+            $user->roles()->attach($role_Trainer);
+        });
+        // Log::info($trainers);
+        $trainers = Trainer::all();
+        $response= $this->getJson(route('trainers.index'));
+        $response->assertStatus(201);
+        $responseData = $response->decodeResponseJson();
+        // Log::warning($responseData);
+        $this->assertEquals(count($trainers), count($responseData));
+    }
 }
-
-

@@ -20,7 +20,7 @@ class Trainer extends User
 
         static::addGlobalScope(function ($query) {
             $query->whereHas('roles', function ($roles){
-                $roles->where('name', 'trainer');
+                $roles->where('name', 'Trainer');
             });        
         });
     }

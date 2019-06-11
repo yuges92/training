@@ -17,23 +17,31 @@
               <a href="#detail" data-toggle="tab" class="active" aria-expanded="true">Class Detail</a>
             </li>
             <li>
-              <a href="#additionalDetail" data-toggle="tab" class aria-expanded="false">Trainers</a>
+              <a href="#trainers" data-toggle="tab" class aria-expanded="false">Trainers</a>
             </li>
             <li>
               <a href="#bookings" data-toggle="tab" class aria-expanded="false">Bookings</a>
             </li>
             <li>
-              <a href="#gdpr" data-toggle="tab" class aria-expanded="false">Learners</a>
+              <a href="#learners" data-toggle="tab" class aria-expanded="false">Learners</a>
             </li>
-            <li>
-              <a href="#courses" data-toggle="tab" class aria-expanded="false">Course</a>
-            </li>
+
           </ul>
 
           <div class="tab-content">
             <div class="tab-pane active" id="detail" aria-expanded="false">
-                <ClassDetail :courseClass="courseClass" @update-errors="updateErrors"></ClassDetail>
+              <ClassDetail :courseClass="courseClass" @update-errors="updateErrors"></ClassDetail>
             </div>
+
+            <div class="tab-pane" id="trainers" aria-expanded="false">
+              <ClassTrainers :courseClass="courseClass" @update-errors="updateErrors"></ClassTrainers>
+
+            </div>
+
+            <div class="tab-pane" id="bookings" aria-expanded="false">Bookings</div>
+
+            <div class="tab-pane" id="learners" aria-expanded="false">Learners</div>
+
           </div>
         </div>
       </div>
@@ -43,9 +51,10 @@
 
 <script>
 import ClassDetail from "./ClassDetail";
+import ClassTrainers from "./ClassTrainers";
 import Error from "../Error";
 import SubmitButton from "../SubmitButton";
-Vue.component('SubmitButton', SubmitButton);
+Vue.component("SubmitButton", SubmitButton);
 
 export default {
   props: ["class_id"],
@@ -53,21 +62,22 @@ export default {
   data() {
     return {
       isLoaded: false,
-      courseClass: '',
-      errors:null,
-      showError:false,
+      courseClass: "",
+      errors: null,
+      showError: false
     };
   },
-  components:{
-      ClassDetail,
-    Error, 
+  components: {
+    ClassDetail,
+    Error,
+    ClassTrainers
   },
 
   mounted() {
     // console.log(this.getClass());
   },
   created() {
-      this.getClass()
+    this.getClass();
   },
   methods: {
     getClass() {
@@ -75,15 +85,13 @@ export default {
       axios.get("/api/classEvents/" + this.class_id).then(response => {
         this.courseClass = response.data;
         this.isLoaded = true;
-        console.log(this.courseClass);
-        
+        // console.log(this.courseClass);
       });
     },
 
-    updateErrors(errors){
-       this.errors=errors;
+    updateErrors(errors) {
+      this.errors = errors;
     }
-    
   }
 };
 </script>

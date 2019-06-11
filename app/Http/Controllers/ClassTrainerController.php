@@ -16,10 +16,14 @@ class ClassTrainerController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
-  public function index()
+  public function index(Request $request)
   {
     $trainers=Trainer::all();
-    dd($trainers);
+
+    if ($request->wantsJson()) {
+      return response()->json($trainers, 201);
+  }
+
     return view('admin.classTrainer.trainers', compact('classes'));
 
   }

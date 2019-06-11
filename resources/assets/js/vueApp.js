@@ -19,12 +19,15 @@ import axios from "axios";
 import Toasted from 'vue-toasted';
 import VueSweetalert2 from 'vue-sweetalert2';
 import vSelect from 'vue-select'
+import Multiselect from 'vue-multiselect'
+
 
 
 Vue.use(VueSweetalert2);
 Vue.use(Toasted);
 Vue.use( CKEditor );
 Vue.component('v-select', vSelect);
+Vue.component('multiselect', Multiselect);
 
 
 

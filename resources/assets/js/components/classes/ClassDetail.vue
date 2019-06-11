@@ -8,7 +8,8 @@
       </div>
     </div>
     <div v-else>
-      <button v-if="!showNewClass"
+      <button
+        v-if="!showNewClass"
         alt="default"
         data-toggle="modal"
         class="btn btn-info mb-3"
@@ -16,7 +17,8 @@
       >
         <i class="fas fa-plus"></i> Add Class Date
       </button>
-            <button v-else
+      <button
+        v-else
         alt="default"
         data-toggle="modal"
         class="btn btn-warning mb-3"
@@ -25,7 +27,7 @@
         <i class="fas fa-close"></i> Close Form
       </button>
       <div class="row mx-md-5" v-if="showNewClass">
-        <div class="col-md-4 my-3" >
+        <div class="col-md-4 my-3">
           <NewClassDate :class_id="courseClass.id"></NewClassDate>
         </div>
       </div>
@@ -146,7 +148,7 @@
                       placeholder="Title"
                     >
                   </div>
-                </div> -->
+                </div>-->
 
                 <div class="form-group">
                   <label for="price" class="col col-form-label">Price:</label>
@@ -224,7 +226,7 @@ export default {
       duration: this.courseClass.duration,
       isLoaded: false,
       activeButtons: [],
-showNewClass:false,
+      showNewClass: false,
       newClassDates: []
     };
   },
@@ -287,17 +289,18 @@ showNewClass:false,
         this.isLoaded = true;
       });
     },
-    getClassDates(){
+    getClassDates() {
       // let url = "/api/classEvents/" + this.class_id + "/classDates";
 
-      axios.get("/api/classEvents/" + this.class_id + "/classDates").then(response => {
-        this.courseClass.class_dates = response.data;
-        this.isLoaded = true;
-        console.log(response.data);
-
-      });
+      axios
+        .get("/api/classEvents/" + this.class_id + "/classDates")
+        .then(response => {
+          this.courseClass.class_dates = response.data;
+          this.isLoaded = true;
+          console.log(response.data);
+        });
     },
-    
+
     getClassAddress() {
       axios.get("/api/classAddresses").then(response => {
         this.addresses = response.data;
@@ -305,11 +308,10 @@ showNewClass:false,
       });
     },
     showNewClassForm() {
-      this.showNewClass= true;
+      this.showNewClass = true;
     },
-    hideNewClassForm(){
-      this.showNewClass= false;
-
+    hideNewClassForm() {
+      this.showNewClass = false;
     }
   },
   components: {
