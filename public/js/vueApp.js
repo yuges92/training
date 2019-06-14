@@ -2244,8 +2244,7 @@ __webpack_require__.r(__webpack_exports__);
       // let url = "/api/classEvents/" + this.class_id + "/classDates";
       axios.get("/api/classEvents/" + this.class_id + "/classDates").then(function (response) {
         _this3.courseClass.class_dates = response.data;
-        _this3.isLoaded = true;
-        console.log(response.data);
+        _this3.isLoaded = true; // console.log(response.data);
       });
     },
     getClassAddress: function getClassAddress() {
@@ -2524,29 +2523,80 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["trainerType", 'trainers'],
+  props: ["trainerType", "trainers", "class_id"],
   data: function data() {
     return {
       showBtn: true,
       classTrainers: [],
-      trainer: {
-        id: '',
-        image: ''
-      },
-      primaryImage: ''
+      trainer: {},
+      imageSrc: "https://via.placeholder.com/300.png"
     };
   },
   methods: {
     fullName: function fullName(_ref) {
       var id = _ref.id,
-          firstName = _ref.firstName,
-          lastName = _ref.lastName;
-      return "(".concat(id, ") ").concat(firstName, " ").concat(lastName);
+          _fullName = _ref.fullName;
+      return "(#".concat(id, ") ").concat(_fullName);
     },
-    createClassTrainer: function createClassTrainer() {}
+    createClassTrainer: function createClassTrainer() {
+      var _this = this;
+
+      // console.log(this.trainer);
+      this.showBtn = false;
+      axios.post("/api/classEvents/" + this.class_id + "/trainers", {
+        class_id: this.class_id,
+        user_id: this.trainer.id,
+        type: this.trainerType
+      }).then(function (res) {
+        // console.log(res);
+        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Class details updated', {
+          type: "success",
+          duration: 4000,
+          className: "py-3"
+        });
+      })["catch"](function (err) {
+        console.error(err);
+        Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Update Failed', {
+          type: "error",
+          duration: 4000,
+          className: "py-3"
+        });
+      }).then(function (res) {
+        _this.showBtn = true;
+      });
+    },
+    getTrainer: function getTrainer() {
+      var _this2 = this;
+
+      axios.post("/api/classEvents/" + this.class_id + "/classTrainer", {
+        class_id: this.class_id,
+        type: this.trainerType
+      }).then(function (res) {
+        _this2.trainer = res.data;
+
+        if (_this2.trainer != 404) {
+          _this2.imageSrc = _this2.trainer.image;
+        }
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    },
+    onChange: function onChange(value) {
+      // console.log(value);
+      this.imageSrc = value.image;
+    }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    this.getTrainer();
+  }
 });
 
 /***/ }),
@@ -39590,6 +39640,14 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
+            _c("div", [
+              _c("img", {
+                staticClass: "user-image rounded",
+                staticStyle: { width: "100px", height: "100px" },
+                attrs: { src: _vm.imageSrc, alt: "User profile picture" }
+              })
+            ]),
+            _vm._v(" "),
             _c(
               "div",
               { staticClass: "col" },
@@ -39603,12 +39661,12 @@ var render = function() {
                 _c("multiselect", {
                   attrs: {
                     "track-by": "id",
-                    label: "firstName",
                     placeholder: "Select a trainer",
                     options: _vm.trainers,
                     "allow-empty": false,
                     "custom-label": _vm.fullName
                   },
+                  on: { input: _vm.onChange },
                   scopedSlots: _vm._u([
                     {
                       key: "singleLabel",
@@ -39620,9 +39678,7 @@ var render = function() {
                               "(#" +
                                 _vm._s(option.id) +
                                 ") " +
-                                _vm._s(option.firstName) +
-                                " " +
-                                _vm._s(option.lastName)
+                                _vm._s(option.fullName)
                             )
                           ])
                         ]
@@ -39640,8 +39696,6 @@ var render = function() {
               ],
               1
             ),
-            _vm._v(" "),
-            _c("img", { attrs: { src: _vm.trainer.image, alt: "" } }),
             _vm._v(" "),
             _c(
               "div",
@@ -52128,7 +52182,7 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js").default;
+window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -52791,7 +52845,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\js\vueApp.js */"./resources/assets/js/vueApp.js");
+module.exports = __webpack_require__(/*! C:\Users\Yugeswaran\Desktop\code\training\resources\assets\js\vueApp.js */"./resources/assets/js/vueApp.js");
 
 
 /***/ })

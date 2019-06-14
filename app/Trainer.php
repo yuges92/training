@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\ClassEvent;
 use Illuminate\Database\Eloquent\Model;
 
 class Trainer extends User
@@ -24,5 +25,13 @@ class Trainer extends User
             });        
         });
     }
+
+
+      //for class trainer
+  public function classes()
+  {
+    return $this->belongsToMany(ClassEvent::class, 'classEvent_trainer', 'user_id', 'class_id')->withPivot('createdBy', 'type')->withTimestamps();
+
+  }
 
 }

@@ -109,7 +109,7 @@ class User extends Authenticatable
   //for class trainer
   public function trainingClasses()
   {
-    return $this->belongsToMany('App\ClassEvent', 'classevent_trainer', 'user_id')->withPivot('createdBy');
+    return $this->belongsToMany('App\ClassEvent', 'classEvent_trainer', 'user_id')->withPivot('createdBy');
   }
 
 

@@ -33,6 +33,9 @@ Route::group(['middleware'=>['auth:api']], function(){
   Route::patch('/courseBodies/{courseBody}', 'Api\CourseBodyController@update')->name('courseBodies.update');
   Route::resource('/courseTypes', 'Api\CourseTypeController');
   Route::resource('/courses/{course}/courseDocuments', 'Api\CourseDocumentController');
+  Route::post('/classEvents/{classEvent}/trainers', 'Api\ClassEventController@addTrainer')->name('classes.trainers.store');
+  Route::post('/classEvents/{classEvent}/classTrainer', 'Api\ClassEventController@getATrainer')->name('classes.trainers.get');
+
   Route::resource('/classEvents', 'Api\ClassEventController');
   Route::resource('/classEvents/{classEvent}/classDates', 'Api\ClassDateController');
   Route::resource('/trainers', 'ClassTrainerController');

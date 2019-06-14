@@ -8,6 +8,7 @@ use App\Trainer;
 use App\ClassEvent;
 use App\ClassAddress;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 
 class ClassTrainerController extends Controller
 {
@@ -21,7 +22,7 @@ class ClassTrainerController extends Controller
     $trainers=Trainer::all();
 
     if ($request->wantsJson()) {
-      return response()->json($trainers, 201);
+      return response()->json(UserResource::collection( $trainers), 201);
   }
 
     return view('admin.classTrainer.trainers', compact('classes'));

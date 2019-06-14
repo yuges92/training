@@ -122,7 +122,7 @@ function getClassesByCourse(event) {
         option.text = '(#' + list[key].id + ') ' + startDate.toLocaleDateString() + ' - ' + endDate.toLocaleDateString();
         classSelect.add(option);
       }
-    }).catch(function (error) {
+    })["catch"](function (error) {
       console.log(error);
     });
   }
@@ -442,7 +442,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\js\lms.js */"./resources/assets/js/lms.js");
+module.exports = __webpack_require__(/*! C:\Users\Yugeswaran\Desktop\code\training\resources\assets\js\lms.js */"./resources/assets/js/lms.js");
 
 
 /***/ })

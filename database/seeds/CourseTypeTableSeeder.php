@@ -16,6 +16,7 @@ class CourseTypeTableSeeder extends Seeder
         $courseType->title = 'Trusted Assessor';
         $courseType->slug = str_slug('Trusted Assessor');
         $courseType->body = 'body';
+        $courseType->status = 'publish';
         $courseType->description = 'description';
         $courseType->position = 1;
         $courseType->createdBy = 1;
@@ -25,6 +26,7 @@ class CourseTypeTableSeeder extends Seeder
         $courseType->title = 'Another course Type';
         $courseType->slug = str_slug('Another course Type');
         $courseType->body = 'body';
+        $courseType->status = 'publish';
         $courseType->description = 'description';
         $courseType->enable_megamenu = 1;
         $courseType->position = 2;
@@ -35,7 +37,7 @@ class CourseTypeTableSeeder extends Seeder
         $courseType->title = 'My Course';
         $courseType->slug = str_slug('My Course');
         $courseType->body = 'body';
-        $courseType->status = 'private';
+        $courseType->status = 'publish';
         $courseType->description = 'description';
         $courseType->enable_megamenu = 1;
         $courseType->position = 3;

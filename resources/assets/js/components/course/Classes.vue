@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <a  :href="'/admin/class/create?course_id='+course.id" class="btn btn-info mb-3">
+    <a  :href="'/admin/classes/create?course_id='+course.id" class="btn btn-info mb-3">
       <i class="fas fa-plus"></i> Add new class
     </a>
     <div class>

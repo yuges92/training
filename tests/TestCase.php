@@ -21,6 +21,11 @@ abstract class TestCase extends BaseTestCase
     protected  function setUp():void 
     {
         parent::setUp(); 
+        if(config('app.env') !== 'testing') {
+            $this->fail('Not in testing environment according to APP_ENV. Aborting');
+            die(1);
+        }
+        
         // $this->artisan('migrate:refresh');
         Storage::fake('public');
         $this->artisan('db:seed');

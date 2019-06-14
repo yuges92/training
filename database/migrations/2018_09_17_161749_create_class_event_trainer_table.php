@@ -19,8 +19,9 @@ class CreateClassEventTrainerTable extends Migration
             $table->unsignedInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('class_id')->references('id')->on('class_events')->onDelete('cascade');
-            $table->unique(['class_id','user_id']);
-            $table->integer('createdBy');
+            $table->unique(['class_id', 'user_id']);
+            $table->enum('type', ['Primary', 'Secondary']);
+            $table->integer('createdBy')->nullable();
             $table->integer('updatedBY')->nullable();
             $table->timestamps();
         });

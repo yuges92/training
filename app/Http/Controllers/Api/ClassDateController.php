@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ClassDate;
+use App\Trainer;
 
 class ClassDateController extends Controller
 {
@@ -116,4 +117,6 @@ class ClassDateController extends Controller
         return response()->json(200);
 
     }
+
+
 }

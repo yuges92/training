@@ -297,7 +297,7 @@ export default {
         .then(response => {
           this.courseClass.class_dates = response.data;
           this.isLoaded = true;
-          console.log(response.data);
+          // console.log(response.data);
         });
     },
 

@@ -163,10 +163,64 @@ class ClassEventControllerTest extends TestCase
         });
         // Log::info($trainers);
         $trainers = Trainer::all();
-        $response= $this->getJson(route('trainers.index'));
+        $response = $this->getJson(route('trainers.index'));
         $response->assertStatus(201);
         $responseData = $response->decodeResponseJson();
         // Log::warning($responseData);
         $this->assertEquals(count($trainers), count($responseData));
+    }
+
+
+    /**
+     * @test
+     */
+    public function can_add_a_trainer()
+    {
+        $this->actingAs($this->user, 'api');
+        $class = factory(ClassEvent::class)->create();
+        $role_Trainer = Role::where('name', 'Trainer')->first();
+        $trainer =   factory(User::class)->create();
+        $trainer->roles()->attach($role_Trainer);
+
+        $data = [
+            'class_id' => $class->id,
+            'user_id' => $trainer->id,
+            'type' => 'Primary'
+        ];
+
+        $response = $this->postJson(route('classes.trainers.store', $class->id), $data);
+        // dump($response);
+        $response->assertStatus(201);
+
+        $this->assertDatabaseHas('classEvent_trainer', $data);
+    }
+
+
+    /**
+     * @test
+     */
+    public function can_get_a_trainer()
+    {
+        $this->actingAs($this->user, 'api');
+        $class = factory(ClassEvent::class)->create();
+        $role_Trainer = Role::where('name', 'Trainer')->first();
+        $trainer =   factory(User::class)->create();
+        $trainer->roles()->attach($role_Trainer);
+
+        $data = [
+            'class_id' => $class->id,
+            'user_id' => $trainer->id,
+            'type' => 'Primary'
+        ];
+
+        $this->postJson(route('classes.trainers.store', $class->id), $data);
+        $response = $this->postJson(route('classes.trainers.get', $class->id), $data);
+        $response->assertStatus(201);
+        $responseData = $response->decodeResponseJson();
+        // dump($responseData['roles'][0]['pivot']['']);
+        $this->assertEquals($data['user_id'], $responseData['id']);
+        // $this->assertEquals($data['class_id'], $responseData['roles'][0]['pivot']);
+
+        
     }
 }

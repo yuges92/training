@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Trainer;
 use App\ClassEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 
 class ClassEventController extends Controller
 {
 
     public function show($id)
     {
-        $courseClass = ClassEvent::with('classDates')->find($id);
+        $courseClass = ClassEvent::with('classDates', 'trainers')->find($id);
         return response()->json($courseClass, 200);
     }
 
@@ -47,5 +49,36 @@ class ClassEventController extends Controller
         $class->update();
 
         return response()->json($class, 201);
+    }
+
+    public function addTrainer(Request $request, $class_id)
+    {
+        $trainer = Trainer::find($request->user_id);
+        $class = ClassEvent::with('trainers')->where('id', $class_id)->first();
+        $class->trainers()->wherePivot('type',$request->type)->detach();
+
+        $trainer->classes()->attach($class_id, [
+            'type' => $request->type,
+            'createdBy' => $request->user()->id
+        ]);
+        return response()->json($trainer, 201);
+    }
+
+
+    public function getATrainer(Request $request, $class_id)
+    {
+        // $class=ClassEvent::with()->where($class_id);
+        // $trainer= Trainer::with('classes')->whereHas('classes', function ($query) use($request, $class_id){
+        //    return  $query->where('class_id',$class_id)->wherePivot('type','Primary');
+        // })->first();
+        $trainers = ClassEvent::with('trainers')->where('id', $class_id)->first();
+
+        $trainer = ($trainers->trainers()->wherePivot('type', $request->type)->first());
+        if ($trainer) {
+            Log::info($trainer);
+            return response()->json(new UserResource($trainer), 201);
+        }
+
+        return response()->json(404);
     }
 }

@@ -39016,7 +39016,7 @@ var render = function() {
       "a",
       {
         staticClass: "btn btn-info mb-3",
-        attrs: { href: "/admin/class/create?course_id=" + _vm.course.id }
+        attrs: { href: "/admin/classes/create?course_id=" + _vm.course.id }
       },
       [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Add new class\n  ")]
     ),
@@ -52858,7 +52858,7 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js").default;
+window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -53517,7 +53517,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\js\course.js */"./resources/assets/js/course.js");
+module.exports = __webpack_require__(/*! C:\Users\Yugeswaran\Desktop\code\training\resources\assets\js\course.js */"./resources/assets/js/course.js");
 
 
 /***/ })

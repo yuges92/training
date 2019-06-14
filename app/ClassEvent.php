@@ -62,7 +62,7 @@ class ClassEvent extends Model
 
   public function trainers()
   {
-    return $this->belongsToMany(User::class, 'classevent_trainer', 'class_id')->withPivot('createdBy');
+    return $this->belongsToMany(User::class, 'classEvent_trainer', 'class_id', 'user_id')->withPivot('createdBy', 'type')->withTimestamps();
   }
 
   public function learners()
