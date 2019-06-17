@@ -26,10 +26,10 @@ Route::get('/', function () {
   $title = 'Page Title';
   // $user=User::where('email','sivayuges@gmail.com')->first();
   // Mail::to($user)->send(new NewUserMail());
-$role_Trainer = Role::where('name', 'Trainer')->first();
-$trainers =   factory(User::class, 10)->create()->each(function ($user) use ($role_Trainer) {
-    $user->roles()->attach($role_Trainer);
-});
+// $role_Trainer = Role::where('name', 'Trainer')->first();
+// $trainers =   factory(User::class, 10)->create()->each(function ($user) use ($role_Trainer) {
+//     $user->roles()->attach($role_Trainer);
+// });
   return view('welcome')->with('title', $title);
 });
 

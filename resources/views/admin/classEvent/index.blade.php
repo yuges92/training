@@ -14,7 +14,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Course</th>
-          <th scope="col">Start Date</th>
+          <th scope="col">Class</th>
           {{--
           <th scope="col">End Date</th> --}}
           <th></th>
@@ -27,7 +27,7 @@
           <th scope="row">{{$class->id}}</th>
           <td>{{'(#'.$class->course->id.') '.$class->course->title}}</td>
           {{-- <td>{{$class->getFormattedStartDate()}}</td> --}}
-          <td></td>
+          <td>{{$class->title}}</td>
           {{--
           <td>{{$class->endDate->format('j F Y')}}</td> --}}
           <td class="row"><a class="btn btn-success mr-1" href="{{route('classes.show', $class->id)}}">Edit</a>

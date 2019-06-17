@@ -17,6 +17,9 @@
               <a href="#detail" data-toggle="tab" class="active" aria-expanded="true">Class Detail</a>
             </li>
             <li>
+              <a href="#classDates" data-toggle="tab" class aria-expanded="false">Class Dates</a>
+            </li>
+            <li>
               <a href="#trainers" data-toggle="tab" class aria-expanded="false">Trainers</a>
             </li>
             <li>
@@ -25,7 +28,6 @@
             <li>
               <a href="#learners" data-toggle="tab" class aria-expanded="false">Learners</a>
             </li>
-
           </ul>
 
           <div class="tab-content">
@@ -33,15 +35,17 @@
               <ClassDetail :courseClass="courseClass" @update-errors="updateErrors"></ClassDetail>
             </div>
 
+            <div class="tab-pane" id="classDates" aria-expanded="false">
+              <ClassDates :courseClass="courseClass" @update-errors="updateErrors"></ClassDates>
+            </div>
+
             <div class="tab-pane" id="trainers" aria-expanded="false">
               <ClassTrainers :courseClass="courseClass" @update-errors="updateErrors"></ClassTrainers>
-
             </div>
 
             <div class="tab-pane" id="bookings" aria-expanded="false">Bookings</div>
 
             <div class="tab-pane" id="learners" aria-expanded="false">Learners</div>
-
           </div>
         </div>
       </div>
@@ -52,6 +56,7 @@
 <script>
 import ClassDetail from "./ClassDetail";
 import ClassTrainers from "./ClassTrainers";
+import ClassDates from "./ClassDates";
 import Error from "../Error";
 import SubmitButton from "../SubmitButton";
 Vue.component("SubmitButton", SubmitButton);
@@ -70,7 +75,8 @@ export default {
   components: {
     ClassDetail,
     Error,
-    ClassTrainers
+    ClassTrainers,
+    ClassDates
   },
 
   mounted() {

@@ -106,7 +106,7 @@ export default {
             className: "py-3"
           });
           this.$parent.getClassDates();
-          this.$parent.showNewClass=false;
+          // this.$parent.showNewClass=false;
         })
         .catch(error => {
           this.$parent.$emit("update-errors", error.response.data.errors);

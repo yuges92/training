@@ -8,24 +8,6 @@
       </div>
     </div>
     <div v-else>
-      <button
-        v-if="!showNewClass"
-        alt="default"
-        data-toggle="modal"
-        class="btn btn-info mb-3"
-        @click="showNewClassForm()"
-      >
-        <i class="fas fa-plus"></i> Add Class Date
-      </button>
-      <button
-        v-else
-        alt="default"
-        data-toggle="modal"
-        class="btn btn-warning mb-3"
-        @click="hideNewClassForm()"
-      >
-        <i class="fas fa-close"></i> Close Form
-      </button>
       <div class="row mx-md-5" v-if="showNewClass">
         <div class="col-md-4 my-3">
           <NewClassDate :class_id="courseClass.id"></NewClassDate>
@@ -37,12 +19,12 @@
             <div class="box">
               <div class="box-body">
                 <div class="form-group row">
-                  <label for="course_type_id" class="col-sm-2 col-form-label">Course:</label>
+                  <label for="course_id" class="col-sm-2 col-form-label">Course:</label>
                   <div class="col-sm-10">
                     <select
                       class="form-control"
-                      name="course_type_id"
-                      id="course_type_id"
+                      name="course_id"
+                      id="course_id"
                       v-model="courseClass.course_id"
                     >
                       <option value>Please select a course type</option>
@@ -56,12 +38,12 @@
                 </div>
 
                 <div class="form-group row">
-                  <label for="course_type_id" class="col-sm-2 col-form-label">Address:</label>
+                  <label for="address" class="col-sm-2 col-form-label">Address:</label>
                   <div class="col-sm-10">
                     <select
                       class="form-control"
-                      name="course_type_id"
-                      id="course_type_id"
+                      name="address"
+                      id="address"
                       v-model="courseClass.address_id"
                     >
                       <option value>Please select a course type</option>
@@ -106,6 +88,8 @@
                       maxlength="300"
                       v-model="courseClass.description"
                     ></textarea>
+                        <p>You have {{charactersRemaining}} characters remaining.</p>
+
                   </div>
                 </div>
               </div>
@@ -198,11 +182,6 @@
         </div>
       </form>
 
-      <div class="row mx-md-5">
-        <div class="col-sm-4 my-3" v-for="classDate in courseClass.class_dates" :key="classDate.id">
-          <ShowClassDate :classDate="classDate"></ShowClassDate>
-        </div>
-      </div>
       <!-- <div class="row mx-md-5">
         <div class="col-md-4 my-3" v-for="index in duration" :key="index">
           <NewClassDate :day="index" :class_id="courseClass.id"></NewClassDate>
@@ -213,9 +192,6 @@
 </template>
 
 <script>
-import NewClassDate from "./NewClassDate";
-import ShowClassDate from "./ShowClassDate";
-
 export default {
   props: ["courseClass"],
   data() {
@@ -227,14 +203,15 @@ export default {
       isLoaded: false,
       activeButtons: [],
       showNewClass: false,
-      newClassDates: []
+      newClassDates: [],
+      maxCharacters:300,
     };
   },
   created() {
     // this.changeDuration();
     this.getCourses();
     this.getClassAddress();
-    console.log(this.courseClass.class_dates);
+    // console.log(this.courseClass.class_dates);
   },
   mounted() {},
   methods: {
@@ -316,8 +293,12 @@ export default {
   },
   components: {
     // SubmitButton,
-    NewClassDate,
-    ShowClassDate
+    // ShowClassDate
+  },
+  computed: {
+    charactersRemaining: function() {
+      return this.maxCharacters - this.courseClass.description.length;
+    }
   }
 };
 </script>

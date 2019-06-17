@@ -10,7 +10,8 @@
   @if ($course->courseBodies)
   <div class="  container ">
 
-    @foreach ($course->courseBodies as $body) @if ($body)
+    @foreach ($course->courseBodies->sortBy('order') as $body) 
+    @if ($body)
 
     <div class=" my-2">
       <div class="card ">

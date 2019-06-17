@@ -21,3 +21,4 @@ mix.js('resources/assets/js/adminTheme.js', 'public/js')
 mix.js('resources/assets/js/lms.js', 'public/js');
 mix.js('resources/assets/js/course.js', 'public/js');
 mix.js('resources/assets/js/vueApp.js', 'public/js');
+mix.js('resources/assets/js/vueJs/main.js', 'public/js');

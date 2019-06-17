@@ -14,7 +14,7 @@
         <form @submit.prevent="saveCourseBody()" enctype="multipart/form-data">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" id="myLargeModalLabel">Add Course Document</h4>
+              <h4 class="modal-title" id="myLargeModalLabel">Add Course Body</h4>
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">

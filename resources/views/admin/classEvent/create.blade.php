@@ -117,21 +117,27 @@
 
   </form>
 </div>
+
 @endsection
 @push('js')
+
+<script src="{{ asset('js/main.js') }}" defer></script>
 <script>
   document.addEventListener("DOMContentLoaded", function(event) { 
     $('.select2').select2();
-$('#duration').on('change', function () {
- if ($(this).val()=='2') {
-   $('#endDateDiv').show();
- }else{
-  $('#endDateDiv').hide();
+    $('#duration').on('change', function () {
+      if ($(this).val()=='2') {
+        $('#endDateDiv').show();
+      }else{
+        $('#endDateDiv').hide();
+        
+      } 
+    });
+  });
 
- } 
-});
-});
 
+
+  
 </script>
 
 

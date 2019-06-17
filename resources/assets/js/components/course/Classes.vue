@@ -37,7 +37,7 @@
                         x-placement="bottom-start"
                         style="position: absolute; transform: translate3d(57px, 29px, 0px); top: 0px; left: 0px; will-change: transform;"
                       >
-                        <a class="dropdown-item" :href="'/admin/class/'+classEvent.id">
+                        <a class="dropdown-item" :href="'/admin/classes/'+classEvent.id">
                           <i class="far fa-eye"></i> View
                         </a>
                         <a class="dropdown-item" href="#">

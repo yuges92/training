@@ -223,4 +223,31 @@ class ClassEventControllerTest extends TestCase
 
         
     }
+
+/**
+ * @test
+ */
+    public function can_delete_a_trainer()
+    {
+        $this->actingAs($this->user, 'api');
+        $class = factory(ClassEvent::class)->create();
+        $role_Trainer = Role::where('name', 'Trainer')->first();
+        $trainer =   factory(User::class)->create();
+        $trainer->roles()->attach($role_Trainer);
+
+        $data = [
+            'class_id' => $class->id,
+            'user_id' => $trainer->id,
+            'type' => 'Primary'
+        ];
+
+        $this->postJson(route('classes.trainers.store', $class->id), $data);
+        $response = $this->deleteJson(route('classes.trainers.destroy', $class->id), $data);
+        $response->assertStatus(201);
+
+        $this->assertDatabaseMissing('classEvent_trainer', $data);
+
+        
+    }
+
 }

@@ -35,6 +35,7 @@ Route::group(['middleware'=>['auth:api']], function(){
   Route::resource('/courses/{course}/courseDocuments', 'Api\CourseDocumentController');
   Route::post('/classEvents/{classEvent}/trainers', 'Api\ClassEventController@addTrainer')->name('classes.trainers.store');
   Route::post('/classEvents/{classEvent}/classTrainer', 'Api\ClassEventController@getATrainer')->name('classes.trainers.get');
+  Route::delete('/classEvents/{classEvent}/classTrainer', 'Api\ClassEventController@deleteATrainer')->name('classes.trainers.destroy');
 
   Route::resource('/classEvents', 'Api\ClassEventController');
   Route::resource('/classEvents/{classEvent}/classDates', 'Api\ClassDateController');

@@ -39069,7 +39069,7 @@ var render = function() {
                                 {
                                   staticClass: "dropdown-item",
                                   attrs: {
-                                    href: "/admin/class/" + classEvent.id
+                                    href: "/admin/classes/" + classEvent.id
                                   }
                                 },
                                 [
@@ -39679,7 +39679,7 @@ var staticRenderFns = [
       _c(
         "h4",
         { staticClass: "modal-title", attrs: { id: "myLargeModalLabel" } },
-        [_vm._v("Add Course Document")]
+        [_vm._v("Add Course Body")]
       ),
       _vm._v(" "),
       _c(

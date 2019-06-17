@@ -55,7 +55,7 @@ class ClassEventController extends Controller
     {
         $trainer = Trainer::find($request->user_id);
         $class = ClassEvent::with('trainers')->where('id', $class_id)->first();
-        $class->trainers()->wherePivot('type',$request->type)->detach();
+        $class->trainers()->wherePivot('type', $request->type)->detach();
 
         $trainer->classes()->attach($class_id, [
             'type' => $request->type,
@@ -71,12 +71,31 @@ class ClassEventController extends Controller
         // $trainer= Trainer::with('classes')->whereHas('classes', function ($query) use($request, $class_id){
         //    return  $query->where('class_id',$class_id)->wherePivot('type','Primary');
         // })->first();
-        $trainers = ClassEvent::with('trainers')->where('id', $class_id)->first();
+        $class = ClassEvent::with('trainers')->where('id', $class_id)->first();
 
-        $trainer = ($trainers->trainers()->wherePivot('type', $request->type)->first());
+        $trainer = ($class->trainers()->wherePivot('type', $request->type)->first());
         if ($trainer) {
             Log::info($trainer);
             return response()->json(new UserResource($trainer), 201);
+        }
+
+        return response()->json(404);
+    }
+
+
+    public function deleteATrainer(Request $request, $class_id)
+    {
+
+        $class = ClassEvent::with('trainers')->where('id', $class_id)->first();
+        // Log::info($class);
+
+
+        if ($class) {
+            Log::info('here ');
+            $class->trainers()->wherePivot('type', $request->type)->detach();
+            // $class = ClassEvent::with('trainers')->where('id', $class_id)->first();
+            // Log::error($class);
+            return response()->json('Deleted',201);
         }
 
         return response()->json(404);

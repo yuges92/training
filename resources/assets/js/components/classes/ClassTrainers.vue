@@ -10,10 +10,10 @@
 
     <div v-else>
       <div class="row mx-md-5">
-        <div class="col-md-4 my-3">
+        <div class="col-md-6 my-3">
           <NewTrainerForm :class_id="courseClass.id" :trainerType="'Primary'" :trainers="trainers"></NewTrainerForm>
         </div>
-        <div class="col-md-4 my-3">
+        <div class="col-md-6 my-3">
           <NewTrainerForm
             :class_id="courseClass.id"
             :trainerType="'Secondary'"
@@ -53,7 +53,7 @@ export default {
         .then(res => {
           this.trainers = res.data;
           this.isLoaded = true;
-          console.log(this.trainers);
+          // console.log(this.trainers);
         })
         .catch(err => {
           console.error(err);
