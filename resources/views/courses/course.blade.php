@@ -10,9 +10,10 @@
   @if ($course->courseBodies)
   <div class="  container ">
 
-    @foreach ($course->courseBodies as $body) @if ($body)
+    @foreach ($course->courseBodies->sortBy('order') as $body) 
+    @if ($body)
 
-    <div class="container my-2">
+    <div class=" my-2">
       <div class="card ">
 
         <div class="card-body">
@@ -26,23 +27,25 @@
   </div>
   @endif
 
+@if (($course->documents) && $course->documents->count()>0)
+<div class="container ">
+  <div class="card">
+<div class="card-body">
 
-
-
-
-
-  <div class="container">
-    <h2>the length of the course </h2>
+  <h2>Downdload Information </h2>
+  @foreach ($course->documents as $document)
+  <div class=" mx-auto">
+    <a target="_blank" href="{{$document->getDocUrl()}}" style="font-size:1.5rem;"><i class="far fa-file-pdf" ></i> {{$document->title}}  </a>
   </div>
-
-  <div class="container">
-
-    <a href="" class="display-4"><i class="far fa-file-pdf" style="font-size:5rem;"></i>Download  </a>
+  @endforeach
+</div>
   </div>
-  <div class="container-fluid ">
+</div>
+@endif
+  <div class="container-fluid my-4">
 
     <div class="upcoming-courses mx-auto">
-      <h2>Upcoming Courses</h2>
+      <h2 class="mx-auto">Upcoming Courses</h2>
       <div class="row mx-auto">
         @foreach ($course->classes as $class)
         <div class="card m-2 " style="width: 19rem;">

@@ -24,7 +24,7 @@
       </div>
       <div class="card-footer">
 
-        <a href="{{route('courseType', [$course->slug])}}" class="btn btn-info col-12">Full Info</a>
+        <a href="{{route('course', [$course->courseType->slug,$course->slug])}}" class="btn btn-info col-12">Full Info</a>
       </div>
     </div>
 

@@ -2882,8 +2882,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     someHandler: function someHandler() {
-      console.log("added"); // this.$emit('updatedata','Hello World')
-
+      console.log("added");
       this.course.title = this.course.status;
     },
     previewFiles: function previewFiles(event) {
@@ -2995,6 +2994,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CourseDocuments",
@@ -3002,9 +3002,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showAddDocument: false,
-      course: {
-        documents: true
-      },
       activeButtons: []
     };
   },
@@ -3055,10 +3052,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {
-    console.log("mounted");
-    console.log(this.course);
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -38818,7 +38812,7 @@ var render = function() {
               staticClass: "btn btn-success rounded px-5",
               attrs: { type: "submit" }
             },
-            [_c("i", { staticClass: "far fa-save" }), _vm._v(" Update\n    ")]
+            [_c("i", { staticClass: "far fa-save" }), _vm._v(" Save\n    ")]
           )
         : _c(
             "button",
@@ -38831,7 +38825,7 @@ var render = function() {
                 staticClass: "spinner-border spinner-border-sm",
                 attrs: { role: "status", "aria-hidden": "true" }
               }),
-              _vm._v("\n      Loading...\n    ")
+              _vm._v("\n      Saving...\n    ")
             ]
           )
     ])
@@ -39022,7 +39016,7 @@ var render = function() {
       "a",
       {
         staticClass: "btn btn-info mb-3",
-        attrs: { href: "/admin/class/create?course_id=" + _vm.course.id }
+        attrs: { href: "/admin/classes/create?course_id=" + _vm.course.id }
       },
       [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Add new class\n  ")]
     ),
@@ -39075,7 +39069,7 @@ var render = function() {
                                 {
                                   staticClass: "dropdown-item",
                                   attrs: {
-                                    href: "/admin/class/" + classEvent.id
+                                    href: "/admin/classes/" + classEvent.id
                                   }
                                 },
                                 [
@@ -39685,7 +39679,7 @@ var staticRenderFns = [
       _c(
         "h4",
         { staticClass: "modal-title", attrs: { id: "myLargeModalLabel" } },
-        [_vm._v("Add Course Document")]
+        [_vm._v("Add Course Body")]
       ),
       _vm._v(" "),
       _c(
@@ -40603,7 +40597,20 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(document.title))]),
                         _vm._v(" "),
-                        _vm._m(1, true),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-info rounded",
+                              attrs: {
+                                href: document.filename,
+                                target: "_blank",
+                                rel: "noopener noreferrer"
+                              }
+                            },
+                            [_vm._v("Download")]
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("td", [
                           _c("div", [
@@ -40670,18 +40677,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        { attrs: { href: "", target: "_blank", rel: "noopener noreferrer" } },
-        [_vm._v("Download")]
-      )
     ])
   }
 ]
@@ -52863,7 +52858,7 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js").default;
+window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -53522,7 +53517,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\js\course.js */"./resources/assets/js/course.js");
+module.exports = __webpack_require__(/*! C:\Users\Yugeswaran\Desktop\code\training\resources\assets\js\course.js */"./resources/assets/js/course.js");
 
 
 /***/ })

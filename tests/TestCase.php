@@ -16,12 +16,16 @@ abstract class TestCase extends BaseTestCase
 
     use CreatesApplication;
     use RefreshDatabase;
-    use WithoutMiddleware; // use this trait
 
 
     protected  function setUp():void 
     {
         parent::setUp(); 
+        if(config('app.env') !== 'testing') {
+            $this->fail('Not in testing environment according to APP_ENV. Aborting');
+            die(1);
+        }
+        
         // $this->artisan('migrate:refresh');
         Storage::fake('public');
         $this->artisan('db:seed');

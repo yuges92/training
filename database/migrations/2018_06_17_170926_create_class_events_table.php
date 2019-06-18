@@ -7,10 +7,10 @@ use Illuminate\Database\Migrations\Migration;
 class CreateClassEventsTable extends Migration
 {
   /**
-  * Run the migrations.
-  *
-  * @return void
-  */
+   * Run the migrations.
+   *
+   * @return void
+   */
   public function up()
   {
     Schema::create('class_events', function (Blueprint $table) {
@@ -21,16 +21,16 @@ class CreateClassEventsTable extends Migration
       $table->string('title')->unique();
       $table->string('slug')->unique();
       $table->text('description');
-      $table->date('startDate');
-      $table->time('startTimeStart');
-      $table->time('endTimeStart');
-      $table->date('endDate')->nullable();
-      $table->time('startTimeEnd')->nullable();
-      $table->time('endTimeEnd')->nullable();
-      $table->enum('type',['public','private','draft']);
+      // $table->date('startDate');
+      // $table->time('startTimeStart');
+      // $table->time('endTimeStart');
+      // $table->date('endDate')->nullable();
+      // $table->time('startTimeEnd')->nullable();
+      // $table->time('endTimeEnd')->nullable();
+      $table->enum('type', ['public', 'private', 'draft']);
       $table->integer('space');
       $table->integer('availableSpace');
-      $table->integer('duration');
+      // $table->integer('duration');
       $table->double('price');
       // $table->string('originFileName')->nullable();
       // $table->string('file')->nullable();
@@ -43,10 +43,10 @@ class CreateClassEventsTable extends Migration
   }
 
   /**
-  * Reverse the migrations.
-  *
-  * @return void
-  */
+   * Reverse the migrations.
+   *
+   * @return void
+   */
   public function down()
   {
     Schema::disableForeignKeyConstraints();
@@ -54,6 +54,7 @@ class CreateClassEventsTable extends Migration
     Schema::dropIfExists('access_codes');
     Schema::dropIfExists('class_trainer');
     Schema::dropIfExists('class_addresses');
+    Schema::dropIfExists('class_dates');
     Schema::dropIfExists('class_events');
   }
 }

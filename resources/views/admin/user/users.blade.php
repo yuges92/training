@@ -7,10 +7,15 @@
 
   </div>
   @if (count($users)>0)
-  <table class="table table-hover table-responsive-sm data-table">
+  <div class="box">
+    <div class="box-body">
+
+    
+  <table class="table table-hover table-responsive-sm dataTable">
     <thead>
       <tr>
         <th scope="col">#</th>
+        <th scope="col"></th>
         <th scope="col">Fullname</th>
         <th scope="col">Email</th>
         <th scope="col">Role</th>
@@ -22,6 +27,9 @@
 
         <tr>
           <th scope="row">{{$user->id}}</th>
+          <td>
+              <img class="user-image rounded" style="width:30px; height:30px;" src="{{$user->getImage()}}" alt="User profile picture">
+          </td>
           <td>{{$user->getFullname()}}</td>
           <td>{{$user->email}}</td>
           <td>{{$user->roles->pluck('name')}}</td>
@@ -37,6 +45,8 @@
 
       </tbody>
     </table>
+  </div>
+</div>
   @else
     <div class="text-center">
 

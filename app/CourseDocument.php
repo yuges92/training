@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class CourseDocument extends Model
 {
@@ -19,5 +20,10 @@ class CourseDocument extends Model
     public static function getFolderName()
     {
       return self::$folder;
+    }
+
+    public function getDocUrl()
+    {
+      return Storage::url(self::$folder.$this->storedName);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ClassAddress;
+use App\Http\Resources\ClassAddressResource;
 
 class ClassAddressController extends Controller
 {
@@ -12,10 +13,14 @@ class ClassAddressController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
-  public function index()
+  public function index(Request $request)
   {
     $addresses=classAddress::all();
     // return view('admin.course.courses')->with('courses',$courses);
+    if($request->wantsJson()){
+      return response()->json(ClassAddressResource::collection($addresses), 200);
+
+    }
     return view('admin.classAddress.classAddresses', compact('addresses'));
   }
 

@@ -1,6 +1,7 @@
 @extends('layouts.templateLayout')
 @push('css')
   {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+  
 @endpush
 
 
@@ -66,6 +67,6 @@
 @endsection
 
 @prepend ('js')
-<script src="{{ asset('js/app.js') }}"></script>
+{{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 
 @endprepend

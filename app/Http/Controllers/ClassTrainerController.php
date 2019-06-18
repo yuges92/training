@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\ClassEvent;
-use App\Course;
-use App\ClassAddress;
 use App\User;
+use App\Course;
+use App\Trainer;
+use App\ClassEvent;
+use App\ClassAddress;
+use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 
 class ClassTrainerController extends Controller
 {
@@ -15,9 +17,14 @@ class ClassTrainerController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
-  public function index()
+  public function index(Request $request)
   {
-    $classes=ClassEvent::all();
+    $trainers=Trainer::all();
+
+    if ($request->wantsJson()) {
+      return response()->json(UserResource::collection( $trainers), 201);
+  }
+
     return view('admin.classTrainer.trainers', compact('classes'));
 
   }

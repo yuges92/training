@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Cart;
+use App\ClassDate;
+
 use Illuminate\Database\Eloquent\Model;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
-
-use App\Cart;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ClassEvent extends Model
 
@@ -59,7 +62,7 @@ class ClassEvent extends Model
 
   public function trainers()
   {
-    return $this->belongsToMany(User::class, 'classevent_trainer', 'class_id')->withPivot('createdBy');
+    return $this->belongsToMany(User::class, 'classEvent_trainer', 'class_id', 'user_id')->withPivot('createdBy', 'type')->withTimestamps();
   }
 
   public function learners()
@@ -68,6 +71,10 @@ class ClassEvent extends Model
 
   }
 
+  public function classDates()
+  {
+    return $this->hasMany(ClassDate::class, 'class_id');
+  }
 
   public function reduceSpace($space)
   {

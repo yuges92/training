@@ -284,7 +284,6 @@ export default {
     },
     someHandler() {
       console.log("added");
-      // this.$emit('updatedata','Hello World')
       this.course.title = this.course.status;
     },
     previewFiles(event) {

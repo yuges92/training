@@ -7,6 +7,7 @@ use App\CourseDocument;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\CourseDocumentResource;
 
 class CourseDocumentController extends Controller
 {
@@ -37,7 +38,8 @@ class CourseDocumentController extends Controller
                 'filename' => $filename,
                 'storedName' => $storedName,
             ]);
-            return response()->json($document, 201);
+
+            return response()->json(new CourseDocumentResource($document), 201);
         }
     }
 

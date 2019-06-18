@@ -1,5 +1,11 @@
 <?php
+use App\Role;
+use App\User;
+use App\ClassEvent;
 use App\CourseDocument;
+use App\Mail\NewUserMail;
+use App\Notifications\NewUser;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +19,28 @@ use App\CourseDocument;
 */
 // set_time_limit(0);
 
-// factory(CourseDocument::class)->create();
+
+
+// factory(ClassEvent::class)->create();
 Route::get('/', function () {
   $title = 'Page Title';
+  // $user=User::where('email','sivayuges@gmail.com')->first();
+  // Mail::to($user)->send(new NewUserMail());
+// $role_Trainer = Role::where('name', 'Trainer')->first();
+// $trainers =   factory(User::class, 10)->create()->each(function ($user) use ($role_Trainer) {
+//     $user->roles()->attach($role_Trainer);
+// });
   return view('welcome')->with('title', $title);
+});
+
+
+
+
+Route::get('/mailable', function () {
+  // $title = 'Page Title';
+  $user=User::where('email','sivayuges@gmail.com')->first();
+  // Mail::to($user)->send(new NewUserMail());
+  return new NewUserMail($user);
 });
 
 // Route::get('/download/{file}', function ($file='') {
@@ -60,10 +84,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
   Route::put('/courses/{course}', 'CourseController@update')->name('updateCourse');
   Route::delete('/courses/{course}', 'CourseController@destroy')->name('deleteCourse');
   Route::post('/courses/deleteFile/{course}', 'CourseController@removeCourseFile')->name('deleteCourseFile');
+  Route::get('/myProfile', 'MyProfileController@index')->name('myProfile.index');
+  Route::post('/myProfile', 'MyProfileController@update')->name('myProfile.update');
+  Route::post('/myProfile/password', 'MyProfileController@updatePassword')->name('myProfile.changePassword');
 
   Route::resource('/courseTypes', 'CourseTypeController');
   Route::resource('/assignments', 'AssignmentController');
-  Route::resource('/class', 'ClassEventController');
+  Route::resource('/classes', 'ClassEventController');
+  Route::post('/users/{user}/images', 'UserController@updateImage')->name('profile.changeImage');
   Route::resource('/users', 'UserController');
   Route::resource('/classAddress', 'ClassAddressController');
   Route::resource('/learners', 'LearnerController');

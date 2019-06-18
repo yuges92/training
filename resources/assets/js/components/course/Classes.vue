@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <a  :href="'/admin/class/create?course_id='+course.id" class="btn btn-info mb-3">
+    <a  :href="'/admin/classes/create?course_id='+course.id" class="btn btn-info mb-3">
       <i class="fas fa-plus"></i> Add new class
     </a>
     <div class>
@@ -37,7 +37,7 @@
                         x-placement="bottom-start"
                         style="position: absolute; transform: translate3d(57px, 29px, 0px); top: 0px; left: 0px; will-change: transform;"
                       >
-                        <a class="dropdown-item" :href="'/admin/class/'+classEvent.id">
+                        <a class="dropdown-item" :href="'/admin/classes/'+classEvent.id">
                           <i class="far fa-eye"></i> View
                         </a>
                         <a class="dropdown-item" href="#">

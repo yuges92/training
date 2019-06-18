@@ -8,7 +8,7 @@
       <div class="box-body">
 
       
-      <form class="p-md-5" action="{{route('users.store')}}" method="post">
+      <form class="p-md-5" action="{{route('users.store')}}" method="post" enctype="multipart/form-data">
       {{ csrf_field() }}
 
       <div class="form-group row">
@@ -16,13 +16,35 @@
         <div class="col-sm-10 row">
           @if ($roles)
             @foreach ($roles as $role)
-              <div class="checkbox col-6">
+            @if ($role->name=="Super Admin" )
+            @if (Auth::user()->isSuperAdmin())
+                
+                    
+            <div class="checkbox col-md-6">
+              <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}" {{ (old('role')==$role->id) ? 'checked' : '' }} value="{{$role->id}}">
+              <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
+            </div>
+            @endif
+
+            @else
+            <div class="checkbox col-md-6">
                 <input type="checkbox" name="role[]" id="Checkbox_{{$role->id}}" {{ (old('role')==$role->id) ? 'checked' : '' }} value="{{$role->id}}">
                 <label for="Checkbox_{{$role->id}}">{{$role->name}}</label>
               </div>
+            @endif
             @endforeach
           @endif
         </div>
+      </div>
+
+      <div class="form-group row">
+          <label for="image" class="col-sm-2 col-form-label">Profile Image <small>(optional)</small>: </label>
+          <div class="col-sm-10">
+              <div class="">
+                  <input id="image" type="file" name="image" class="dropify" data-min-height="200" data-min-width="300" data-allowed-file-extensions="png JPEG jpg"
+                      data-max-file-size="1MB">
+              </div>
+          </div>
       </div>
 
       <div class="form-group row">
@@ -52,6 +74,17 @@
           <input name="username" type="text" class="form-control" id="username" value="{{ old('username') }}" placeholder="Username">
         </div>
       </div>
+
+      <div class="form-group row">
+          <label for="email" class="col-sm-2 col-form-label">Type:</label>
+          <div class="col-sm-10">
+            <select class="form-control"  name="status">
+              <option value="approved" {{(old('status')=='approved') ?'selected' :''}}>Approved</option>
+              <option value="blocked" {{(old('status')=='blocked') ?'selected' :''}}>Blocked</option>
+              <option value="pending" {{(old('status')=='pending') ?'selected' :''}}>Pending</option>
+            </select>
+          </div>
+        </div>
 
 
       <div class="form-group ">

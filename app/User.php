@@ -2,9 +2,10 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -12,6 +13,7 @@ class User extends Authenticatable
 
   public $timestamps = true;
 
+  private static $imageFolder = 'users/profile/';
 
   /**
    * The attributes that are mass assignable.
@@ -22,6 +24,7 @@ class User extends Authenticatable
     'name', 'email', 'password',
   ];
 
+  protected $with = ['roles'];
 
 
   /**
@@ -49,7 +52,16 @@ class User extends Authenticatable
 
   public function roles()
   {
-    return $this->belongsToMany(Role::class)->withTimestamps();;
+    return $this->belongsToMany(Role::class,'role_user', 'user_id' )->withTimestamps();
+  }
+
+  public function isSuperAdmin()
+  {
+    // $this->load('roles');
+    // \Debugbar::info($this->roles->where('name','Super Admin')->first());
+
+    return null !== $this->roles->where('name','Super Admin')->first();
+
   }
 
 
@@ -86,12 +98,9 @@ class User extends Authenticatable
   public function hasAdminAccess()
   {
     $allowedRoles = array('Super Admin', 'Admin', 'Manager', 'Trainer', 'Moderator', 'OCN');
-    // if(in_array($this->role,$allowedRoles)){
-    //   return true;
-    // }
-    //
-    // return false;
-    return null !== $this->roles()->where('name', $allowedRoles)->first();
+    // $this->load('roles');
+    $result= null !== $this->roles->whereIn('name',$allowedRoles)->first();
+    return $result;
   }
 
 
@@ -100,7 +109,7 @@ class User extends Authenticatable
   //for class trainer
   public function trainingClasses()
   {
-    return $this->belongsToMany('App\ClassEvent', 'classevent_trainer', 'user_id')->withPivot('createdBy');
+    return $this->belongsToMany('App\ClassEvent', 'classEvent_trainer', 'user_id')->withPivot('createdBy');
   }
 
 
@@ -140,4 +149,21 @@ class User extends Authenticatable
   {
     return $this->learnerClasses->find($class_id)->pivot;
   }
+
+
+  public function getImageFolder()
+  {
+      return self::$imageFolder;
+  }
+
+  public function getImage()
+  {
+      // \Debugbar::error($this->image);
+      if ($this->image == null) {
+          return Storage::url('no-image.jpg');
+      }
+      return Storage::url($this->getImageFolder() . $this->image);
+  }
+  
+
 }

@@ -23,7 +23,7 @@
           <tr>
             <th scope="row">{{$class->id}}</th>
             <td>{{'(#'.$class->course->id.') '.$class->course->title}}</td>
-            <td>{{$class->getFormattedStartDate().'-'.$class->endDate->format('j F Y')}}</td>
+            <td></td>
             <td>
               @foreach ($class->trainers as $trainer)
                 {{$trainer->getFullname().', '}}

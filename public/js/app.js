@@ -36609,7 +36609,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js"); //
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js").default;
+window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -36690,9 +36690,9 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\js\app.js */"./resources/assets/js/app.js");
-__webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\Users\16396\Documents\Websites\training\resources\assets\sass\theme\theme.scss */"./resources/assets/sass/theme/theme.scss");
+__webpack_require__(/*! C:\Users\Yugeswaran\Desktop\code\training\resources\assets\js\app.js */"./resources/assets/js/app.js");
+__webpack_require__(/*! C:\Users\Yugeswaran\Desktop\code\training\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Users\Yugeswaran\Desktop\code\training\resources\assets\sass\theme\theme.scss */"./resources/assets/sass/theme/theme.scss");
 
 
 /***/ })

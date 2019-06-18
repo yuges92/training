@@ -24,7 +24,7 @@
                   <label for="email" class="sr-only ">{{ __('E-Mail Address') }}</label>
 
                   <div class="col-12">
-                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="Email Address">
+                    <input id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="Email Address">
 
                     @if ($errors->has('email'))
                       <span class="invalid-feedback">
