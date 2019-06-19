@@ -87,7 +87,7 @@ export default {
               className: "py-3"
             }
           );
-            this.isTrainerAdded = true;
+          this.isTrainerAdded = true;
         })
         .catch(err => {
           console.error(err);
@@ -129,10 +129,12 @@ export default {
     },
     removeTrainer() {
       this.deleting = "Removing...";
+
       axios
-        .delete("/api/classEvents/" + this.class_id + "/classTrainer", {
+        .post("/api/classEvents/" + this.class_id + "/classTrainer", {
           class_id: this.class_id,
-          type: this.trainerType
+          type: this.trainerType,
+          _method: "DELETE"
         })
         .then(res => {
           this.trainer = null;
@@ -140,6 +142,15 @@ export default {
             this.imageSrc = this.noImageLink;
             this.isTrainerAdded = false;
           }
+
+          Vue.toasted.show(
+            '<i class="fas fa-check-circle fa-3x"></i> Trainer Removed',
+            {
+              type: "success",
+              duration: 4000,
+              className: "py-3"
+            }
+          );
         })
         .catch(err => {
           console.error(err);

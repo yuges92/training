@@ -241,10 +241,14 @@ class ClassEventControllerTest extends TestCase
             'type' => 'Primary'
         ];
 
-        $this->postJson(route('classes.trainers.store', $class->id), $data);
+        $class->trainers()->attach($trainer->id, [
+            'type' => 'Primary',
+            'createdBy' => $this->user->id
+        ]);
+        
+        $this->assertDatabaseHas('classEvent_trainer', $data);
         $response = $this->deleteJson(route('classes.trainers.destroy', $class->id), $data);
         $response->assertStatus(201);
-
         $this->assertDatabaseMissing('classEvent_trainer', $data);
 
         

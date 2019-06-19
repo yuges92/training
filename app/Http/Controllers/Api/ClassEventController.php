@@ -53,6 +53,8 @@ class ClassEventController extends Controller
 
     public function addTrainer(Request $request, $class_id)
     {
+
+        // Log::info($request);
         $trainer = Trainer::find($request->user_id);
         $class = ClassEvent::with('trainers')->where('id', $class_id)->first();
         $class->trainers()->wherePivot('type', $request->type)->detach();
@@ -75,7 +77,7 @@ class ClassEventController extends Controller
 
         $trainer = ($class->trainers()->wherePivot('type', $request->type)->first());
         if ($trainer) {
-            Log::info($trainer);
+            // Log::info($trainer);
             return response()->json(new UserResource($trainer), 201);
         }
 
@@ -86,14 +88,17 @@ class ClassEventController extends Controller
     public function deleteATrainer(Request $request, $class_id)
     {
 
-        $class = ClassEvent::with('trainers')->where('id', $class_id)->first();
-        // Log::info($class);
+        $class = ClassEvent::with('trainers')->find( $class_id);
+        Log::info($class);
 
 
         if ($class) {
             Log::info('here ');
+            Log::warning($request);
             $class->trainers()->wherePivot('type', $request->type)->detach();
-            // $class = ClassEvent::with('trainers')->where('id', $class_id)->first();
+        $class->trainers()->wherePivot('type', $request->type)->detach();
+
+            $class = ClassEvent::with('trainers')->where('id', $class_id)->first();
             // Log::error($class);
             return response()->json('Deleted',201);
         }

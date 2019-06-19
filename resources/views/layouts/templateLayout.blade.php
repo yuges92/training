@@ -51,7 +51,8 @@
                 <ul class="dropdown-menu scale-up">
                   <!-- User image -->
                   <li class="user-header">
-
+                      <img class="rounded float-left" style="width:100px; " src="{{Auth::user()->getImage()}}" alt="User profile picture">
+                    
                     <p>
                       {{Auth::user()->getFullname()}}
                       <small>Member since April . 2016</small>

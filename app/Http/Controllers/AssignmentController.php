@@ -17,7 +17,7 @@ class AssignmentController extends Controller
   public function index()
   {
     $assignments= Assignment::all();
-    return view('admin.courseAssignment.assignments')->with('assignments',$assignments);
+    return view('admin.courseAssignment.index')->with('assignments',$assignments);
   }
 
   /**
