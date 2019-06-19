@@ -2649,9 +2649,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.deleting = "Removing...";
-      axios["delete"]("/api/classEvents/" + this.class_id + "/classTrainer", {
+      axios.post("/api/classEvents/" + this.class_id + "/classTrainer", {
         class_id: this.class_id,
-        type: this.trainerType
+        type: this.trainerType,
+        _method: "DELETE"
       }).then(function (res) {
         _this3.trainer = null;
 
@@ -2659,6 +2660,12 @@ __webpack_require__.r(__webpack_exports__);
           _this3.imageSrc = _this3.noImageLink;
           _this3.isTrainerAdded = false;
         }
+
+        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Trainer Removed', {
+          type: "success",
+          duration: 4000,
+          className: "py-3"
+        });
       })["catch"](function (err) {
         console.error(err);
       }).then(function (res) {
