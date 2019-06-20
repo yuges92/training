@@ -41,6 +41,7 @@ Route::group(['middleware'=>['auth:api']], function(){
   Route::resource('/classEvents/{classEvent}/classDates', 'Api\ClassDateController');
   Route::resource('/trainers', 'ClassTrainerController');
   // Route::resource('/courseTypes', 'CourseTypeController');
+  Route::resource('/courses/{course}/assessmentCriterias', 'Api\AssessmentCriteriaController');
 
 });
 

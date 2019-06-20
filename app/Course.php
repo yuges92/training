@@ -31,6 +31,11 @@ class Course extends Model
     return $this->hasMany('App\ClassEvent');
   }
 
+  public function criterias()
+  {
+    return $this->hasMany(AssessmentCriteria::class);
+  }
+
   public function courseBodies()
   {
     return $this->hasMany(CourseBody::class);

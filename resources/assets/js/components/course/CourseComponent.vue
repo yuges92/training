@@ -28,7 +28,7 @@
             <a href="#classes" data-toggle="tab" class aria-expanded="false">Classes</a>
           </li>
           <li>
-            <a href="#assignments" data-toggle="tab" class aria-expanded="false">Assignments</a>
+            <a href="#assessmentCriteria" data-toggle="tab" class aria-expanded="false">Assessement Criteria</a>
           </li>
         </ul>
 
@@ -50,8 +50,8 @@
             <CourseDocuments :course="course"></CourseDocuments>
           </div>
 
-          <div class="tab-pane" id="assignments" aria-expanded="false">
-
+          <div class="tab-pane" id="assessmentCriteria" aria-expanded="false">
+            <AssessmentCriteria :course="course"></AssessmentCriteria>
           </div>
         </div>
       </div>
@@ -65,6 +65,7 @@ import CourseDetail from "./CourseDetail";
 import CourseBodies from "./CourseBodies";
 import Classes from "./Classes";
 import CourseDocuments from "./CourseDocuments";
+import AssessmentCriteria from "./AssessmentCriteria";
 
 export default {
   name: "course",
@@ -72,7 +73,8 @@ export default {
     CourseDetail,
     CourseBodies,
     Classes,
-    CourseDocuments
+    CourseDocuments,
+    AssessmentCriteria,
   },
   props:['course_id'],
   data() {

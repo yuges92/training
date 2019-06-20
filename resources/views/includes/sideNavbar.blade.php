@@ -4,7 +4,7 @@
     <!-- Sidebar user panel -->
     <ul class="sidebar-menu" data-widget="tree">
 
-      <li class="treeview">
+      {{-- <li class="treeview">
         <a href="#">
           <i class="fa fa-dashboard"></i>
           <span>Dashboard</span>
@@ -20,7 +20,7 @@
           <li><a href=""><i class="fa fa-circle-o"></i> Dashboard 5</a></li>
           <li><a href=""><i class="fa fa-circle-o"></i> Dashboard 6</a></li>
         </ul>
-      </li>
+      </li> --}}
 
       <li class="{{ Request::is('admin') ? 'active' : '' }}"><a  href="{{route('adminDashboard')}}"><i class="fa fa-tachometer-alt"></i> <span> Dashboard</span></a></li>
       <li class="{{ Request::is('admin/order*') ? 'active' : '' }}"><a  href="{{route('order.index')}}"><i class="fas fa-list-alt"></i> <span>Bookings</span></a></li>

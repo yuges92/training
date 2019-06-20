@@ -25,10 +25,11 @@ class AssignmentController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
-  public function create()
+  public function create(Request $request)
   {
+    $course_id=$request->course_id ? $request->course_id : null;
     $courses=Course::all();
-    return view('admin.courseAssignment.createAssignment')->with('courses',$courses);
+    return view('admin.courseAssignment.createAssignment', compact('courses', 'course_id'));
 
   }
 

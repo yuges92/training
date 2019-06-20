@@ -63,10 +63,10 @@ export default {
 
   created() {},
   mounted() {
-    var explode = function() {
-      $(".dataTableClasses").DataTable();
-    };
-    setTimeout(explode, 2000);
+    // var explode = function() {
+    //   $(".dataTableClasses").DataTable();
+    // };
+    // setTimeout(explode, 2000);
   }
 };
 
