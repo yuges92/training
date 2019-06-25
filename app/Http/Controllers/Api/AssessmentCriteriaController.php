@@ -18,10 +18,9 @@ class AssessmentCriteriaController extends Controller
     public function index(Request $request, $course_id)
     {
         // Log::error($course_id);
-        $criterias=AssessmentCriteria::where('course_id', $course_id)->get();
+        $criterias = AssessmentCriteria::where('course_id', $course_id)->get();
         // Log::error($criterias);
         return response()->json($criterias, 201);
-        
     }
 
     /**
@@ -42,10 +41,10 @@ class AssessmentCriteriaController extends Controller
      */
     public function store(Request $request, $course_id)
     {
-       $this->validate($request, [
-        //    'course_id' => 'required|unique:assessment_criterias,course_id,NULL,number'.$request->number,
-           'number' => 'required|unique:assessment_criterias,number,NULL,course_id'.$request->course_id,
-           'description' => 'required',
+        $this->validate($request, [
+            //    'course_id' => 'required|unique:assessment_criterias,course_id,NULL,number'.$request->number,
+            'number' => 'required|unique:assessment_criterias,number,NULL,course_id' . $request->course_id,
+            'description' => 'required',
 
         ]);
 
@@ -58,7 +57,6 @@ class AssessmentCriteriaController extends Controller
         ]);
 
         return response()->json($criteria, 201);
-
     }
 
     /**
@@ -68,8 +66,7 @@ class AssessmentCriteriaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $course_id)
-    {
-    }
+    { }
 
     /**
      * Show the form for editing the specified resource.
@@ -89,9 +86,23 @@ class AssessmentCriteriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $course_id, AssessmentCriteria $assessmentCriteria)
     {
-        //
+
+        $this->validate($request, [
+            'number' => "required|unique:assessment_criterias,number,$assessmentCriteria->id,course_id$course_id",
+            // 'number' => 'required|unique:assessment_criterias,number,NULL,course_id'.$request->course_id,
+            'description' => 'required',
+
+        ]);
+
+        $assessmentCriteria->update([
+            'number' => $request->number,
+            'description' => $request->description,
+            'updatedBy' => $request->user()->id,
+        ]);
+
+        return response()->json($assessmentCriteria, 201);
     }
 
     /**
@@ -100,8 +111,9 @@ class AssessmentCriteriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($course_id, AssessmentCriteria $assessmentCriteria)
     {
-        //
+        $assessmentCriteria->delete();
+        return response()->json('Deleted', 200);
     }
 }

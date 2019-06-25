@@ -88,8 +88,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
   Route::post('/myProfile', 'MyProfileController@update')->name('myProfile.update');
   Route::post('/myProfile/password', 'MyProfileController@updatePassword')->name('myProfile.changePassword');
 
+  Route::get('/courses/{course}/assignments', 'CourseAssignmentController@show');
+
   Route::resource('/courseTypes', 'CourseTypeController');
-  Route::resource('/assignments', 'AssignmentController');
+  Route::get('/assignments', 'AssignmentController@index');
   Route::resource('/classes', 'ClassEventController');
   Route::post('/users/{user}/images', 'UserController@updateImage')->name('profile.changeImage');
   Route::resource('/users', 'UserController');

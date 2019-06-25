@@ -42,4 +42,39 @@ class AssessmentCriteriaControllerTest extends TestCase
         $this->assertEquals(1, count($responseData));
 
     }
+
+
+        /**
+     * @test
+     */
+    public function can_update_a_assignment()
+    {
+        $criteria = factory(AssessmentCriteria::class)->create();
+        $this->actingAs($this->user, 'api');
+        $data = [
+            'number' => '1.5',
+            'description' => $this->faker->sentence(3),
+        ];
+        $response = $this->putJson(route('assessmentCriterias.update', [$criteria->course_id,$criteria->id]), $data);
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('assessment_criterias', $data);
+    }
+
+    /**
+     * @test
+     */
+    public function can_delete_a_criteria()
+    {
+        $criteria = factory(AssessmentCriteria::class)->create();
+        $this->actingAs($this->user, 'api');
+        $response = $this->deleteJson(route('assessmentCriterias.destroy', [$criteria->course_id,$criteria->id]));
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('assessment_criterias',[
+            'id'=>$criteria->id,
+            'course_id'=>$criteria->course_id,
+            'number'=>$criteria->number,
+            'description'=>$criteria->description
+        ]);
+
+    }
 }

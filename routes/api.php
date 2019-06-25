@@ -42,6 +42,7 @@ Route::group(['middleware'=>['auth:api']], function(){
   Route::resource('/trainers', 'ClassTrainerController');
   // Route::resource('/courseTypes', 'CourseTypeController');
   Route::resource('/courses/{course}/assessmentCriterias', 'Api\AssessmentCriteriaController');
+  Route::resource('/courses/{course}/assignments', 'Api\AssignmentController');
 
 });
 

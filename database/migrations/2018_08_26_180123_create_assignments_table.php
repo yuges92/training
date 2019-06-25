@@ -19,10 +19,7 @@ class CreateAssignmentsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->enum('type',['onSite','pre','post']);
-            $table->string('originFileName')->nullable();
-            $table->string('file')->nullable();
-            $table->integer('deadlineDays')->default(0);
-            $table->integer('createdBy');
+            $table->integer('createdBy')->nullable();
             $table->integer('updatedBY')->nullable();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->timestamps();

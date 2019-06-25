@@ -113,7 +113,7 @@ export default {
             })
             .then(function() {
             });
-          console.log(id);
+          // console.log(id);
         }
       });
     }

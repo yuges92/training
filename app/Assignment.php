@@ -9,6 +9,7 @@ class Assignment extends Model
 
   public $timestamps = true;
 
+  protected $fillable=['course_id','type', 'title', 'description', 'createdBy', 'updatedBY'];
 
     public function course()
     {

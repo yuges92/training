@@ -11,21 +11,39 @@
         <div class="box">
           <div class="box-body">
             <div class="form-group row">
-              <label for="number" class="col-sm-2 col-form-label">Criteria Number:</label>
+              <label for="number" class="col-sm-2 col-form-label">Assignment Type:</label>
+              <div class="col-sm-10">
+                <select
+                  class="form-control"
+                  name="status"
+                  id="status"
+                  v-model="assignment.type"
+                  required
+                >
+                  <option value="pre">Pre Course</option>
+                  <option value="onSite">On Site</option>
+                  <option value="post">Post Course</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="title" class="col-sm-2 col-form-label">Title:</label>
               <div class="col-sm-10">
                 <input
-                  name="number"
+                  name="title"
                   type="text"
                   class="form-control"
-                  id="number"
-                  placeholder="Criteria Number"
-                  v-model="criteria.number"
+                  id="title"
+                  placeholder="Assignment Title"
+                  v-model="assignment.title"
+                  required
                 >
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="description" class="col-sm-2 col-form-label">Description:</label>
+              <label for="description" class="col-sm-2 col-form-label">Short Description:</label>
               <div class="col-sm-10">
                 <textarea
                   id="description"
@@ -34,7 +52,7 @@
                   rows="4"
                   cols="80"
                   maxlength="600"
-                  v-model="criteria.description"
+                  v-model="assignment.description"
                 ></textarea>
               </div>
             </div>
@@ -52,11 +70,12 @@
 import SubmitButton from "../SubmitButton";
 
 export default {
-  props: ["course"],
+  props: ["course_id"],
   data() {
     return {
-      criteria: {
-        number: "",
+      assignment: {
+        type: "",
+        title: "",
         description: ""
       },
       showBtn: true,
@@ -68,18 +87,23 @@ export default {
       this.errors = [];
       this.showBtn = false;
 
-      if (!this.criteria.number) {
-        this.errors.push("Number required.");
+      if (!this.assignment.type) {
+        this.errors.push("Type required.");
       }
-      if (!this.criteria.description) {
+      if (!this.assignment.title) {
+        this.errors.push("Title required.");
+      }
+
+      if (!this.assignment.description) {
         this.errors.push("Description required.");
       }
-    //   console.log(this.course);
+      //   console.log(this.course);
 
       axios
-        .post("/api/courses/" + this.course.id + "/assessmentCriterias", {
-          number: this.criteria.number,
-          description: this.criteria.description
+        .post("/api/courses/" + this.course_id + "/assignments", {
+          type: this.assignment.type,
+          title: this.assignment.title,
+          description: this.assignment.description
         })
         .then(res => {
           Vue.toasted.show(
@@ -90,8 +114,8 @@ export default {
               className: "py-3"
             }
           );
-          this.$emit('refresh');
-        //   console.log(res);
+          this.$emit("refresh");
+          //   console.log(res);
         })
         .catch(err => {
           Vue.toasted.show(

@@ -22,6 +22,30 @@ Vue.use(VueSweetalert2);
 Vue.use(Toasted);
 Vue.use( CKEditor );
 
+Vue.mixin({
+methods: {
+    alertSuccess: function(message){
+        Vue.toasted.show(
+            '<i class="fas fa-check-circle fa-3x"></i> '+message,
+            {
+              type: "success",
+              duration: 4000,
+              className: "py-3"
+            }
+          );
+    },
+    alertFailed: function (message){
+        Vue.toasted.show(
+            '<i class="fas fa-exclamation-circle fa-3x"></i>'+message,
+            {
+              type: "error",
+              duration: 4000,
+              className: "py-3"
+            }
+          );
+    }
+},
+});
 
 
 

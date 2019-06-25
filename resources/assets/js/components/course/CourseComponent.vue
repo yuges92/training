@@ -11,12 +11,7 @@
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
           <li>
-            <a
-              href="#detail"
-              data-toggle="tab"
-              class="active"
-              aria-expanded="true"
-            >Course Detail</a>
+            <a href="#detail" data-toggle="tab" class="active" aria-expanded="true">Course Detail</a>
           </li>
           <li>
             <a href="#content" data-toggle="tab" class aria-expanded="false">Course Content</a>
@@ -28,7 +23,16 @@
             <a href="#classes" data-toggle="tab" class aria-expanded="false">Classes</a>
           </li>
           <li>
-            <a href="#assessmentCriteria" data-toggle="tab" class aria-expanded="false">Assessement Criteria</a>
+            <a
+              href="#assessmentCriteria"
+              data-toggle="tab"
+              class
+              aria-expanded="false"
+            >Assessement Criterias</a>
+          </li>
+
+          <li>
+            <a href="#assignments" data-toggle="tab" class aria-expanded="false">Assignments</a>
           </li>
         </ul>
 
@@ -41,7 +45,6 @@
             <CourseBodies :course="course" @refresh="refresh"></CourseBodies>
           </div>
 
-
           <div class="tab-pane" id="classes" aria-expanded="false">
             <Classes :course="course"></Classes>
           </div>
@@ -52,6 +55,10 @@
 
           <div class="tab-pane" id="assessmentCriteria" aria-expanded="false">
             <AssessmentCriteria :course="course"></AssessmentCriteria>
+          </div>
+
+          <div class="tab-pane" id="assignments" aria-expanded="false">
+            <Assignment :course_id="course.id"></Assignment>
           </div>
         </div>
       </div>
@@ -66,6 +73,7 @@ import CourseBodies from "./CourseBodies";
 import Classes from "./Classes";
 import CourseDocuments from "./CourseDocuments";
 import AssessmentCriteria from "./AssessmentCriteria";
+import Assignment from "../assignment/Assignment";
 
 export default {
   name: "course",
@@ -75,14 +83,16 @@ export default {
     Classes,
     CourseDocuments,
     AssessmentCriteria,
+    Assignment
   },
-  props:['course_id'],
+  props: ["course_id"],
   data() {
     return {
       courseTypes: [],
       courses: [],
       course: "",
-      loader: true
+      loader: true,
+      tries:0,
     };
   },
   mounted() {
@@ -92,26 +102,29 @@ export default {
     this.getCourse();
     this.getCourses();
     this.getCourseTypes();
+    this.loader = false;
   },
   methods: {
     getCourse() {
-      axios.get("/api/courses/"+this.course_id).then(response => {
-        this.course=response.data;
+      axios.get("/api/courses/" + this.course_id).then(response => {
+        this.course = response.data;
         // console.log(response.data);
+      }).catch(err => {
+        console.error(err); 
+        alert('Loaded Failed. Please reload the page');
       });
+      
     },
     getCourses() {
       axios.get("/api/courses").then(response => {
-        this.courses=response.data;
+        this.courses = response.data;
       });
-
     },
     getCourseTypes() {
-            axios.get("/api/courseTypes").then(response => {
-        this.courseTypes=response.data;
+      axios.get("/api/courseTypes").then(response => {
+        this.courseTypes = response.data;
         // console.log(response.data);
       });
-
     },
     refresh() {
       this.getCourse();
@@ -126,7 +139,7 @@ export default {
     }
   },
   mounted() {
-    this.loader = false;
+    // this.loader = false;
   }
 };
 </script>
