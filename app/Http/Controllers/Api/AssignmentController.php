@@ -41,6 +41,13 @@ class AssignmentController extends Controller
     }
 
 
+    public function show(Request $request, $course_id, Assignment $assignment)
+    {
+
+
+
+        return response()->json($assignment, 201);
+    }
 
 
     public function update(Request $request, $course_id, Assignment $assignment)

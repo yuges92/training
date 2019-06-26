@@ -1,9 +1,9 @@
 @extends('layouts.adminLayout')
-@section('title', 'Classes')
+@section('title', 'Course Assignment')
 @section('content')
 
 <div id="app">
-  <assignment-component :class_id={{$class->id}}></assignment-component>
+  <class-component :assignment_id={{$assignment->id}} :course_id={{$assignment->course_id}}></class-component>
 </div>
 
 

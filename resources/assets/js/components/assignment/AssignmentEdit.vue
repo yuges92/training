@@ -7,13 +7,16 @@
       </ul>
     </div>
 
-    <button class="btn btn-warning mb-3" @click="goBack">
+    <!-- <button class="btn btn-warning mb-3" @click="goBack">
       <i class="fas fa-arrow-alt-circle-left"></i> Go Back
-    </button>
+    </button>-->
 
-    <div v-if="showEditForm">
+    <div>
       <div class="col-12 row mx-auto">
-        <div class="box">
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <h3 class="box-title">Assignment Info</h3>
+          </div>
           <div class="box-body">
             <form @submit.prevent="update" enctype="multipart/form-data">
               <div class="form-group row">
@@ -71,12 +74,12 @@
       </div>
     </div>
 
-    <div>Questions</div>
   </div>
 </template>
 
 <script>
 import SubmitButton from "../SubmitButton";
+import Questions from "./Questions";
 
 export default {
   props: ["assignment"],
@@ -118,7 +121,7 @@ export default {
           }
         )
         .then(res => {
-          this.alertSuccess("Course details updated");
+          this.alertSuccess("Assignment details updated");
 
           this.$emit("refresh");
           // this.goBack();
@@ -135,12 +138,15 @@ export default {
     },
     goBack() {
       this.$parent.isEditFormActive = false;
+    },
+    toggleEditForm(toggle) {
+      this.showEditForm = toggle;
     }
   },
   components: {
-    SubmitButton
+    SubmitButton,
+    Questions
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>

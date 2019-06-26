@@ -38,9 +38,9 @@
                   <td>{{assignment.type}}</td>
                   <td class="d-flex justify-content-around">
                     <div>
-                      <button class="btn btn-success" @click="showCurrentAssignment(assignment)">
+                      <a :href="assignment.course_id+'/assignments/'+assignment.id" class="btn btn-success" >
                         <i class="fas fa-eye"></i> View
-                      </button>
+                      </a>
                     </div>
 
                     <div>

@@ -13,6 +13,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('class-component', require('./components/classes/ClassComponent.vue').default);
+Vue.component('class-component', require('./components/assignment/AssignmentComponent.vue').default);
 
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import axios from "axios";
@@ -30,6 +31,31 @@ Vue.component('v-select', vSelect);
 Vue.component('multiselect', Multiselect);
 
 
+//global methods and attributes
+Vue.mixin({
+    methods: {
+        alertSuccess: function(message){
+            Vue.toasted.show(
+                '<i class="fas fa-check-circle fa-3x"></i> '+message,
+                {
+                  type: "success",
+                  duration: 4000,
+                  className: "py-3"
+                }
+              );
+        },
+        alertFailed: function (message){
+            Vue.toasted.show(
+                '<i class="fas fa-exclamation-circle fa-3x"></i>'+message,
+                {
+                  type: "error",
+                  duration: 4000,
+                  className: "py-3"
+                }
+              );
+        }
+    },
+    });
 
 
 

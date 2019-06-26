@@ -33,7 +33,7 @@ class AssignmentControllerTest extends TestCase
     /**
      * @test
      */
-    public function can_get_assesments()
+    public function can_get_assignments()
     {
         $assignment = factory(Assignment::class)->create();
         $this->actingAs($this->user, 'api');
@@ -41,6 +41,22 @@ class AssignmentControllerTest extends TestCase
         $response->assertStatus(201);
         $responseData = $response->decodeResponseJson();
         $this->assertEquals(1, count($responseData));
+    }
+
+
+        /**
+     * @test
+     */
+    public function can_get_an_assignment()
+    {
+        $assignment = factory(Assignment::class)->create();
+        $this->actingAs($this->user, 'api');
+        $response = $this->getJson(route('assignments.show', [$assignment->course_id,$assignment->id]));
+        $response->assertStatus(201);
+        $responseData = $response->decodeResponseJson();
+        $this->assertEquals($assignment->id, ($responseData['id']));
+        $this->assertEquals($assignment->title, ($responseData['title']));
+        $this->assertEquals($assignment->description, ($responseData['description']));
     }
 
 
