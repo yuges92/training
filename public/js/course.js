@@ -2462,8 +2462,104 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["assignment_id"]
+  props: ["assignment_id"],
+  data: function data() {
+    return {
+      answers: [],
+      question: {},
+      filename: "",
+      imageFile: "",
+      image: "",
+      number: "",
+      description: "",
+      type: "",
+      video: ""
+    };
+  },
+  methods: {
+    addAnswer: function addAnswer() {
+      this.answers.push({
+        value: ""
+      });
+    },
+    removeAnswer: function removeAnswer() {
+      this.answers.pop();
+    },
+    saveQuestion: function saveQuestion() {
+      console.log(this.answers);
+    },
+    previewFiles: function previewFiles(event) {
+      var file = this.$refs.file.files[0];
+
+      if (!file) {
+        this.filename = "Choose a file";
+        return;
+      }
+
+      if (!file.type.match("image.*")) {
+        this.filename = "not a picture";
+        return;
+      }
+
+      this.filename = file.name;
+      this.imageFile = file; // console.log(this.imageFile);
+
+      var reader = new FileReader();
+
+      var _this = this;
+
+      reader.onload = function (e) {
+        _this.image = e.target.result; //  this.imageFile = e.target.files[0];
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
 });
 
 /***/ }),
@@ -40552,254 +40648,445 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "box box-default" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-body wizard-content" }, [
+        _c(
+          "form",
+          {
+            staticClass: "tab-wizard wizard-circle wizard clearfix",
+            attrs: { enctype: "multipart/form-data", method: "POST" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.saveQuestion()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "clearfix" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "content clearfix" }, [
+              _c("h6", { staticClass: "title", attrs: { tabindex: "-1" } }, [
+                _vm._v("Question Detail")
+              ]),
+              _vm._v(" "),
+              _c("section", { staticClass: "body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-2" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "input",
+                        _vm._b(
+                          {
+                            staticClass: "form-control",
+                            attrs: { type: "number", id: "number" }
+                          },
+                          "input",
+                          _vm.number,
+                          false
+                        )
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c(
+                        "input",
+                        _vm._b(
+                          {
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "description" }
+                          },
+                          "input",
+                          _vm.description,
+                          false
+                        )
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.type,
+                              expression: "type"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { id: "type", name: "type" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.type = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "" } }, [
+                            _vm._v("Select a question type")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "dropdown" } }, [
+                            _vm._v("Dropdown Box")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "multiple" } }, [
+                            _vm._v("Multiple Choice")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "comment" } }, [
+                            _vm._v("Comment Box")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "file" } }, [
+                            _vm._v("File Upload")
+                          ])
+                        ]
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm.type == "dropdown" || _vm.type == "multiple"
+                  ? _c(
+                      "div",
+                      { staticClass: "with-border" },
+                      [
+                        _c("h4", [_vm._v("Answers:")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.answers, function(answer) {
+                          return _c(
+                            "div",
+                            { key: answer.id, staticClass: "row mb-2" },
+                            [
+                              _c("div", { staticClass: "col-md-8 my-auto" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: answer.value,
+                                      expression: "answer.value"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    name: "",
+                                    type: "text",
+                                    id: "firstName5"
+                                  },
+                                  domProps: { value: answer.value },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        answer,
+                                        "value",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "my-3" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-default",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.addAnswer()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-plus" }),
+                              _vm._v(" Add Answer\n                ")
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-default",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.removeAnswer()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-minus" }),
+                              _vm._v(" Remove Answer\n                ")
+                            ]
+                          )
+                        ])
+                      ],
+                      2
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("div", {}, [
+                    _c("div", { staticClass: "col-md-8 my-2 p-0" }, [
+                      _c("div", { staticClass: "custom-file mb-3" }, [
+                        _c("input", {
+                          ref: "file",
+                          staticClass: "custom-file-input",
+                          attrs: { type: "file", id: "customFile" },
+                          on: {
+                            change: function($event) {
+                              return _vm.previewFiles()
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass: "custom-file-label",
+                            attrs: { for: "customFile" }
+                          },
+                          [_vm._v(_vm._s(_vm.filename))]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", {}, [
+                      _c("img", {
+                        staticClass: "image rounded",
+                        staticStyle: { "max-width": "15rem" },
+                        attrs: { src: _vm.image, alt: "" }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row my-3" }, [
+                  _c("div", { staticClass: "col-md-8" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.video,
+                            expression: "video"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", id: "video" },
+                        domProps: { value: _vm.video },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.video = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { domProps: { innerHTML: _vm._s(_vm.video) } }),
+                _vm._v(" "),
+                _vm._m(6),
+                _vm._v(" "),
+                _vm._m(7)
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(8)
+          ]
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "box box-default" }, [
-        _c("div", { staticClass: "box-header with-border" }, [
-          _c("h3", { staticClass: "card-title" }, [_vm._v("New Question")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "box-body wizard-content" }, [
-          _c(
-            "form",
-            {
-              staticClass: "tab-wizard wizard-circle wizard clearfix",
-              attrs: { action: "#" }
-            },
-            [
-              _c("div", { staticClass: "clearfix" }),
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("New Question")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "number" } }, [
+      _vm._v("\n                    Number\n                    "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "description" } }, [
+      _vm._v("\n                    Question\n                    "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "type" } }, [
+      _vm._v("\n                    Question Type\n                    "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label", attrs: { for: "image" } },
+      [
+        _vm._v("\n                Image\n                "),
+        _c("small", [_vm._v("(optional)")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "video" } }, [
+      _vm._v("\n                    Embed Video\n                    "),
+      _c("small", [_vm._v("(optional)")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "my-3" }, [
+      _c("h4", [_vm._v("Assessment Criterias:")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "checkbox" }, [
+              _c("input", { attrs: { type: "checkbox", id: "Checkbox_1" } }),
               _vm._v(" "),
-              _c("div", { staticClass: "content clearfix" }, [
-                _c("h6", { staticClass: "title", attrs: { tabindex: "-1" } }, [
-                  _vm._v("Question Detail")
-                ]),
-                _vm._v(" "),
-                _c("section", { staticClass: "body" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-2" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "firstName5" } }, [
-                          _vm._v("Question Number :")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: { type: "text", id: "firstName5" }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "lastName1" } }, [
-                          _vm._v("Question :")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: { type: "text", id: "lastName1" }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-4" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "location3" } }, [
-                          _vm._v("Question Type :")
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            staticClass: "custom-select form-control",
-                            attrs: { id: "location3", name: "location" }
-                          },
-                          [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Select a question type")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Dropdown Box")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Multiple Choice")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Comment Box")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("File Upload")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Radio Buttons")
-                            ])
-                          ]
-                        )
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "with-border" }, [
-                    _c("h4", [_vm._v("Answers:")]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-8 my-auto" }, [
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: { type: "text", id: "firstName5" }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "my-auto" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fas fa-plus" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fas fa-minus" })]
-                        )
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "my-3" }, [
-                    _c("h4", [_vm._v("Assessment Criterias:")]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-3" }, [
-                        _c("div", { staticClass: "form-group " }, [
-                          _c("div", { staticClass: "checkbox" }, [
-                            _c("input", {
-                              attrs: { type: "checkbox", id: "Checkbox_1" }
-                            }),
-                            _vm._v(" "),
-                            _c("label", { attrs: { for: "Checkbox_1" } }, [
-                              _vm._v("Checkbox 1")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "checkbox" }, [
-                            _c("input", {
-                              attrs: { type: "checkbox", id: "Checkbox_2" }
-                            }),
-                            _vm._v(" "),
-                            _c("label", { attrs: { for: "Checkbox_2" } }, [
-                              _vm._v("Checkbox 2")
-                            ])
-                          ])
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row" })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "h6",
-                  {
-                    staticClass: "title",
-                    attrs: { id: "steps-uid-0-h-1", tabindex: "-1" }
-                  },
-                  [_vm._v("Job Status")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "section",
-                  {
-                    staticClass: "body",
-                    staticStyle: { display: "none" },
-                    attrs: {
-                      id: "steps-uid-0-p-1",
-                      role: "tabpanel",
-                      "aria-labelledby": "steps-uid-0-h-1",
-                      "aria-hidden": "true"
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "jobTitle1" } }, [
-                            _vm._v("Job Title :")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: { type: "text", id: "jobTitle1" }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "videoUrl1" } }, [
-                            _vm._v("Company Name :")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: { type: "text", id: "videoUrl1" }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-12" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "shortDescription1" } }, [
-                            _vm._v("Job Description :")
-                          ]),
-                          _vm._v(" "),
-                          _c("textarea", {
-                            staticClass: "form-control",
-                            attrs: {
-                              name: "shortDescription",
-                              id: "shortDescription1",
-                              rows: "6"
-                            }
-                          })
-                        ])
-                      ])
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "actions clearfix" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-info rounded",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Save")]
-                )
+              _c("label", { attrs: { for: "Checkbox_1" } }, [
+                _vm._v("Checkbox 1")
               ])
-            ]
-          )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "checkbox" }, [
+              _c("input", { attrs: { type: "checkbox", id: "Checkbox_2" } }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "Checkbox_2" } }, [
+                _vm._v("Checkbox 2")
+              ])
+            ])
+          ])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row my-3" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "jobTitle1" } }, [_vm._v("Job Title :")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", id: "jobTitle1" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "videoUrl1" } }, [
+            _vm._v("Company Name :")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", id: "videoUrl1" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "shortDescription1" } }, [
+            _vm._v("Job Description :")
+          ]),
+          _vm._v(" "),
+          _c("textarea", {
+            staticClass: "form-control",
+            attrs: {
+              name: "shortDescription",
+              id: "shortDescription1",
+              rows: "6"
+            }
+          })
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "actions clearfix" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-info rounded", attrs: { type: "submit" } },
+        [_vm._v("Save")]
+      )
     ])
   }
 ]
