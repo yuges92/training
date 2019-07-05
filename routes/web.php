@@ -52,6 +52,8 @@ Route::get('/mailable', function () {
 Route::get('/email', function () {
   return view('email');
 });
+
+
 Route::get('/courses', 'FrontCourseController@index')->name('courses');
 
 Route::get('/courses/{courseType}', 'FrontCourseController@show')->name('courseType');
@@ -61,6 +63,7 @@ Route::post('/customlogout', 'LoginController@logout')->name('customLogout');
 // Route::resource('/register', 'RegisterController');
 
 Auth::routes();
+Route::get('/login', 'LoginController@show')->name('login');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

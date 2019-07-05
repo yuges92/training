@@ -8,21 +8,21 @@
     </div>
 
     <div>
-      <div class="col-12 ">
+      <div class="col-12">
         <div class="box-header with-border">
           <button class="btn btn-info mb-3" @click="showAddForm = !showAddForm">
             <i class="fas fa-plus"></i> Add new question
           </button>
         </div>
-          <div class="box-body">
-            <div v-if="showAddForm" class="mb-3">
-              <NewQuestion :assignment="assignment"></NewQuestion>
-            </div>
-
-            <div v-for="item in 10" :key="item.id">
-              <QuestionRow :question="question"></QuestionRow>
-            </div>
+        <div class="box-body">
+          <div v-if="showAddForm" class="mb-3">
+            <NewQuestion :assignment="assignment" :criterias="criterias"></NewQuestion>
           </div>
+
+          <div v-for="question in questions" :key="question.id">
+            <QuestionRow :assignment="assignment" :question="question" :criterias="criterias"></QuestionRow>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -34,14 +34,15 @@ import QuestionRow from "./QuestionRow";
 import NewQuestion from "./NewQuestion";
 
 export default {
-  props: ["assignment"],
+  props: ["assignment", "criterias"],
   data() {
     return {
       showBtn: true,
       errors: [],
       showEditForm: true,
       question: {},
-      showAddForm:false,
+      questions: [],
+      showAddForm: false
     };
   },
   methods: {
@@ -50,13 +51,31 @@ export default {
     },
     toggleEditForm(toggle) {
       this.showEditForm = toggle;
-    }
+    },
+    getQuestions() {
+      axios
+        .get("/api/assignments/"+this.assignment.id+"/questions")
+        .then(res => {
+          this.questions = res.data;
+          console.log('questions: ');
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    },
+      refresh() {
+        this.getQuestions();
+        this.showAddForm=false;
+      },
   },
   components: {
     SubmitButton,
     QuestionRow,
     NewQuestion
   },
-  mounted() {}
+  mounted() {
+this.refresh();
+  }
 };
 </script>

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Cart;
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -40,12 +42,11 @@ class LoginController extends Controller
     $emailOrUsername = request()->input('email');
  
     $fieldType = filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-    
     if (Auth::attempt([$fieldType => $emailOrUsername, 'password'=>$request->password])) {
       Cart::storeToDatabase();
+      return redirect(session('previous_page'));
 
-      // return redirect()->route('adminDashboard');
-      return redirect()->back();
+
     }
 
     return redirect()->back()->with('error', 'Login Failed. Please check your credentials');
@@ -63,6 +64,18 @@ class LoginController extends Controller
     // Cart::destroy();
     Auth::logout();
     return redirect()->route('home');
+  }
+
+  public function show(Request $request)
+  {
+
+    // Cart::store(Auth::user()->id);
+    // Cart::destroy();
+    // session(['previous_page' => url()->previous()]);
+    // $request->session()->flash('previous_page', url()->previous());
+    Session::flash('previous_page', url()->previous());
+
+    return view('auth.login');
   }
 
 

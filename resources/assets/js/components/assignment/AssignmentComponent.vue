@@ -22,12 +22,6 @@
             <li>
               <a href="#trainers" data-toggle="tab" class aria-expanded="false">Settings</a>
             </li>
-            <li>
-              <a href="#bookings" data-toggle="tab" class aria-expanded="false">Bookings</a>
-            </li>
-            <li>
-              <a href="#learners" data-toggle="tab" class aria-expanded="false">Learners</a>
-            </li>
           </ul>
 
           <div class="tab-content">
@@ -37,8 +31,7 @@
             </div>
 
             <div class="tab-pane" id="questions" aria-expanded="false">
-              <Questions :assignment="assignment"></Questions>
-
+              <Questions :assignment="assignment" :criterias="criterias"></Questions>
             </div>
           </div>
         </div>
@@ -52,8 +45,6 @@ import Error from "../Error";
 import AssignmentEdit from "./AssignmentEdit";
 import Questions from "./Questions";
 
-
-
 import SubmitButton from "../SubmitButton";
 Vue.component("SubmitButton", SubmitButton);
 
@@ -64,6 +55,7 @@ export default {
     return {
       isLoaded: 0,
       assignment: {},
+      criterias: [],
       errors: null,
       showError: false
     };
@@ -78,6 +70,7 @@ export default {
   },
   created() {
     this.getAssignments();
+    this.getCriterias();
   },
   methods: {
     getAssignments() {
@@ -90,14 +83,24 @@ export default {
         )
         .then(res => {
           this.assignment = res.data;
-        //   console.log(this.assignment);
-        this.isLoaded=1;
+          //   console.log(this.assignment);
+          this.isLoaded = 1;
         })
         .catch(err => {
           console.error(err);
         });
     },
-
+    getCriterias() {
+      axios
+        .get("/api/courses/" + this.course_id + "/assessmentCriterias")
+        .then(res => {
+          this.criterias = res.data;
+          console.log(this.criterias);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    },
     updateErrors(errors) {
       this.errors = errors;
     }

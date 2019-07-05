@@ -19,7 +19,7 @@
           <i class="fas fa-plus"></i> Close
         </button>
 
-        <AssignmentForm v-if="showForm" @refresh="refresh" :course_id="course_id"></AssignmentForm>
+        <AssignmentForm v-if="showForm" @refresh="refresh" :course_id="course_id" :criterias="criterias"></AssignmentForm>
         <div class="box">
           <div class="box-body">
             <table class="table table-hover table-sm-responsive">
@@ -79,7 +79,8 @@ export default {
       showForm: false,
       isLoaded: false,
       isEditFormActive: false,
-      currentAssignment: {}
+      currentAssignment: {},
+      criterias:[],
     };
   },
   components: {
@@ -90,6 +91,7 @@ export default {
     refresh() {
       //   console.log("refreshed");
       this.getAssignments();
+      this.getCriterias();
       this.showForm = false;
     },
     getAssignments() {
@@ -97,7 +99,18 @@ export default {
         .get("/api/courses/" + this.course_id + "/assignments")
         .then(res => {
           this.assignments = res.data;
-          console.log(this.assignments);
+          // console.log(this.assignments);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    },
+        getCriterias() {
+      axios
+        .get("/api/courses/" + this.course_id + "/assessmentCriterias")
+        .then(res => {
+          this.criterias = res.data;
+        //   console.log(this.criterias);
         })
         .catch(err => {
           console.error(err);

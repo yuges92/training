@@ -15,4 +15,11 @@ class Assignment extends Model
     {
       return $this->belongsTo('App\Course');
     }
+
+    public function questions()
+    {
+      return $this->hasMany(Question::class);
+    }
+
+
 }

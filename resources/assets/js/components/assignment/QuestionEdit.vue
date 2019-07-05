@@ -2,7 +2,7 @@
   <div>
     <div class="box box-default">
       <div class="box-header with-border">
-        <h3 class="card-title">New Question</h3>
+        <h3 class="card-title">Edit Question</h3>
       </div>
       <div class="box-body wizard-content">
         <form
@@ -19,7 +19,7 @@
                     Question Type
                     <span class="text-danger">*</span>
                   </label>
-                  <select class="form-control" id="type" name="type" v-model="type">
+                  <select class="form-control" id="type" name="type" v-model="question.type">
                     <option value>Select a question type</option>
                     <option value="dropdown">Dropdown Box</option>
                     <option value="multiple">Multiple Choice</option>
@@ -38,9 +38,8 @@
                   <input
                     type="number"
                     class="form-control"
-                    name="number"
                     id="number"
-                    v-model="number"
+                    v-model="question.number"
                     min="1"
                     step=".01"
                   />
@@ -59,12 +58,15 @@
                     id="description"
                     rows="2"
                     class="form-control"
-                    v-model="description"
+                    v-model="question.description"
                   ></textarea>
                 </div>
               </div>
 
-              <div class="col border my-3" v-if="type=='dropdown' || type=='multiple'">
+              <div
+                class="col border my-3"
+                v-if="question.type=='dropdown' || question.type=='multiple'"
+              >
                 <h4>
                   Answers
                   <span class="text-danger">*</span>
@@ -72,10 +74,10 @@
                 <div class="row mb-2" v-for="answer in answers" :key="answer.id">
                   <div class="col my-auto">
                     <input
-                      name="answers[]"
+                      name
                       type="text"
                       class="form-control"
-                      :id="answer"
+                      id="firstName5"
                       v-model="answer.value"
                     />
                   </div>
@@ -121,7 +123,7 @@
                       Embed Video
                       <small>(optional)</small>
                     </label>
-                    <input type="text" class="form-control" id="video" v-model="video" />
+                    <input type="text" class="form-control" id="video" v-model="question.video" />
                   </div>
                 </div>
               </div>
@@ -134,10 +136,10 @@
                       <div v-for="criteria in criterias" :key="criteria.id" class="col-md-3">
                         <div class="checkbox">
                           <input
-                            :value="criteria.id"
                             type="checkbox"
+                            :value="criteria.id"
                             :id="'checkBox'+criteria.id"
-                            v-model="selectedCriterias"
+                            v-model="question.criterias"
                           />
                           <label
                             :for="'checkBox'+criteria.id"
@@ -182,17 +184,20 @@
               <div class="my-3">
                 <img
                   class="image rounded mx-auto d-flex justify-content-center"
-                  :src="image"
+                  :src="question.image"
                   alt
                   style="max-width:18rem;"
                 />
               </div>
 
-              <div class="mx-auto d-flex justify-content-center col-md-10" v-html="video"></div>
+              <div class="mx-auto d-flex justify-content-center col-md-10" v-html="question.video"></div>
             </aside>
           </div>
-          <div class="actions clearfix">
+          <div class="my-3 d-flex justify-content-end">
             <SubmitButton :showBtn="showBtn"></SubmitButton>
+            <div>
+              <button type="button" class="btn btn-default" @click="cancel()">Cancel</button>
+            </div>
           </div>
         </form>
       </div>
@@ -203,11 +208,10 @@
 
 <script>
 export default {
-  props: ["assignment", "criterias"],
+  props: ["assignment", "criterias", "question"],
   data() {
     return {
       answers: [],
-      question: {},
       filename: "",
       imageFile: "",
       image: "",
@@ -227,43 +231,7 @@ export default {
       this.answers.pop();
     },
     saveQuestion() {
-      this.showBtn = false;
-      let formData = new FormData();
-      formData.append("description", this.description);
-      formData.append("number", this.number);
-      formData.append("type", this.type);
-      for (let i = 0; i < this.selectedCriterias.length; i++) {
-        formData.append("criterias[]", this.selectedCriterias[i]);
-      }
-      for (let i = 0; i < this.answers.length; i++) {
-        formData.append("answers[]", this.answers[i]);
-      }
-
-      formData.append("image", this.imageFile);
-      formData.append("video", this.video);
-      formData.append("answers", this.answers);
-      const config = {
-        headers: { "content-type": "multipart/form-data" }
-      };
-      axios
-        .post(
-          "/api/assignments/" + this.assignment.id + "/questions",
-          formData,
-          config
-        )
-        .then(res => {
-          this.alertSuccess("Question Added");
-          this.$parent.refresh();
-        })
-        .catch(err => {
-          console.log(err.response.data.errors);
-
-          this.alertFailed("Failed to add");
-          console.error(err);
-        })
-        .then(res => {
-          this.showBtn = true;
-        });
+      console.log(this.answers);
     },
     previewFiles(event) {
       const file = this.$refs.file.files[0];
@@ -289,7 +257,22 @@ export default {
         //  this.imageFile = e.target.files[0];
       };
       reader.readAsDataURL(file);
+    },
+    cancel() {
+      this.$parent.showEditForm = false;
     }
+  },
+  computed: {
+    // selectedCriterias: function (criterias) {
+    //   return this.question.criterias.filter(function (criteria) {
+    //     this.selectedCriterias.push(criteria.id);
+    //   });
+    // }
+  },
+  mounted() {
+    console.log("This");
+
+    this.question.criterias;
   }
 };
 </script>
