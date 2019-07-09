@@ -2123,6 +2123,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2158,7 +2172,8 @@ __webpack_require__.r(__webpack_exports__);
         id: this.assignment.id,
         type: this.assignment.type,
         title: this.assignment.title,
-        description: this.assignment.description
+        description: this.assignment.description,
+        introduction: this.assignment.introduction
       }).then(function (res) {
         _this.alertSuccess("Assignment details updated");
 
@@ -2267,6 +2282,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["course_id"],
@@ -2304,7 +2334,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/api/courses/" + this.course_id + "/assignments", {
         type: this.assignment.type,
         title: this.assignment.title,
-        description: this.assignment.description
+        description: this.assignment.description,
+        introduction: this.assignment.introduction
       }).then(function (res) {
         Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course details updated', {
           type: "success",
@@ -2537,14 +2568,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["assignment", "criterias"],
   data: function data() {
@@ -2555,6 +2578,7 @@ __webpack_require__.r(__webpack_exports__);
       imageFile: "",
       image: "",
       number: "",
+      textLimit: 150,
       description: "",
       type: "",
       video: "",
@@ -2579,18 +2603,23 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("description", this.description);
       formData.append("number", this.number);
       formData.append("type", this.type);
+      formData.append("textLimit", this.textLimit);
 
       for (var i = 0; i < this.selectedCriterias.length; i++) {
         formData.append("criterias[]", this.selectedCriterias[i]);
       }
 
+      console.log(this.answers);
+
       for (var _i = 0; _i < this.answers.length; _i++) {
-        formData.append("answers[]", this.answers[_i]);
+        console.log(this.answers[_i].value);
+        formData.append("answers[]", this.answers[_i].value);
       }
 
+      console.log(formData.get("answers[]"));
       formData.append("image", this.imageFile);
-      formData.append("video", this.video);
-      formData.append("answers", this.answers);
+      formData.append("video", this.video); // formData.append("answers", this.answers);
+
       var config = {
         headers: {
           "content-type": "multipart/form-data"
@@ -2862,7 +2891,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ["assignment", "criterias", "question"],
   data: function data() {
     return {
-      answers: [],
+      // answers: [],
       filename: "",
       imageFile: "",
       image: "",
@@ -2876,15 +2905,61 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addAnswer: function addAnswer() {
-      this.answers.push({
+      this.question.answers.push({
         value: ""
       });
     },
     removeAnswer: function removeAnswer() {
-      this.answers.pop();
+      this.question.answers.pop();
     },
-    saveQuestion: function saveQuestion() {
-      console.log(this.answers);
+    updateQuestion: function updateQuestion() {
+      var _this2 = this;
+
+      this.showBtn = false;
+      var formData = new FormData();
+      formData.append("description", this.question.description);
+      formData.append("number", this.question.number);
+      formData.append("textLimit", this.question.textLimit);
+      formData.append("type", this.question.type);
+
+      for (var i = 0; i < this.question.criterias.length; i++) {
+        formData.append("criterias[]", this.question.criterias[i]);
+      }
+
+      console.log(this.question.answers);
+
+      for (var _i = 0; _i < this.question.answers.length; _i++) {
+        console.log(this.question.answers[_i].value);
+        formData.append("answers[]", this.question.answers[_i].answer);
+      }
+
+      console.log(formData.get("answers[]"));
+      var image = this.imageFile ? this.imageFile : this.question.image;
+      formData.append("image", image);
+      formData.append("video", this.question.video);
+      formData.append("_method", "PUT"); // formData.append("answers", this.answers);
+
+      var config = {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      };
+      axios.post("/api/assignments/" + this.question.assignment_id + "/questions/" + this.question.id, formData, config).then(function (res) {
+        _this2.alertSuccess("Question Updated");
+
+        console.log(res);
+      })["catch"](function (err) {
+        console.log(err.response.data.errors);
+
+        _this2.alertFailed("Failed to update");
+
+        console.error(err);
+      }).then(function (res) {
+        _this2.showBtn = true;
+      });
+    },
+    deleteAnswer: function deleteAnswer(key) {
+      this.$delete(this.question.answers, key);
     },
     previewFiles: function previewFiles(event) {
       var file = this.$refs.file.files[0];
@@ -2907,13 +2982,17 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       reader.onload = function (e) {
-        _this.image = e.target.result; //  this.imageFile = e.target.files[0];
+        _this.question.image = e.target.result; //  this.imageFile = e.target.files[0];
       };
 
       reader.readAsDataURL(file);
     },
     cancel: function cancel() {
       this.$parent.showEditForm = false;
+    },
+    removeImage: function removeImage() {
+      this.imageFile = "";
+      this.question.image = "";
     }
   },
   computed: {// selectedCriterias: function (criterias) {
@@ -2922,9 +3001,7 @@ __webpack_require__.r(__webpack_exports__);
     //   });
     // }
   },
-  mounted: function mounted() {
-    console.log("This");
-    this.question.criterias;
+  mounted: function mounted() {// this.question.criterias;
   }
 });
 
@@ -2982,8 +3059,8 @@ __webpack_require__.r(__webpack_exports__);
     deleteQuestion: function deleteQuestion() {
       var _this = this;
 
-      console.log(this.question.id); // return 1;
-
+      // console.log(this.question.id);
+      // return 1;
       var url = "/api/assignments/" + this.assignment.id + "/questions/" + this.question.id; // let _this = this;
 
       this.$swal({
@@ -3087,9 +3164,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/api/assignments/" + this.assignment.id + "/questions").then(function (res) {
-        _this.questions = res.data;
-        console.log('questions: ');
-        console.log(res.data);
+        _this.questions = res.data; // console.log('questions: ');
+        // console.log(res.data);
       })["catch"](function (err) {
         console.error(err);
       });
@@ -3256,6 +3332,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CriteriaForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CriteriaForm */ "./resources/assets/js/components/course/CriteriaForm.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -40351,7 +40431,7 @@ var render = function() {
       ? _c(
           "button",
           {
-            staticClass: "btn btn-default  px-5 fa-2x",
+            staticClass: "btn btn-primary  px-5 fa-2x",
             attrs: { type: "submit" }
           },
           [_c("i", { staticClass: "far fa-save " }), _vm._v(" Save\n    ")]
@@ -40491,7 +40571,7 @@ var render = function() {
                               _vm._l(_vm.assignments, function(assignment) {
                                 return _c("tr", { key: assignment.id }, [
                                   _c("th", { attrs: { scope: "row" } }, [
-                                    _vm._v(_vm._s(assignment.number))
+                                    _vm._v(_vm._s(assignment.id))
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(assignment.title))]),
@@ -40802,6 +40882,50 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-sm-2 col-form-label",
+                      attrs: { for: "description" }
+                    },
+                    [_vm._v("Introduction:")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-10" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.assignment.introduction,
+                          expression: "assignment.introduction"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        id: "description",
+                        name: "introduction",
+                        rows: "4",
+                        cols: "100"
+                      },
+                      domProps: { value: _vm.assignment.introduction },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.assignment,
+                            "introduction",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
                 _c(
                   "div",
                   { staticClass: "form-group d-flex justify-content-end mt-3" },
@@ -41024,6 +41148,50 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "col-sm-2 col-form-label",
+                    attrs: { for: "description" }
+                  },
+                  [_vm._v("Introduction:")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-10" }, [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.assignment.introduction,
+                        expression: "assignment.introduction"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      id: "description",
+                      name: "description",
+                      rows: "4",
+                      cols: "100"
+                    },
+                    domProps: { value: _vm.assignment.introduction },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.assignment,
+                          "introduction",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "form-group d-flex justify-content-end mt-3" },
@@ -41137,9 +41305,44 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
+                _vm.type == "comment"
+                  ? _c("div", { staticClass: "col-md-4" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.textLimit,
+                              expression: "textLimit"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            name: "number",
+                            id: "textLimit",
+                            min: "1"
+                          },
+                          domProps: { value: _vm.textLimit },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.textLimit = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("div", { staticClass: "col-md-4" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(2),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -41156,7 +41359,7 @@ var render = function() {
                         name: "number",
                         id: "number",
                         min: "1",
-                        step: ".01"
+                        autocomplete: "off"
                       },
                       domProps: { value: _vm.number },
                       on: {
@@ -41173,7 +41376,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(3),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c("textarea", {
                       directives: [
@@ -41208,7 +41411,7 @@ var render = function() {
                       "div",
                       { staticClass: "col border my-3" },
                       [
-                        _vm._m(4),
+                        _vm._m(5),
                         _vm._v(" "),
                         _vm._l(_vm.answers, function(answer) {
                           return _c(
@@ -41292,7 +41495,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col border" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(5),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c("div", {}, [
                       _c("div", { staticClass: "col my-2 row" }, [
@@ -41325,7 +41528,7 @@ var render = function() {
                 _c("div", { staticClass: "my-3 border" }, [
                   _c("div", { staticClass: "col" }, [
                     _c("div", { staticClass: "form-group" }, [
-                      _vm._m(6),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -41353,7 +41556,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "my-3 col border" }, [
-                  _c("h4", [_vm._v("Assessment Criterias:")]),
+                  _vm._m(8),
                   _vm._v(" "),
                   _c("div", {}, [
                     _c("div", { staticClass: "col-md-8" }, [
@@ -41494,6 +41697,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "textLimit" } }, [
+      _vm._v("\n                  Text Limit\n                  "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "number" } }, [
       _vm._v("\n                  Question Number\n                  "),
       _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
@@ -41534,6 +41746,16 @@ var staticRenderFns = [
       _vm._v("\n                    Embed Video\n                    "),
       _c("small", [_vm._v("(optional)")])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", [
+      _vm._v("Assessment Criterias "),
+      _c("small", [_vm._v("(optional)")]),
+      _vm._v(": ")
+    ])
   }
 ]
 render._withStripped = true
@@ -41570,7 +41792,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.saveQuestion()
+                return _vm.updateQuestion()
               }
             }
           },
@@ -41639,9 +41861,48 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
+                _vm.question.type == "comment"
+                  ? _c("div", { staticClass: "col-md-4" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.question.textLimit,
+                              expression: "question.textLimit"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            name: "number",
+                            id: "textLimit",
+                            min: "1"
+                          },
+                          domProps: { value: _vm.question.textLimit },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.question,
+                                "textLimit",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("div", { staticClass: "col-md-4" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(2),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -41653,12 +41914,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        id: "number",
-                        min: "1",
-                        step: ".01"
-                      },
+                      attrs: { type: "number", id: "number", min: "1" },
                       domProps: { value: _vm.question.number },
                       on: {
                         input: function($event) {
@@ -41674,7 +41930,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(3),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c("textarea", {
                       directives: [
@@ -41714,12 +41970,12 @@ var render = function() {
                       "div",
                       { staticClass: "col border my-3" },
                       [
-                        _vm._m(4),
+                        _vm._m(5),
                         _vm._v(" "),
-                        _vm._l(_vm.answers, function(answer) {
+                        _vm._l(_vm.question.answers, function(answer, key) {
                           return _c(
                             "div",
-                            { key: answer.id, staticClass: "row mb-2" },
+                            { key: key, staticClass: "row mb-2 mr-auto" },
                             [
                               _c("div", { staticClass: "col my-auto" }, [
                                 _c("input", {
@@ -41727,8 +41983,8 @@ var render = function() {
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: answer.value,
-                                      expression: "answer.value"
+                                      value: answer.answer,
+                                      expression: "answer.answer"
                                     }
                                   ],
                                   staticClass: "form-control",
@@ -41737,7 +41993,7 @@ var render = function() {
                                     type: "text",
                                     id: "firstName5"
                                   },
-                                  domProps: { value: answer.value },
+                                  domProps: { value: answer.answer },
                                   on: {
                                     input: function($event) {
                                       if ($event.target.composing) {
@@ -41745,13 +42001,27 @@ var render = function() {
                                       }
                                       _vm.$set(
                                         answer,
-                                        "value",
+                                        "answer",
                                         $event.target.value
                                       )
                                     }
                                   }
                                 })
-                              ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-default",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteAnswer(key)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-minus" })]
+                              )
                             ]
                           )
                         }),
@@ -41798,7 +42068,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col border" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(5),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c("div", {}, [
                       _c("div", { staticClass: "col my-2 row" }, [
@@ -41831,7 +42101,7 @@ var render = function() {
                 _c("div", { staticClass: "my-3 border" }, [
                   _c("div", { staticClass: "col" }, [
                     _c("div", { staticClass: "form-group" }, [
-                      _vm._m(6),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c("input", {
                         directives: [
@@ -41954,15 +42224,40 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("aside", { staticClass: "col-md-4" }, [
-                _c("div", { staticClass: "my-3" }, [
-                  _c("img", {
-                    staticClass:
-                      "image rounded mx-auto d-flex justify-content-center",
-                    staticStyle: { "max-width": "18rem" },
-                    attrs: { src: _vm.question.image, alt: "" }
-                  })
-                ]),
+              _c("aside", { staticClass: "col-md-4 my-3" }, [
+                _vm.question.image
+                  ? _c("div", { staticClass: "mb-3" }, [
+                      _c("img", {
+                        staticClass:
+                          "image rounded mx-auto d-flex justify-content-center",
+                        staticStyle: { "max-width": "18rem" },
+                        attrs: { src: _vm.question.image, alt: "" }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center my-3" },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.removeImage()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-close" }),
+                              _vm._v(" Remove Image\n                ")
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("div", {
                   staticClass:
@@ -41982,7 +42277,7 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-default",
+                      staticClass: "btn btn-default ml-1",
                       attrs: { type: "button" },
                       on: {
                         click: function($event) {
@@ -42017,6 +42312,15 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "type" } }, [
       _vm._v("\n                  Question Type\n                  "),
+      _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "textLimit" } }, [
+      _vm._v("\n                  Text Limit\n                  "),
       _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
     ])
   },
@@ -42533,7 +42837,21 @@ var render = function() {
                             _vm._v(_vm._s(criteria.description))
                           ]),
                           _vm._v(" "),
-                          _c("td"),
+                          _c(
+                            "td",
+                            _vm._l(criteria.questions, function(question) {
+                              return _c("div", { key: question.id }, [
+                                _vm._v(
+                                  "\n                [" +
+                                    _vm._s(question.assignment_id) +
+                                    ":" +
+                                    _vm._s(question.id) +
+                                    "]\n                "
+                                )
+                              ])
+                            }),
+                            0
+                          ),
                           _vm._v(" "),
                           _c(
                             "td",
@@ -57163,15 +57481,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************************!*\
   !*** ./resources/assets/js/components/assignment/QuestionEdit.vue ***!
   \********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _QuestionEdit_vue_vue_type_template_id_6651186b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./QuestionEdit.vue?vue&type=template&id=6651186b& */ "./resources/assets/js/components/assignment/QuestionEdit.vue?vue&type=template&id=6651186b&");
 /* harmony import */ var _QuestionEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./QuestionEdit.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/assignment/QuestionEdit.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _QuestionEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _QuestionEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -57201,7 +57518,7 @@ component.options.__file = "resources/assets/js/components/assignment/QuestionEd
 /*!*********************************************************************************************!*\
   !*** ./resources/assets/js/components/assignment/QuestionEdit.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

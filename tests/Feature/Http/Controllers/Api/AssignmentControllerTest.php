@@ -21,6 +21,7 @@ class AssignmentControllerTest extends TestCase
             'course_id' => $course->id,
             'title' => $this->faker->sentence(3),
             'description' => $this->faker->sentence(8),
+            'introduction' => $this->faker->paragraph(4),
             'type' => 'pre',
         ];
 

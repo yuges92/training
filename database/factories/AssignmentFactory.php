@@ -12,6 +12,7 @@ $factory->define(Assignment::class, function (Faker $faker) {
         },
         'title' => $faker->sentence(3),
         'description' => $faker->sentence(8),
+        'introduction' => $faker->paragraph(8),
         'type' => 'pre',
     ];
 });

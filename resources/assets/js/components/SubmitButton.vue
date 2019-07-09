@@ -1,6 +1,6 @@
 <template>
   <div>
-      <button class="btn btn-default  px-5 fa-2x" type="submit" v-if="showBtn">
+      <button class="btn btn-primary  px-5 fa-2x" type="submit" v-if="showBtn">
         <i class="far fa-save "></i> Save
       </button>
 

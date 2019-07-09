@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Question extends Model
 {
     private static $imageFolder = 'assignments/questions/'; 
-    protected $fillable = ['assignment_id', 'type', 'number', 'description', 'image', 'video', 'createdBy', 'updatedBY'];
+    protected $guarded = [];
 
     public function assignment()
     {
@@ -19,7 +19,7 @@ class Question extends Model
 
     public function answers()
     {
-        return  $this->hasMany(QuestionAnswer::class)->withTimestamps();
+        return  $this->hasMany(QuestionAnswer::class);
     }
 
     public function criterias()

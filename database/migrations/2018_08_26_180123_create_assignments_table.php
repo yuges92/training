@@ -17,7 +17,8 @@ class CreateAssignmentsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('course_id');
             $table->string('title');
-            $table->text('description');
+            $table->longText('introduction')->nullable();
+            $table->text('description')->nullable();
             $table->enum('type',['onSite','pre','post']);
             $table->integer('createdBy')->nullable();
             $table->integer('updatedBY')->nullable();

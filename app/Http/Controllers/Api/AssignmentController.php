@@ -24,7 +24,6 @@ class AssignmentController extends Controller
         $this->validate($request, [
             'type' => 'required',
             'title' => 'required',
-            'description' => 'required',
 
         ]);
 
@@ -34,6 +33,7 @@ class AssignmentController extends Controller
             'type' => $request->type,
             'title' => $request->title,
             'description' => $request->description,
+            'introduction' => $request->introduction,
             'createdBy' => $request->user()->id,
         ]);
 
@@ -52,6 +52,7 @@ class AssignmentController extends Controller
 
     public function update(Request $request, $course_id, Assignment $assignment)
     {
+        Log::info($request);
 
         $this->validate($request, [
             'type' => 'required',
@@ -66,6 +67,7 @@ class AssignmentController extends Controller
             'type' => $request->type,
             'title' => $request->title,
             'description' => $request->description,
+            'introduction' => $request->introduction,
             'updatedBy' => $request->user()->id,
         ]);
 

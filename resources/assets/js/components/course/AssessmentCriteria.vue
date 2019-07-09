@@ -32,7 +32,11 @@
               <tr v-for="criteria in criterias" v-bind:key="criteria.id">
                 <th scope="row">{{criteria.number}}</th>
                 <td class="w-50">{{criteria.description}}</td>
-                <td></td>
+                <td>
+                  <div v-for="question in criteria.questions" :key="question.id">
+                  [{{question.assignment_id}}:{{question.id}}]
+                  </div>
+                </td>
                   <td class="d-flex justify-content-between">
                     <div class="col">
                       <button class="btn btn-success" @click="showCurrentAssignment(assignment)">

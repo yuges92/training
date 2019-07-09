@@ -18,10 +18,11 @@ class CreateQuestionsTable extends Migration
             $table->unsignedInteger('assignment_id');
             $table->enum('type', ['dropdown','multiple','comment','file'])->default('comment');
             $table->string('number');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->text('video')->nullable();
             $table->unique(['assignment_id', 'number']);
+            $table->bigInteger('textLimit')->nullable();
             $table->integer('createdBy')->nullable();
             $table->integer('updatedBY')->nullable();
             $table->foreign('assignment_id')->references('id')->on('assignments')->onDelete('cascade');

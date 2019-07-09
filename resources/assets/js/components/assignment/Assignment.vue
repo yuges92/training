@@ -33,7 +33,7 @@
               </thead>
               <tbody>
                 <tr v-for="assignment in assignments" v-bind:key="assignment.id">
-                  <th scope="row">{{assignment.number}}</th>
+                  <th scope="row">{{assignment.id}}</th>
                   <td>{{assignment.title}}</td>
                   <td>{{assignment.type}}</td>
                   <td class="d-flex justify-content-around">

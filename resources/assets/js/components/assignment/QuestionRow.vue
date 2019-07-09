@@ -41,7 +41,7 @@ export default {
       this.showEditForm = true;
     },
     deleteQuestion() {
-      console.log(this.question.id);
+      // console.log(this.question.id);
       // return 1;
       let url =
         "/api/assignments/" +

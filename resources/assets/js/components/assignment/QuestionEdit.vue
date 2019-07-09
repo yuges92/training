@@ -6,7 +6,7 @@
       </div>
       <div class="box-body wizard-content">
         <form
-          @submit.prevent="saveQuestion()"
+          @submit.prevent="updateQuestion()"
           enctype="multipart/form-data"
           method="POST"
           class="tab-wizard wizard-circle wizard clearfix"
@@ -29,6 +29,23 @@
                 </div>
               </div>
 
+                            <div class="col-md-4" v-if="question.type=='comment'">
+                <div class="form-group">
+                  <label for="textLimit">
+                    Text Limit
+                    <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="number"
+                    id="textLimit"
+                    v-model="question.textLimit"
+                    min="1"
+                  />
+                </div>
+              </div>
+
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="number">
@@ -41,7 +58,6 @@
                     id="number"
                     v-model="question.number"
                     min="1"
-                    step=".01"
                   />
                 </div>
               </div>
@@ -71,16 +87,19 @@
                   Answers
                   <span class="text-danger">*</span>
                 </h4>
-                <div class="row mb-2" v-for="answer in answers" :key="answer.id">
+                <div class="row mb-2 mr-auto" v-for="(answer, key) in question.answers" :key="key">
                   <div class="col my-auto">
                     <input
                       name
                       type="text"
                       class="form-control"
                       id="firstName5"
-                      v-model="answer.value"
+                      v-model="answer.answer"
                     />
                   </div>
+                  <button class="btn btn-default" type="button" @click="deleteAnswer(key)">
+                    <i class="fas fa-minus"></i>
+                  </button>
                 </div>
 
                 <div class="my-3">
@@ -153,41 +172,22 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="row my-3">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="jobTitle1">Job Title :</label>
-                    <input type="text" class="form-control" id="jobTitle1">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="videoUrl1">Company Name :</label>
-                    <input type="text" class="form-control" id="videoUrl1">
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="shortDescription1">Job Description :</label>
-                    <textarea
-                      name="shortDescription"
-                      id="shortDescription1"
-                      rows="6"
-                      class="form-control"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>-->
             </section>
 
-            <aside class="col-md-4">
-              <div class="my-3">
+            <aside class="col-md-4 my-3">
+              <div class="mb-3" v-if="question.image">
                 <img
                   class="image rounded mx-auto d-flex justify-content-center"
                   :src="question.image"
                   alt
                   style="max-width:18rem;"
                 />
+
+                <div class="d-flex justify-content-center my-3">
+                  <button class="btn btn-danger" type="button" @click="removeImage()">
+                    <i class="fas fa-close"></i> Remove Image
+                  </button>
+                </div>
               </div>
 
               <div class="mx-auto d-flex justify-content-center col-md-10" v-html="question.video"></div>
@@ -196,7 +196,7 @@
           <div class="my-3 d-flex justify-content-end">
             <SubmitButton :showBtn="showBtn"></SubmitButton>
             <div>
-              <button type="button" class="btn btn-default" @click="cancel()">Cancel</button>
+              <button type="button" class="btn btn-default ml-1" @click="cancel()">Cancel</button>
             </div>
           </div>
         </form>
@@ -211,7 +211,7 @@ export default {
   props: ["assignment", "criterias", "question"],
   data() {
     return {
-      answers: [],
+      // answers: [],
       filename: "",
       imageFile: "",
       image: "",
@@ -225,13 +225,61 @@ export default {
   },
   methods: {
     addAnswer: function() {
-      this.answers.push({ value: "" });
+      this.question.answers.push({ value: "" });
     },
     removeAnswer: function() {
-      this.answers.pop();
+      this.question.answers.pop();
     },
-    saveQuestion() {
-      console.log(this.answers);
+    updateQuestion() {
+      this.showBtn = false;
+      let formData = new FormData();
+      formData.append("description", this.question.description);
+      formData.append("number", this.question.number);
+      formData.append("textLimit", this.question.textLimit);
+      formData.append("type", this.question.type);
+      for (let i = 0; i < this.question.criterias.length; i++) {
+        formData.append("criterias[]", this.question.criterias[i]);
+      }
+      console.log(this.question.answers);
+      for (let i = 0; i < this.question.answers.length; i++) {
+        console.log(this.question.answers[i].value);
+
+        formData.append("answers[]", this.question.answers[i].answer);
+      }
+      console.log(formData.get("answers[]"));
+      let image = this.imageFile ? this.imageFile : this.question.image;
+      formData.append("image", image);
+      formData.append("video", this.question.video);
+      formData.append("_method", "PUT");
+      // formData.append("answers", this.answers);
+      const config = {
+        headers: { "content-type": "multipart/form-data" }
+      };
+
+      axios
+        .post(
+          "/api/assignments/" +
+            this.question.assignment_id +
+            "/questions/" +
+            this.question.id,
+          formData,
+          config
+        )
+        .then(res => {
+          this.alertSuccess("Question Updated");
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err.response.data.errors);
+          this.alertFailed("Failed to update");
+          console.error(err);
+        })
+        .then(res => {
+          this.showBtn = true;
+        });
+    },
+    deleteAnswer(key) {
+      this.$delete(this.question.answers, key);
     },
     previewFiles(event) {
       const file = this.$refs.file.files[0];
@@ -253,13 +301,17 @@ export default {
       const reader = new FileReader();
       const _this = this;
       reader.onload = function(e) {
-        _this.image = e.target.result;
+        _this.question.image = e.target.result;
         //  this.imageFile = e.target.files[0];
       };
       reader.readAsDataURL(file);
     },
     cancel() {
       this.$parent.showEditForm = false;
+    },
+    removeImage() {
+      this.imageFile = "";
+      this.question.image = "";
     }
   },
   computed: {
@@ -270,9 +322,8 @@ export default {
     // }
   },
   mounted() {
-    console.log("This");
 
-    this.question.criterias;
+    // this.question.criterias;
   }
 };
 </script>

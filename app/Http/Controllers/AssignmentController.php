@@ -6,6 +6,7 @@ use App\Assignment;
 use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class AssignmentController extends Controller
 {
@@ -52,6 +53,7 @@ class AssignmentController extends Controller
     $assignment->title=$request->input('title');
     $assignment->course_id=$request->input('course_id');
     $assignment->type=$request->input('type');
+    $assignment->introduction=$request->introduction;
     if ($request->file('file')) {
       $assignment->originFileName=$request->file('file')->getClientOriginalName();
       $assignment->file=$request->file('file')->storeAs('courseAssignmentDocs', time().'.'.$request->file('file')->getClientOriginalExtension());
@@ -96,6 +98,8 @@ class AssignmentController extends Controller
   */
   public function update(Request $request, Assignment $assignment)
   {
+
+    Log::info($request);
     $this->validate($request, [
       'course_id' => 'required',
       'title' => 'required',
@@ -118,6 +122,7 @@ class AssignmentController extends Controller
     $assignment->course_id=$request->input('course_id');
     $assignment->type=$request->input('type');
     $assignment->description=$request->input('description');
+    $assignment->introduction=$request->introduction;
     $assignment->updatedBy=$request->user()->id;
     $assignment->update();
     return redirect()->back()->with('success', 'Assignment Updated');

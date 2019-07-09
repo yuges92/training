@@ -29,6 +29,23 @@
                 </div>
               </div>
 
+              <div class="col-md-4" v-if="type=='comment'">
+                <div class="form-group">
+                  <label for="textLimit">
+                    Text Limit
+                    <span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="number"
+                    id="textLimit"
+                    v-model="textLimit"
+                    min="1"
+                  />
+                </div>
+              </div>
+
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="number">
@@ -42,7 +59,7 @@
                     id="number"
                     v-model="number"
                     min="1"
-                    step=".01"
+                    autocomplete="off"
                   />
                 </div>
               </div>
@@ -127,7 +144,7 @@
               </div>
 
               <div class="my-3 col border">
-                <h4>Assessment Criterias:</h4>
+                <h4>Assessment Criterias <small>(optional)</small>: </h4>
                 <div class>
                   <div class="col-md-8">
                     <div class="form-group d-flex justify-content-between flex-wrap">
@@ -151,31 +168,6 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="row my-3">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="jobTitle1">Job Title :</label>
-                    <input type="text" class="form-control" id="jobTitle1">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="videoUrl1">Company Name :</label>
-                    <input type="text" class="form-control" id="videoUrl1">
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="shortDescription1">Job Description :</label>
-                    <textarea
-                      name="shortDescription"
-                      id="shortDescription1"
-                      rows="6"
-                      class="form-control"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>-->
             </section>
 
             <aside class="col-md-4">
@@ -212,6 +204,7 @@ export default {
       imageFile: "",
       image: "",
       number: "",
+      textLimit:150,
       description: "",
       type: "",
       video: "",
@@ -232,16 +225,21 @@ export default {
       formData.append("description", this.description);
       formData.append("number", this.number);
       formData.append("type", this.type);
+      formData.append("textLimit", this.textLimit);
       for (let i = 0; i < this.selectedCriterias.length; i++) {
         formData.append("criterias[]", this.selectedCriterias[i]);
       }
+      console.log(this.answers);
       for (let i = 0; i < this.answers.length; i++) {
-        formData.append("answers[]", this.answers[i]);
+        console.log(this.answers[i].value);
+
+        formData.append("answers[]", this.answers[i].value);
       }
+      console.log(formData.get("answers[]"));
 
       formData.append("image", this.imageFile);
       formData.append("video", this.video);
-      formData.append("answers", this.answers);
+      // formData.append("answers", this.answers);
       const config = {
         headers: { "content-type": "multipart/form-data" }
       };

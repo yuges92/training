@@ -95,7 +95,7 @@ export default {
         .get("/api/courses/" + this.course_id + "/assessmentCriterias")
         .then(res => {
           this.criterias = res.data;
-          console.log(this.criterias);
+          // console.log(this.criterias);
         })
         .catch(err => {
           console.error(err);

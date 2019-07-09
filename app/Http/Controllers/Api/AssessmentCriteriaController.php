@@ -18,8 +18,8 @@ class AssessmentCriteriaController extends Controller
     public function index(Request $request, $course_id)
     {
         // Log::error($course_id);
-        $criterias = AssessmentCriteria::where('course_id', $course_id)->get();
-        // Log::error($criterias);
+        $criterias = AssessmentCriteria::with('questions')->where('course_id', $course_id)->get();
+        Log::info($criterias);
         return response()->json($criterias, 201);
     }
 

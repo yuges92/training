@@ -57,8 +57,8 @@ export default {
         .get("/api/assignments/"+this.assignment.id+"/questions")
         .then(res => {
           this.questions = res.data;
-          console.log('questions: ');
-          console.log(res.data);
+          // console.log('questions: ');
+          // console.log(res.data);
         })
         .catch(err => {
           console.error(err);

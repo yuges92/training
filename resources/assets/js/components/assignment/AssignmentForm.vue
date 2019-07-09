@@ -38,7 +38,7 @@
                   placeholder="Assignment Title"
                   v-model="assignment.title"
                   required
-                >
+                />
               </div>
             </div>
 
@@ -56,6 +56,21 @@
                 ></textarea>
               </div>
             </div>
+
+            <div class="form-group row">
+              <label for="description" class="col-sm-2 col-form-label">Introduction:</label>
+              <div class="col-sm-10">
+                <textarea
+                  id="description"
+                  class="form-control"
+                  name="description"
+                  rows="4"
+                  cols="100"
+                  v-model="assignment.introduction"
+                ></textarea>
+              </div>
+            </div>
+
             <div class="form-group d-flex justify-content-end mt-3">
               <SubmitButton :showBtn="showBtn"></SubmitButton>
             </div>
@@ -103,7 +118,8 @@ export default {
         .post("/api/courses/" + this.course_id + "/assignments", {
           type: this.assignment.type,
           title: this.assignment.title,
-          description: this.assignment.description
+          description: this.assignment.description,
+          introduction: this.assignment.introduction
         })
         .then(res => {
           Vue.toasted.show(
