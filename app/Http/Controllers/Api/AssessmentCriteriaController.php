@@ -19,7 +19,7 @@ class AssessmentCriteriaController extends Controller
     {
         // Log::error($course_id);
         $criterias = AssessmentCriteria::with('questions')->where('course_id', $course_id)->get();
-        Log::info($criterias);
+        // Log::info($criterias);
         return response()->json($criterias, 201);
     }
 
@@ -90,8 +90,9 @@ class AssessmentCriteriaController extends Controller
     {
 
         $this->validate($request, [
-            'number' => "required|unique:assessment_criterias,number,$assessmentCriteria->id,course_id$course_id",
-            // 'number' => 'required|unique:assessment_criterias,number,NULL,course_id'.$request->course_id,
+            // 'number' => "required|unique:assessment_criterias,number,$assessmentCriteria->id,course_id".$course_id,
+            'number' => "required|unique:assessment_criterias,number,{$assessmentCriteria->id}",
+
             'description' => 'required',
 
         ]);

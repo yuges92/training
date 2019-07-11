@@ -13,7 +13,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('class-component', require('./components/classes/ClassComponent.vue').default);
-Vue.component('class-component', require('./components/assignment/AssignmentComponent.vue').default);
+Vue.component('assignment-component', require('./components/assignment/AssignmentComponent.vue').default);
 
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import axios from "axios";

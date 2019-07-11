@@ -3,7 +3,8 @@
 @section('content')
 
 <div id="app">
-  <assignment-component :class_id={{$class->id}}></assignment-component>
+  <class-component :class_id={{$class->id}}></class-component>
+
 </div>
 
 

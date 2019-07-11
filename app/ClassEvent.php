@@ -5,6 +5,7 @@ namespace App;
 use App\Cart;
 use App\ClassDate;
 
+use App\Assignment;
 use Illuminate\Database\Eloquent\Model;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -20,7 +21,7 @@ class ClassEvent extends Model
   {
       return 'slug';
   }
-  
+
 
   public function address()
   {
@@ -80,6 +81,11 @@ class ClassEvent extends Model
   {
     $this->availableSpace=$this->availableSpace-$space;
     $this->save();
+  }
+
+  public function deadline()
+  {
+      return $this->belongsToMany(Assignment::class, 'assignment_deadline', 'assignment_id', 'class_id')->withPivot('date')->withTimestamps();
   }
 
   // public function getBuyableIdentifier($options = null){

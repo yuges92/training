@@ -43,7 +43,7 @@
             {{$order->billingPostcode}}<br>
             {{$order->billingCountry}}<br>
             Phone: {{$order->billingTel}}<br>
-            Email: conatct@example.com
+            Email: {{$order->billingEmail}}<br>
           </address>
         </div>
         <!-- /.col -->

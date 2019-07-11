@@ -50,6 +50,7 @@ class CreateClassEventsTable extends Migration
   public function down()
   {
     Schema::disableForeignKeyConstraints();
+    Schema::dropIfExists('assignment_deadline');
     Schema::dropIfExists('carts');
     Schema::dropIfExists('access_codes');
     Schema::dropIfExists('class_trainer');

@@ -62,7 +62,7 @@
               >
             </div>
           </div>
-          <div class="mr-md-5">
+          <div class="d-flex justify-content-center my-3">
             <SubmitButton :showBtn="showBtn"></SubmitButton>
           </div>
         </div>

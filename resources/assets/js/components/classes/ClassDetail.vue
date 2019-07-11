@@ -176,17 +176,15 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="d-flex justify-content-end">
+
               <SubmitButton :showBtn="showBtn"></SubmitButton>
             </div>
           </div>
         </div>
       </form>
 
-      <!-- <div class="row mx-md-5">
-        <div class="col-md-4 my-3" v-for="index in duration" :key="index">
-          <NewClassDate :day="index" :class_id="courseClass.id"></NewClassDate>
-        </div>
-      </div>-->
     </div>
   </div>
 </template>

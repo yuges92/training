@@ -44,6 +44,7 @@ Route::group(['middleware'=>['auth:api']], function(){
   Route::resource('/courses/{course}/assessmentCriterias', 'Api\AssessmentCriteriaController');
   Route::resource('/courses/{course}/assignments', 'Api\AssignmentController');
   Route::resource('/assignments/{assignment}/questions', 'Api\QuestionController');
+  Route::resource('/classEvents/{classEvent}/assignments/{assignment}/deadline', 'Api\AssignmentDeadlineController');
 
 });
 

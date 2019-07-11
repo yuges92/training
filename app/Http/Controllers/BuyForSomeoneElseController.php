@@ -135,6 +135,7 @@ class BuyForSomeoneElseController extends Controller
           'billingPostcode' => 'required',
           'billingCountry' => 'required',
           'paymentMethod' => 'required',
+          'billingEmail' => 'required',
           'termsCondition' => 'required',
           'poNumber' => 'required_if:paymentMethod,invoiceRequest',
         ]);
@@ -147,6 +148,7 @@ class BuyForSomeoneElseController extends Controller
         $order->billingTown=$request->input('billingTown');
         $order->billingCounty=$request->input('billingCounty');
         $order->billingPostcode=$request->input('billingPostcode');
+        $order->billingEmail=$request->billingEmail;
         $order->billingCountry=$request->input('billingCountry');
 
       }else {
@@ -171,6 +173,7 @@ class BuyForSomeoneElseController extends Controller
         $order->billingCounty=$userAddress->county;
         $order->billingPostcode=$userAddress->postcode;
         $order->billingCountry=$userAddress->country;
+        $order->billingEmail=$userAddress->email;
 
       }
 

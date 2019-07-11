@@ -177,7 +177,7 @@
             <aside class="col-md-4 my-3">
               <div class="mb-3" v-if="question.image">
                 <img
-                  class="image rounded mx-auto d-flex justify-content-center"
+                  class="image rounded mx-auto d-flex justify-content-start"
                   :src="question.image"
                   alt
                   style="max-width:18rem;"

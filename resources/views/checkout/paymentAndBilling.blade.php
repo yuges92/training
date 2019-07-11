@@ -71,6 +71,13 @@
                         </div>
 
                         <div class="form-group row">
+                          <label for="billingEmail" class="col-md-3 col-form-label">Email:</label>
+                          <div class="col">
+                            <input class="form-control" type="email" name="billingEmail" id="billingEmail" value="{{old('billingEmail')}}" placeholder="Telephone">
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
                           <label for="billingLine1" class="col-md-3 col-form-label">Line 1:</label>
                           <div class="col">
                             <input class="form-control" type="text" name="billingLine1" id="billingLine1" value="{{old('billingLine1')}}" placeholder="Billing address line 1">

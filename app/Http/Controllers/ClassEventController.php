@@ -106,7 +106,7 @@ class ClassEventController extends Controller
   */
   public function show($class_id)
   {
-    $class=ClassEvent::find($class_id);
+    $class=ClassEvent::with('deadline')->find($class_id);
     // dd($classEvent);
 
     return view('admin.classEvent.show', compact('class'));

@@ -55,12 +55,15 @@
                   <input
                     type="number"
                     class="form-control"
+                    :class="{'border-danger': numberExists} "
                     name="number"
                     id="number"
                     v-model="number"
                     min="1"
                     autocomplete="off"
+                    @change="checkIfQuestionExist()"
                   />
+                  <small class="text-danger" v-if="numberExists">Question number already exists</small>
                 </div>
               </div>
 
@@ -147,7 +150,7 @@
                 <h4>Assessment Criterias <small>(optional)</small>: </h4>
                 <div class>
                   <div class="col-md-8">
-                    <div class="form-group d-flex justify-content-between flex-wrap">
+                    <div class="form-group d-flex justify-content-start flex-wrap">
                       <div v-for="criteria in criterias" :key="criteria.id" class="col-md-3">
                         <div class="checkbox">
                           <input
@@ -209,7 +212,9 @@ export default {
       type: "",
       video: "",
       showBtn: true,
-      selectedCriterias: []
+      selectedCriterias: [],
+      numberExists:'',
+
     };
   },
   methods: {
@@ -287,6 +292,18 @@ export default {
         //  this.imageFile = e.target.files[0];
       };
       reader.readAsDataURL(file);
+    },
+    checkIfQuestionExist(){
+      console.log(this.$parent.questions);
+      this.$parent.questions.filter(question=>{
+        if(question.number==this.number){
+          this.numberExists=true;
+          
+        }else{
+          this.numberExists=false;
+
+        }
+      });
     }
   }
 };

@@ -48,8 +48,8 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $course = new CourseResource(Course::with('classes', 'courseBodies', 'documents')->find($id));
-        \Debugbar::error($course);
+        $course = new CourseResource(Course::with('classes', 'courseBodies', 'documents', 'assignments')->find($id));
+        // \Debugbar::error($course);
 
         return response()->json($course, 200);
     }
@@ -76,7 +76,7 @@ class CourseController extends Controller
     {
         $course = Course::find($id);
         // return response()->json($request, 200);
-        
+
         $validatedData= $this->validate($request,[
           'title' => 'required|unique:course_types,title,' . $course->id,
           'course_code' => 'required|unique:courses,course_code,' . $course->id,
@@ -86,7 +86,7 @@ class CourseController extends Controller
           'position' => 'required_if:enable_megamenu,1',
           'password' => 'required_if:status,password_protected',
           ]);
-      
+
           $course->title = $request->input('title');
           $course->slug = str_slug($request->input('title'));
           $course->course_code = $request->input('course_code');
@@ -98,8 +98,8 @@ class CourseController extends Controller
           $course->position = $request->input('position');
           $course->password = $request->password ? $request->password :'';
           $course->updatedBy = $request->user()->id;
-      
-      
+
+
           if ($request->file('image')) {
             $imageFileName = $course->id . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->storeAs($course->getImageFolder(), $imageFileName);
@@ -130,8 +130,8 @@ class CourseController extends Controller
       ]);
 
         return response()->json($course, 200);
-  
-  
+
+
     }
 
     /**

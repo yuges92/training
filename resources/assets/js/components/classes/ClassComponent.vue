@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Error :errors="errors" v-if="errors"></Error>
+    <Error :errors="errors" v-if="errors!=''"></Error>
 
     <div v-if="!isLoaded">
       <div class="d-flex justify-content-center">
@@ -23,7 +23,11 @@
               <a href="#trainers" data-toggle="tab" class aria-expanded="false">Trainers</a>
             </li>
             <li>
-              <a href="#bookings" data-toggle="tab" class aria-expanded="false">Bookings</a>
+              <a href="#moderator" data-toggle="tab" class aria-expanded="false">Moderator</a>
+            </li>
+
+            <li>
+              <a href="#deadline" data-toggle="tab" class aria-expanded="false">Assignment Deadline</a>
             </li>
             <li>
               <a href="#learners" data-toggle="tab" class aria-expanded="false">Learners</a>
@@ -43,7 +47,11 @@
               <ClassTrainers :courseClass="courseClass" @update-errors="updateErrors"></ClassTrainers>
             </div>
 
-            <div class="tab-pane" id="bookings" aria-expanded="false">Bookings</div>
+            <div class="tab-pane" id="moderator" aria-expanded="false">Moderator</div>
+            <div class="tab-pane" id="deadline" aria-expanded="false">
+              <AssignmentDeadline :courseClass="courseClass" @update-errors="updateErrors"></AssignmentDeadline>
+
+            </div>
 
             <div class="tab-pane" id="learners" aria-expanded="false">Learners</div>
           </div>
@@ -54,6 +62,7 @@
 </template>
 
 <script>
+import AssignmentDeadline from "./AssignmentDeadline";
 import ClassDetail from "./ClassDetail";
 import ClassTrainers from "./ClassTrainers";
 import ClassDates from "./ClassDates";
@@ -76,7 +85,8 @@ export default {
     ClassDetail,
     Error,
     ClassTrainers,
-    ClassDates
+    ClassDates,
+    AssignmentDeadline
   },
 
   mounted() {

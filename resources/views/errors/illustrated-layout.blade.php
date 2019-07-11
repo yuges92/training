@@ -475,13 +475,15 @@
                             {{ __('Go Home') }}
                         </button>
                     </a>
-
-                    <a href="{{ app('router')->has('login') ? route('login') : url('/') }}">
-                        <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
-                            {{ __('Login') }}
-                        </button>
-                    </a>
-                </div>
+@guest
+    
+<a href="{{ app('router')->has('login') ? route('login') : url('/') }}">
+    <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
+        {{ __('Login') }}
+    </button>
+</a>
+@endguest
+</div>
             </div>
 
             <div class="relative pb-full md:flex md:pb-0 md:min-h-screen w-full md:w-1/2">

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAssignmentsTable extends Migration
+class AssignmentDeadline extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateAssignmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('assignments', function (Blueprint $table) {
+        Schema::create('assignment_deadline', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('course_id');
-            $table->string('title');
-            $table->longText('introduction')->nullable();
-            $table->text('description')->nullable();
-            $table->enum('type',['onSite','pre','post']);
+            $table->unsignedInteger('assignment_id')->nullable();
+            $table->unsignedInteger('class_id')->nullable();
+            $table->foreign('assignment_id')->references('id')->on('assignments')->onDelete('cascade');
+            $table->foreign('class_id')->references('id')->on('class_events')->onDelete('cascade');
+            $table->date('date');
+            $table->unique(['assignment_id', 'class_id']);
             $table->integer('createdBy')->nullable();
             $table->integer('updatedBY')->nullable();
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -35,7 +35,6 @@ class CreateAssignmentsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('assignment_deadline');
-        Schema::dropIfExists('questions');
-        Schema::dropIfExists('assignments');
+        //
     }
 }

@@ -44,8 +44,10 @@ class AssignmentController extends Controller
     public function show(Request $request, $course_id, Assignment $assignment)
     {
 
+        Log::info('here');
 
-
+        $assignment->load('deadline');
+        Log::info($assignment);
         return response()->json($assignment, 201);
     }
 
