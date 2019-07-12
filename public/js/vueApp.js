@@ -3237,9 +3237,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -3540,6 +3537,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["courseClass"],
   data: function data() {
@@ -3552,16 +3565,29 @@ __webpack_require__.r(__webpack_exports__);
       activeButtons: [],
       showNewClass: false,
       newClassDates: [],
-      maxCharacters: 300
+      maxCharacters: 300,
+      moderators: [],
+      moderator: {}
     };
   },
   created: function created() {
     // this.changeDuration();
     this.getCourses();
-    this.getClassAddress(); // console.log(this.courseClass.class_dates);
+    this.getClassAddress();
+    this.getModerators(); // console.log(this.courseClass.class_dates);
   },
   mounted: function mounted() {},
   methods: {
+    onChangeModerator: function onChangeModerator(moderator) {
+      console.log(moderator);
+      this.moderator = moderator;
+      console.log(this.moderator);
+    },
+    fullName: function fullName(_ref) {
+      var id = _ref.id,
+          _fullName = _ref.fullName;
+      return "(#".concat(id, ") ").concat(_fullName);
+    },
     updateClass: function updateClass() {
       var _this = this;
 
@@ -3577,7 +3603,8 @@ __webpack_require__.r(__webpack_exports__);
         // duration: this.courseClass.duration,
         price: this.courseClass.price,
         space: this.courseClass.space,
-        availableSpace: this.courseClass.availableSpace
+        availableSpace: this.courseClass.availableSpace,
+        moderator_id: this.moderator ? this.moderator.id : null
       }).then(function (data) {
         Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Class details updated', {
           type: "success",
@@ -3619,6 +3646,16 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/classAddresses").then(function (response) {
         _this4.addresses = response.data; // console.log(response.data);
+      });
+    },
+    getModerators: function getModerators() {
+      var _this5 = this;
+
+      axios.get("/api/moderators").then(function (response) {
+        _this5.moderators = response.data;
+        _this5.moderator = _this5.moderators.filter(function (m) {
+          return m.id == _this5.courseClass.moderator_id;
+        })[0];
       });
     },
     showNewClassForm: function showNewClassForm() {
@@ -3822,23 +3859,17 @@ __webpack_require__.r(__webpack_exports__);
         startTime: this.classDate.startTime,
         endTime: this.classDate.endTime
       }).then(function (data) {
-        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Saved!', {
-          type: "success",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertSuccess("Date Created");
 
         _this.$parent.getClassDates(); // this.$parent.showNewClass=false;
 
+
+        _this.classDate = {};
       })["catch"](function (error) {
         _this.$parent.$emit("update-errors", error.response.data.errors); // console.log(error.response.data.errors);
 
 
-        Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Failed', {
-          type: "error",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertFailed("Failed to add");
       }).then(function (response) {
         _this.showBtn = true;
       });
@@ -42163,15 +42194,6 @@ var render = function() {
                     "div",
                     {
                       staticClass: "tab-pane",
-                      attrs: { id: "moderator", "aria-expanded": "false" }
-                    },
-                    [_vm._v("Moderator")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "tab-pane",
                       attrs: { id: "deadline", "aria-expanded": "false" }
                     },
                     [
@@ -42261,20 +42283,6 @@ var staticRenderFns = [
             }
           },
           [_vm._v("Trainers")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c(
-          "a",
-          {
-            attrs: {
-              href: "#moderator",
-              "data-toggle": "tab",
-              "aria-expanded": "false"
-            }
-          },
-          [_vm._v("Moderator")]
         )
       ]),
       _vm._v(" "),
@@ -42473,6 +42481,55 @@ var render = function() {
                             2
                           )
                         ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group row" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-sm-2 col-form-label",
+                            attrs: { for: "moderator_id" }
+                          },
+                          [_vm._v("Moderator:")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-sm-10" },
+                          [
+                            _c("multiselect", {
+                              attrs: {
+                                "track-by": "id",
+                                placeholder: "Select a moderator",
+                                options: _vm.moderators,
+                                "allow-empty": false,
+                                "custom-label": _vm.fullName
+                              },
+                              on: { input: _vm.onChangeModerator },
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "singleLabel",
+                                  fn: function(ref) {
+                                    var option = ref.option
+                                    return [
+                                      _c("strong", [
+                                        _vm._v(_vm._s(option.fullName))
+                                      ])
+                                    ]
+                                  }
+                                }
+                              ]),
+                              model: {
+                                value: _vm.moderator,
+                                callback: function($$v) {
+                                  _vm.moderator = $$v
+                                },
+                                expression: "moderator"
+                              }
+                            })
+                          ],
+                          1
+                        )
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group row" }, [
@@ -43299,15 +43356,15 @@ var render = function() {
                       ]
                     )
                   ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-8" },
-                [_c("SubmitButton", { attrs: { showBtn: _vm.showBtn } })],
-                1
-              )
-            ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "my-3 d-flex justify-content-end" },
+              [_c("SubmitButton", { attrs: { showBtn: _vm.showBtn } })],
+              1
+            )
           ])
         ])
       ]

@@ -21,6 +21,19 @@
       </div>
 
       <div class="form-group row">
+        <label for="moderator_id" class="col-sm-2 col-form-label">Moderator:</label>
+        <div class="col-sm-10">
+          <select id="moderator_id" class="form-control select2" name="moderator_id">
+            <option value="">Select a moderator</option>
+            @foreach ($moderators as $moderator)
+            <option {{ ($moderator->id==$classEvent->moderator_id) ? 'selected':''}}
+              value="{{$moderator->id}}">{{$moderator->getFullname()}}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label for="type" class="col-sm-2 col-form-label">Type:</label>
         <div class="col-sm-10">
           <select id="type" class="form-control" name="type">
@@ -31,6 +44,7 @@
           </select>
         </div>
       </div>
+
 
       <div class="form-group row">
         <label for="address_id" class="col-sm-2 col-form-label">Address:</label>

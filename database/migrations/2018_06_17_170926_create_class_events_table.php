@@ -34,6 +34,7 @@ class CreateClassEventsTable extends Migration
       $table->double('price');
       // $table->string('originFileName')->nullable();
       // $table->string('file')->nullable();
+      $table->integer('moderator_id')->nullable();
       $table->integer('createdBy')->nullable();
       $table->integer('updatedBY')->nullable();
       $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');

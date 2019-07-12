@@ -40,10 +40,15 @@ class LoginController extends Controller
   public function authenticate(Request $request)
   {
     $emailOrUsername = request()->input('email');
- 
+
     $fieldType = filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
     if (Auth::attempt([$fieldType => $emailOrUsername, 'password'=>$request->password])) {
       Cart::storeToDatabase();
+
+      if(session('previous_page')==route('home')){
+        return redirect($this->redirectTo);
+
+      }
       return redirect(session('previous_page'));
 
 

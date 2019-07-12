@@ -1,6 +1,7 @@
 <?php
 use App\Role;
 use App\User;
+use App\Moderator;
 use App\ClassEvent;
 use App\CourseDocument;
 use App\Mail\NewUserMail;
@@ -21,15 +22,21 @@ use Illuminate\Support\Facades\Mail;
 
 
 
-// factory(ClassEvent::class)->create();
+// // factory(ClassEvent::class)->create();
+// $role_Trainer = Role::where('name', 'Trainer')->first();
+// $trainers =   factory(User::class, 5)->create()->each(function ($user) use ($role_Trainer) {
+//     $user->roles()->attach($role_Trainer);
+// });
+
+// $role_moderator = Role::where('name', 'Moderator')->first();
+// $moderator =   factory(User::class, 5)->create()->each(function ($user) use ($role_moderator) {
+//     $user->roles()->attach($role_moderator);
+// });
+
 Route::get('/', function () {
   $title = 'Page Title';
   // $user=User::where('email','sivayuges@gmail.com')->first();
   // Mail::to($user)->send(new NewUserMail());
-// $role_Trainer = Role::where('name', 'Trainer')->first();
-// $trainers =   factory(User::class, 10)->create()->each(function ($user) use ($role_Trainer) {
-//     $user->roles()->attach($role_Trainer);
-// });
   return view('welcome')->with('title', $title);
 });
 

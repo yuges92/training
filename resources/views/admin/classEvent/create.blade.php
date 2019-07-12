@@ -22,6 +22,19 @@
               </div>
             </div>
 
+            <div class="form-group row">
+                <label for="moderator_id" class="col-sm-2 col-form-label">Moderator:</label>
+                <div class="col-sm-10">
+                  <select id="moderator_id" class="form-control select2" name="moderator_id">
+                    <option value="">Select a moderator</option>
+                    @foreach ($moderators as $moderator)
+                    <option {{ (old('moderator_id')==$moderator->id) ? 'selected':''}}
+                      value="{{$moderator->id}}">{{$moderator->getFullname()}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
 
             <div class="form-group row">
               <label for="address_id" class="col-sm-2 col-form-label">Address:</label>
@@ -123,21 +136,21 @@
 
 <script src="{{ asset('js/main.js') }}" defer></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function(event) { 
+  document.addEventListener("DOMContentLoaded", function(event) {
     $('.select2').select2();
     $('#duration').on('change', function () {
       if ($(this).val()=='2') {
         $('#endDateDiv').show();
       }else{
         $('#endDateDiv').hide();
-        
-      } 
+
+      }
     });
   });
 
 
 
-  
+
 </script>
 
 

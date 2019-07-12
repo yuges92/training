@@ -100,23 +100,17 @@ export default {
           endTime: this.classDate.endTime
         })
         .then(data => {
-          Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Saved!', {
-            type: "success",
-            duration: 4000,
-            className: "py-3"
-          });
+
+            this.alertSuccess("Date Created");
           this.$parent.getClassDates();
           // this.$parent.showNewClass=false;
+          this.classDate={};
         })
         .catch(error => {
           this.$parent.$emit("update-errors", error.response.data.errors);
           // console.log(error.response.data.errors);
+          this.alertFailed("Failed to add");
 
-          Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Failed', {
-            type: "error",
-            duration: 4000,
-            className: "py-3"
-          });
         })
         .then(response => {
           this.showBtn = true;

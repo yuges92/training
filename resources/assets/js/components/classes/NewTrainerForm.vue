@@ -12,7 +12,7 @@
               style="width:100px; height:100px;"
               v-bind:src="imageSrc"
               alt="User profile picture"
-            >
+            />
           </div>
           <div class="col">
             <label for="type" class="col-form-label">Trainer</label>
@@ -40,9 +40,9 @@
                 >{{deleting}}</button>
               </div>
             </div>
-            <div class="col-8">
-              <SubmitButton :showBtn="showBtn"></SubmitButton>
-            </div>
+          </div>
+          <div class="my-3 d-flex justify-content-end">
+            <SubmitButton :showBtn="showBtn"></SubmitButton>
           </div>
         </div>
       </div>

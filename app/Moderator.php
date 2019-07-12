@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Moderator extends Model
+class Moderator extends User
 {
-    
+
     protected $table = 'users';
 
             /**
@@ -21,7 +21,7 @@ class Moderator extends Model
         static::addGlobalScope(function ($query) {
             $query->whereHas('roles', function ($roles){
                 $roles->where('name', 'Moderator');
-            });        
+            });
         });
     }
 }

@@ -38,6 +38,25 @@
                 </div>
 
                 <div class="form-group row">
+                  <label for="moderator_id" class="col-sm-2 col-form-label">Moderator:</label>
+                  <div class="col-sm-10">
+                    <multiselect
+                      v-model="moderator"
+                      track-by="id"
+                      placeholder="Select a moderator"
+                      :options="moderators"
+                      :allow-empty="false"
+                      :custom-label="fullName"
+                      @input="onChangeModerator"
+                    >
+                      <template slot="singleLabel" slot-scope="{ option }">
+                        <strong>{{ option.fullName }}</strong>
+                      </template>
+                    </multiselect>
+                  </div>
+                </div>
+
+                <div class="form-group row">
                   <label for="address" class="col-sm-2 col-form-label">Address:</label>
                   <div class="col-sm-10">
                     <select
@@ -66,7 +85,7 @@
                       id="title"
                       v-model="courseClass.title"
                       placeholder="Title"
-                    >
+                    />
                   </div>
                 </div>
 
@@ -88,8 +107,7 @@
                       maxlength="300"
                       v-model="courseClass.description"
                     ></textarea>
-                        <p>You have {{charactersRemaining}} characters remaining.</p>
-
+                    <p>You have {{charactersRemaining}} characters remaining.</p>
                   </div>
                 </div>
               </div>
@@ -144,7 +162,7 @@
                       id="price"
                       v-model="courseClass.price"
                       placeholder="Price"
-                    >
+                    />
                   </div>
                 </div>
 
@@ -158,7 +176,7 @@
                       id="space"
                       v-model="courseClass.space"
                       placeholder="Allocated Space"
-                    >
+                    />
                   </div>
                 </div>
 
@@ -172,19 +190,17 @@
                       id="availableSpace"
                       v-model="courseClass.availableSpace"
                       placeholder="Remaining Space"
-                    >
+                    />
                   </div>
                 </div>
               </div>
             </div>
             <div class="d-flex justify-content-end">
-
               <SubmitButton :showBtn="showBtn"></SubmitButton>
             </div>
           </div>
         </div>
       </form>
-
     </div>
   </div>
 </template>
@@ -202,17 +218,28 @@ export default {
       activeButtons: [],
       showNewClass: false,
       newClassDates: [],
-      maxCharacters:300,
+      maxCharacters: 300,
+      moderators: [],
+      moderator:{}
     };
   },
   created() {
     // this.changeDuration();
     this.getCourses();
     this.getClassAddress();
+    this.getModerators();
     // console.log(this.courseClass.class_dates);
   },
   mounted() {},
   methods: {
+    onChangeModerator(moderator) {
+      console.log(moderator);
+      this.moderator = moderator;
+      console.log(this.moderator);
+    },
+    fullName({ id, fullName }) {
+      return `(#${id}) ${fullName}`;
+    },
     updateClass() {
       this.$emit("update-errors", null);
 
@@ -229,7 +256,8 @@ export default {
           // duration: this.courseClass.duration,
           price: this.courseClass.price,
           space: this.courseClass.space,
-          availableSpace: this.courseClass.availableSpace
+          availableSpace: this.courseClass.availableSpace,
+          moderator_id: this.moderator ? this.moderator.id : null,
         })
         .then(data => {
           Vue.toasted.show(
@@ -280,6 +308,15 @@ export default {
       axios.get("/api/classAddresses").then(response => {
         this.addresses = response.data;
         // console.log(response.data);
+      });
+    },
+
+    getModerators() {
+      axios.get("/api/moderators").then(response => {
+        this.moderators = response.data;
+        this.moderator = this.moderators.filter(
+          m => m.id == this.courseClass.moderator_id
+        )[0];
       });
     },
     showNewClassForm() {

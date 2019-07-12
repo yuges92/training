@@ -26,13 +26,15 @@ class ClassEventController extends Controller
         $data = $this->validate($request, [
             'course_id' => ['required'],
             'type' => 'required',
-            'title' => 'required',
+            // 'title' => 'required',
+            'title' => 'required|unique:class_events,title,'.$class_id,
             'address_id' => 'required',
             'description' => 'required',
             // 'duration' => 'required',
             'price' => 'required',
             'space' => 'required',
-            'availableSpace' => 'required'
+            'availableSpace' => 'required',
+            'moderator_id' => 'integer|nullable',
         ]);
 
         $class->course_id = $request->course_id;
@@ -45,6 +47,8 @@ class ClassEventController extends Controller
         $class->price = $request->price;
         $class->space = $request->space;
         $class->availableSpace = $request->availableSpace;
+        $class->moderator_id = $request->moderator_id ?? null;
+
         $class->updatedBy = $request->user()->id;
         $class->update();
 

@@ -22,9 +22,7 @@
             <li>
               <a href="#trainers" data-toggle="tab" class aria-expanded="false">Trainers</a>
             </li>
-            <li>
-              <a href="#moderator" data-toggle="tab" class aria-expanded="false">Moderator</a>
-            </li>
+
 
             <li>
               <a href="#deadline" data-toggle="tab" class aria-expanded="false">Assignment Deadline</a>
@@ -47,7 +45,6 @@
               <ClassTrainers :courseClass="courseClass" @update-errors="updateErrors"></ClassTrainers>
             </div>
 
-            <div class="tab-pane" id="moderator" aria-expanded="false">Moderator</div>
             <div class="tab-pane" id="deadline" aria-expanded="false">
               <AssignmentDeadline :courseClass="courseClass" @update-errors="updateErrors"></AssignmentDeadline>
 
