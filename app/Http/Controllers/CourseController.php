@@ -178,7 +178,7 @@ class CourseController extends Controller
   }
 
 
-  public function dashboard(Course $course)
+  public function dashboard( $course_id)
   {
     $faker = Faker::create();
     $title = 'Course Dashboard';

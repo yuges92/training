@@ -258,7 +258,7 @@ class ClassEventController extends Controller
 
 
 
-    public function getshowClassDetailC(ClassEvent $classEvent)
+    public function showClassDetail(Course $course, ClassEvent $classEvent)
     {
         $class = $classEvent;
         // dd ($classEvent);

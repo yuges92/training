@@ -25,7 +25,7 @@
                         id="title"
                         v-model="course.title"
                         placeholder="Title"
-                      >
+                      />
                     </div>
                   </div>
 
@@ -39,7 +39,7 @@
                         id="course_code"
                         v-model="course.course_code"
                         placeholder="Course Code"
-                      >
+                      />
                     </div>
                   </div>
 
@@ -117,7 +117,7 @@
                         class="filled-in chk-col-blue"
                         value="1"
                         v-model="course.enable_megamenu"
-                      >
+                      />
                       <label for="enable_megamenu">Display on MegaMenu</label>
                     </div>
                   </div>
@@ -134,7 +134,7 @@
                           value
                           placeholder="Position"
                           v-model="course.position"
-                        >
+                        />
                       </div>
                     </div>
                   </div>
@@ -155,7 +155,7 @@
                           value
                           placeholder="Password"
                           v-model="course.password"
-                        >
+                        />
                       </div>
                     </div>
                   </div>
@@ -165,7 +165,7 @@
                     <div class>
                       <div class="d-flex justify-content-center flex-wrap">
                         <div class="mx-auto">
-                          <img :src="course.image" alt style="max-width:15rem;">
+                          <img :src="course.image" alt style="max-width:15rem;" />
                         </div>
                         <div class="col-12 my-2">
                           <div class="custom-file mt-3 mb-3">
@@ -175,7 +175,7 @@
                               ref="file"
                               id="customFile"
                               @change="previewFiles()"
-                            >
+                            />
                             <label class="custom-file-label" for="customFile">{{filename}}</label>
                           </div>
                         </div>
@@ -183,7 +183,9 @@
                     </div>
                   </div>
                 </div>
-                <SubmitButton :showBtn="showBtn"></SubmitButton>
+                <div class="d-flex justify-content-end my-3">
+                  <SubmitButton :showBtn="showBtn"></SubmitButton>
+                </div>
               </div>
             </div>
           </div>
@@ -268,7 +270,7 @@ export default {
             _this.errors = error.response.data.errors;
             _this.showError = true;
           }
-                    Vue.toasted.show(
+          Vue.toasted.show(
             '<i class="fas fa-exclamation-circle"></i> Update Failed',
             {
               type: "error",
@@ -297,8 +299,8 @@ export default {
         return;
       }
       console.log(file.name);
-      
-        this.filename = file.name;
+
+      this.filename = file.name;
 
       this.imageFile = file;
 

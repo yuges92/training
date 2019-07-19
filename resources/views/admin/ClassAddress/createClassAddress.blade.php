@@ -2,6 +2,10 @@
 
 @section('content')
   <div class="container p-sm-0 px-md-5 ">
+      <div class="box">
+          <div class="box-body">
+
+
     <h1 class="mb-5">New Course Assignment</h1>
 
     <form class="" action="{{route('classAddress.store')}}" method="post">
@@ -50,13 +54,22 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <label for="ckEditor" class="col-sm-2 col-form-label">Detail:</label>
+        <div class="col-sm-10">
+          <textarea id="ckEditor" class="form-control summernote" name="detail" rows="8" cols="80">{{ old('detail') }}</textarea>
+        </div>
+      </div>
 
-      <div class="form-group row float-right mt-3 p-3">
-        <input class="btn btn-secondary px-5" type="submit" value="Add">
+
+      <div class="d-flex justify-content-end my-3">
+        <input class="btn btn-primary px-5" type="submit" value="Save">
       </div>
 
 
     </form>
+</div>
+</div>
   </div>
 
 @endsection

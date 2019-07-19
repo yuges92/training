@@ -14,6 +14,8 @@ window.Vue = require('vue');
 
 Vue.component('class-component', require('./components/classes/ClassComponent.vue').default);
 Vue.component('assignment-component', require('./components/assignment/AssignmentComponent.vue').default);
+Vue.component('referralcode-component', require('./components/ReferralCode/ReferralCodeComponent.vue').default);
+Vue.component('loader', require('./components/Loader.vue').default);
 
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import axios from "axios";

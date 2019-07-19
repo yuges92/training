@@ -1,19 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="container mt-3">
-    <div class="row m-auto">
-      <h1>{{$class->course->title}} <small>{{$class->getStartEndDate()}}</small></h1>
+<div class="class-page-header">
+
+    <div class="container">
+        <h1>{{$class->course->title}} <small>{{$class->getStartDate()}}</small></h1>
+    <p class="description">{{$class->description}}</p>
     </div>
+</div>
+  <div class="container mt-3">
     <div class="class-detail">
       <div class="price">
         <h2>£{{$class->price}} <small>ex VAT</small></h2>
       </div>
       <div class="">
-        <p class="stock in-stock">{{$class->availableSpace}} Spaces Available.</p>
-      </div>
-      <div class="class-description">
-        {!! $class->description!!}
+        <p class="stock in-stock">{!!ucfirst($class->getAvailableSpaceText())!!}.</p>
       </div>
 
       <div class="row mx-auto">
@@ -28,7 +29,7 @@
               {{$class->address->getFullAddress()}}
             </li>
             <li>
-              <span>Date:</span>
+              <span>Dates:</span>
               <span>{{$class->getStartEndDate()}}</span>
             </li>
             <li>
@@ -82,7 +83,7 @@
                 Add to cart
               </button>
             </form>
-            <a class="ml-1 btn btn-info"href="{{route('showClassDetail', $class->id)}}">View Full Detail</a>
+            <a class="ml-1 btn btn-info"href="{{route('showClassDetail', [$class->course->slug,$class->slug])}}">View Full Detail</a>
           </div>
         </div>
       </div>

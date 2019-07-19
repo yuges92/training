@@ -63,14 +63,14 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="deadlineDate" class="col-sm-2 col-form-label">Extended Deadline Date:</label>
+              <label for="resubmissionDate" class="col-sm-2 col-form-label">Resubmission Deadline Date:</label>
               <div class="col-sm-10">
                 <input
-                  name="deadlineDate"
+                  name="resubmissionDate"
                   type="date"
                   class="form-control"
-                  id="deadlineDate"
-                  v-model="assignment.deadline.date"
+                  id="resubmissionDate"
+                  v-model="assignment.resubmissionDate"
                   placeholder="Deadline Date"
                 />
               </div>

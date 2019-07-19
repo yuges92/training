@@ -37,11 +37,13 @@
 
       <li class="{{ Request::is('admin') ? 'active' : '' }}"><a  href="{{route('adminDashboard')}}"><i class="fa fa-tachometer-alt"></i> <span> Dashboard</span></a></li>
       <li class="{{ Request::is('admin/order*') ? 'active' : '' }}"><a  href="{{route('order.index')}}"><i class="fas fa-list-alt"></i> <span>Bookings</span></a></li>
+      <li class="{{ Request::is('admin/referralCode*') ? 'active' : '' }}"><a  href="{{route('referralCode.index')}}"><i class="fas fa-list-alt"></i> <span>Referral Code</span></a></li>
       <li class="{{ Request::is('admin/learners*') ? 'active' : '' }}"><a  href="/admin/learners"><i class="fa fa-user-graduate"></i> <span>Learners</span></a></li>
       <li class="{{ Request::is('admin/courseTypes*') ? 'active' : '' }}"><a  href="{{route('courseTypes.index')}}"><i class="fa fa-graduation-cap"></i> <span>Course Type</span></a></li>
       <li class="{{ Request::is('admin/courses*') ? 'active' : '' }}"><a  href="{{route('adminCourses')}}"><i class="fa fa-graduation-cap"></i> <span>Courses</span></a></li>
       <li class="{{ Request::is('admin/assignments*') ? 'active' : '' }}"><a  href="/admin/assignments"><i class="fa fa-tasks"></i> <span>Course Assignments</span></a></li>
       <li class="{{ Request::is('admin/classes*') ? 'active' : '' }}"><a  href="/admin/classes"><i class="fa fa-calendar"></i> <span>Classes</span></a></li>
+      <li class="{{ Request::is('admin/pages*') ? 'active' : '' }}"><a  href="/admin/pages"><i class="far fa-file"></i> <span>Pages</span></a></li>
       <li class="{{ Request::is('admin/classTrainer*') ? 'active' : '' }}"><a  href="/admin/classTrainer"><i class="fa fa-chalkboard-teacher"></i> <span>Trainers</span></a></li>
       <li class="{{ Request::is('admin/classAddress*') ? 'active' : '' }}"><a  href="/admin/classAddress"><i class="fa fa-address-card"></i> <span>Class Address</span></a></li>
       <li class="{{ Request::is('admin/accessCodes*') ? 'active' : '' }}"><a  href="{{route('accessCode.index')}}"><i class="fa fa-hashtag"></i> <span>Access Codes</span></a></li>

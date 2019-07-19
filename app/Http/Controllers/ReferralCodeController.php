@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
+use App\ReferralCode;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
-class BookingController extends Controller
+class ReferralCodeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-      $orders=Order::with('user')->get();
-    //   dd( $orders);
-        return view('admin.bookings.bookings', compact('orders'));
+        return view('admin.referralCode.index');
     }
 
     /**
@@ -44,10 +41,10 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Order  $order
+     * @param  \App\ReferralCode  $referralCode
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show(ReferralCode $referralCode)
     {
         //
     }
@@ -55,42 +52,33 @@ class BookingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Order  $order
+     * @param  \App\ReferralCode  $referralCode
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
+    public function edit(ReferralCode $referralCode)
     {
-
-        return view('admin.bookings.editBooking', compact('order'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
+     * @param  \App\ReferralCode  $referralCode
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, ReferralCode $referralCode)
     {
-
-      $this->validate($request, [
-        'status' => 'required'
-
-      ]);
-
-      $order->status=$request->input('status');
-      $order->update();
-      return redirect()->back()->with('success', 'Order Updated');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Order  $order
+     * @param  \App\ReferralCode  $referralCode
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy(ReferralCode $referralCode)
     {
         //
     }

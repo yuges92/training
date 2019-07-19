@@ -408,3 +408,16 @@ body{
   padding: 10px 0 70px !important;
   background-image: url(/images/user-info.jpg);
 }
+
+
+.class-page-header{
+    background-color: #29303b;
+    color: #fff;
+    padding: 60px 0;
+
+    .description{
+        font-size: 21px;
+        line-height: 27px;
+        margin-bottom: 7px;
+    }
+}

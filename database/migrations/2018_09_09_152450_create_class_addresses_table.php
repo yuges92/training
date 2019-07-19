@@ -21,6 +21,7 @@ class CreateClassAddressesTable extends Migration
           $table->string('county');
           $table->string('postcode');
           $table->string('country');
+          $table->longText('detail')->nullable();
           $table->integer('createdBy');
           $table->integer('updatedBY')->nullable();
           $table->timestamps();

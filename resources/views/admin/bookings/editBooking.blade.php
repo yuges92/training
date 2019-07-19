@@ -220,14 +220,14 @@
           <strong class="text-blue">Ordered by</strong><br>
 
           <address>
-            <strong class="">{{$order->user->getFullname()}}</strong><br>
-            {{$order->user->getAddressByType('home')->line1}}<br>
-            {{$order->user->getAddressByType('home')->town}}<br>
-            {{$order->user->getAddressByType('home')->county}}<br>
-            {{$order->user->getAddressByType('home')->postcode}}<br>
-            {{$order->user->getAddressByType('home')->country}}<br>
-            Phone: {{$order->user->phone}}<br>
-            Email: {{$order->user->email}}
+            <strong class="">{{$order->user ? $order->user->getFullname():''}}</strong><br>
+            {{$order->user ? $order->user->getAddressByType('home')->line1 : ''}}<br>
+            {{$order->user ? $order->user->getAddressByType('home')->town : ''}}<br>
+            {{$order->user ? $order->user->getAddressByType('home')->county : ''}}<br>
+            {{$order->user ? $order->user->getAddressByType('home')->postcode : ''}}<br>
+            {{$order->user ? $order->user->getAddressByType('home')->country : ''}}<br>
+            Phone: {{$order->user ? $order->user->phone : ''}}<br>
+            Email: {{$order->user ? $order->user->email : ''}}
           </address>
         </div>
         <!-- /.col -->

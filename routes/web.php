@@ -63,6 +63,8 @@ Route::get('/email', function () {
 
 Route::get('/courses', 'FrontCourseController@index')->name('courses');
 
+
+
 Route::get('/courses/{courseType}', 'FrontCourseController@show')->name('courseType');
 Route::get('/courses/{courseType}/{course}', 'FrontCourseController@showCourse')->name('course');
 Route::post('/customlogin', 'LoginController@authenticate')->name('customLogin');
@@ -116,6 +118,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
   Route::resource('/address', 'AddressController');
   Route::resource('/accessCode', 'AccessCodeController');
   Route::resource('/order', 'BookingController');
+  Route::resource('/referralCode', 'ReferralCodeController');
 
   Route::post('/classStudent', 'ClassStudentController@store')->name('giveStudentClassAccess');
   // Route::post('/userDetail/store', 'UserDetailController@store')->name('addLearnerDetails');
@@ -125,6 +128,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
   Route::delete('/class/{classEvent}/removeClassAccess', 'ClassEventController@removeClassAccess')->name('removeClassAccess');
 });
 
+
+
+Route::get('/course/{course}/classes', 'CourseController@getClasses');
+Route::get('/courses/{course}/class/{classEvent}', 'ClassEventController@showClassDetail')->name('showClassDetail');
 
 Route::resource('/cart', 'CartController');
 Route::get('/checkout/whoIsItFor/', 'CheckoutController@whoIsItFor')->name('whoIsItFor');
@@ -150,8 +157,7 @@ Route::post('checkout/someoneElse/paymentAndBilling', 'BuyForSomeoneElseControll
 
 Route::get('order/thankYou', 'OrderController@thankYou')->name('thankYou');
 
-Route::get('/course/{course}/classes', 'CourseController@getClasses');
-Route::get('/course/class/{classEvent}', 'ClassEventController@getshowClassDetailC')->name('showClassDetail');
+
 
 //paypal payment.status
 // Route::get('paywithpaypal','PaypalController@payWithPaypal' )->name('addmoney.paywithpaypal');

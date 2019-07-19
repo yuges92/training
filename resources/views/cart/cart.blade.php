@@ -30,7 +30,7 @@
                     </form>
                   </td>
                   <td class="cart_description">
-                    <h2><a href="{{route('showClassDetail', $item->class_id)}}">{{$item->class->course->title}}</a></h2>
+                    <h2><a href="{{route('showClassDetail', [$item->class->course->slug,$item->class->slug])}}">{{$item->class->course->title}}</a></h2>
                     <div class="row">
                       <div class="col-12">
 

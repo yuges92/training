@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
     $user= new User();
     $user->firstName='Yugeswaran';
     $user->lastName='Sivanathan';
-    $user->email='sivayuges@gmail.com';
+    $user->email='yugeswaran.sivanathan@dlf.org.uk';
     $user->username='sivayuges';
     $user->password=Hash::make('password');
     $user->save();
@@ -42,6 +42,6 @@ class UsersTableSeeder extends Seeder
 
   //  });
 
-   
+
   }
 }

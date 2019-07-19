@@ -11961,6 +11961,18 @@ body {
   background-image: url(/images/user-info.jpg);
 }
 
+.class-page-header {
+  background-color: #29303b;
+  color: #fff;
+  padding: 60px 0;
+}
+
+.class-page-header .description {
+  font-size: 21px;
+  line-height: 27px;
+  margin-bottom: 7px;
+}
+
 .nav-bar-top {
   background: #00456d;
   padding: 1rem;

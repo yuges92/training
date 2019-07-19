@@ -37,7 +37,7 @@
 
             <tr>
               <th scope="row">{{$order->id}}</th>
-              <td>{{$order->user->getFullname()}}</td>
+              <td>{{$order->user ? $order->user->getFullname():''}}</td>
               <td>{{$order->created_at}}</td>
               <td>{{$order->paymentMethod}}</td>
               <td>{{$order->type()}}</td>

@@ -4346,6 +4346,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -44355,347 +44357,338 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4 fixed" }, [
-                      _c(
-                        "div",
-                        { staticClass: "box" },
-                        [
-                          _vm._m(1),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "box-body" }, [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col col-form-label",
-                                  attrs: { for: "status" }
-                                },
-                                [_vm._v("Publish:")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col" }, [
-                                _c(
-                                  "select",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.course.status,
-                                        expression: "course.status"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: { name: "status", id: "status" },
-                                    on: {
-                                      change: function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
-                                        _vm.$set(
-                                          _vm.course,
-                                          "status",
-                                          $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "publish" } },
-                                      [_vm._v("Publish")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "draft" } },
-                                      [_vm._v("Draft")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      { attrs: { value: "private" } },
-                                      [_vm._v("private")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "option",
-                                      {
-                                        attrs: { value: "password_protected" }
-                                      },
-                                      [_vm._v("Password Protected")]
-                                    )
-                                  ]
-                                )
-                              ])
-                            ]),
+                      _c("div", { staticClass: "box" }, [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "box-body" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "col col-form-label",
+                                attrs: { for: "status" }
+                              },
+                              [_vm._v("Publish:")]
+                            ),
                             _vm._v(" "),
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("div", { staticClass: "col" }, [
-                                _c("input", {
+                            _c("div", { staticClass: "col" }, [
+                              _c(
+                                "select",
+                                {
                                   directives: [
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: _vm.course.enable_megamenu,
-                                      expression: "course.enable_megamenu"
+                                      value: _vm.course.status,
+                                      expression: "course.status"
                                     }
                                   ],
-                                  staticClass: "filled-in chk-col-blue",
-                                  attrs: {
-                                    name: "enable_megamenu",
-                                    type: "checkbox",
-                                    id: "enable_megamenu",
-                                    value: "1"
-                                  },
-                                  domProps: {
-                                    checked: Array.isArray(
-                                      _vm.course.enable_megamenu
-                                    )
-                                      ? _vm._i(
-                                          _vm.course.enable_megamenu,
-                                          "1"
-                                        ) > -1
-                                      : _vm.course.enable_megamenu
-                                  },
+                                  staticClass: "form-control",
+                                  attrs: { name: "status", id: "status" },
                                   on: {
                                     change: function($event) {
-                                      var $$a = _vm.course.enable_megamenu,
-                                        $$el = $event.target,
-                                        $$c = $$el.checked ? true : false
-                                      if (Array.isArray($$a)) {
-                                        var $$v = "1",
-                                          $$i = _vm._i($$a, $$v)
-                                        if ($$el.checked) {
-                                          $$i < 0 &&
-                                            _vm.$set(
-                                              _vm.course,
-                                              "enable_megamenu",
-                                              $$a.concat([$$v])
-                                            )
-                                        } else {
-                                          $$i > -1 &&
-                                            _vm.$set(
-                                              _vm.course,
-                                              "enable_megamenu",
-                                              $$a
-                                                .slice(0, $$i)
-                                                .concat($$a.slice($$i + 1))
-                                            )
-                                        }
-                                      } else {
-                                        _vm.$set(
-                                          _vm.course,
-                                          "enable_megamenu",
-                                          $$c
-                                        )
-                                      }
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.course,
+                                        "status",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
                                     }
                                   }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "label",
-                                  { attrs: { for: "enable_megamenu" } },
-                                  [_vm._v("Display on MegaMenu")]
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass: "form-group",
-                                attrs: { id: "passwordDiv" }
-                              },
-                              [
-                                _c(
-                                  "label",
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "publish" } },
+                                    [_vm._v("Publish")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "draft" } }, [
+                                    _vm._v("Draft")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "private" } },
+                                    [_vm._v("private")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "password_protected" } },
+                                    [_vm._v("Password Protected")]
+                                  )
+                                ]
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("div", { staticClass: "col" }, [
+                              _c("input", {
+                                directives: [
                                   {
-                                    staticClass: "col-sm-2 col-form-label",
-                                    attrs: { for: "position" }
-                                  },
-                                  [_vm._v("Position:")]
-                                ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "col" }, [
-                                  _c("div", {}, [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.course.position,
-                                          expression: "course.position"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        name: "position",
-                                        type: "number",
-                                        id: "position",
-                                        value: "",
-                                        placeholder: "Position"
-                                      },
-                                      domProps: { value: _vm.course.position },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.course.enable_megamenu,
+                                    expression: "course.enable_megamenu"
+                                  }
+                                ],
+                                staticClass: "filled-in chk-col-blue",
+                                attrs: {
+                                  name: "enable_megamenu",
+                                  type: "checkbox",
+                                  id: "enable_megamenu",
+                                  value: "1"
+                                },
+                                domProps: {
+                                  checked: Array.isArray(
+                                    _vm.course.enable_megamenu
+                                  )
+                                    ? _vm._i(_vm.course.enable_megamenu, "1") >
+                                      -1
+                                    : _vm.course.enable_megamenu
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.course.enable_megamenu,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = "1",
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
                                           _vm.$set(
                                             _vm.course,
-                                            "position",
-                                            $event.target.value
+                                            "enable_megamenu",
+                                            $$a.concat([$$v])
                                           )
-                                        }
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.course,
+                                            "enable_megamenu",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
                                       }
-                                    })
-                                  ])
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _vm.course.status == "password_protected"
-                              ? _c(
-                                  "div",
-                                  {
-                                    staticClass: "form-group",
-                                    attrs: { id: "passwordDiv" }
-                                  },
-                                  [
-                                    _c(
-                                      "label",
-                                      {
-                                        staticClass: "col-sm-2 col-form-label",
-                                        attrs: { for: "password" }
-                                      },
-                                      [_vm._v("Password:")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "col" }, [
-                                      _c("div", {}, [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.course.password,
-                                              expression: "course.password"
-                                            }
-                                          ],
-                                          staticClass: "form-control",
-                                          attrs: {
-                                            name: "password",
-                                            type: "text",
-                                            id: "password",
-                                            value: "",
-                                            placeholder: "Password"
-                                          },
-                                          domProps: {
-                                            value: _vm.course.password
-                                          },
-                                          on: {
-                                            input: function($event) {
-                                              if ($event.target.composing) {
-                                                return
-                                              }
-                                              _vm.$set(
-                                                _vm.course,
-                                                "password",
-                                                $event.target.value
-                                              )
-                                            }
-                                          }
-                                        })
-                                      ])
-                                    ])
-                                  ]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group" }, [
+                                    } else {
+                                      _vm.$set(
+                                        _vm.course,
+                                        "enable_megamenu",
+                                        $$c
+                                      )
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                { attrs: { for: "enable_megamenu" } },
+                                [_vm._v("Display on MegaMenu")]
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "form-group",
+                              attrs: { id: "passwordDiv" }
+                            },
+                            [
                               _c(
                                 "label",
                                 {
                                   staticClass: "col-sm-2 col-form-label",
-                                  attrs: { for: "image" }
+                                  attrs: { for: "position" }
                                 },
-                                [_vm._v("Image:")]
+                                [_vm._v("Position:")]
                               ),
                               _vm._v(" "),
-                              _c("div", {}, [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "d-flex justify-content-center flex-wrap"
-                                  },
-                                  [
-                                    _c("div", { staticClass: "mx-auto" }, [
-                                      _c("img", {
-                                        staticStyle: { "max-width": "15rem" },
+                              _c("div", { staticClass: "col" }, [
+                                _c("div", {}, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.course.position,
+                                        expression: "course.position"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      name: "position",
+                                      type: "number",
+                                      id: "position",
+                                      value: "",
+                                      placeholder: "Position"
+                                    },
+                                    domProps: { value: _vm.course.position },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.course,
+                                          "position",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.course.status == "password_protected"
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass: "form-group",
+                                  attrs: { id: "passwordDiv" }
+                                },
+                                [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "col-sm-2 col-form-label",
+                                      attrs: { for: "password" }
+                                    },
+                                    [_vm._v("Password:")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col" }, [
+                                    _c("div", {}, [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.course.password,
+                                            expression: "course.password"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
                                         attrs: {
-                                          src: _vm.course.image,
-                                          alt: ""
+                                          name: "password",
+                                          type: "text",
+                                          id: "password",
+                                          value: "",
+                                          placeholder: "Password"
+                                        },
+                                        domProps: {
+                                          value: _vm.course.password
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.course,
+                                              "password",
+                                              $event.target.value
+                                            )
+                                          }
                                         }
                                       })
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "col-12 my-2" }, [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "custom-file mt-3 mb-3"
-                                        },
-                                        [
-                                          _c("input", {
-                                            ref: "file",
-                                            staticClass: "custom-file-input",
-                                            attrs: {
-                                              type: "file",
-                                              id: "customFile"
-                                            },
-                                            on: {
-                                              change: function($event) {
-                                                return _vm.previewFiles()
-                                              }
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "label",
-                                            {
-                                              staticClass: "custom-file-label",
-                                              attrs: { for: "customFile" }
-                                            },
-                                            [_vm._v(_vm._s(_vm.filename))]
-                                          )
-                                        ]
-                                      )
                                     ])
-                                  ]
-                                )
-                              ])
-                            ])
-                          ]),
+                                  ])
+                                ]
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
-                          _c("SubmitButton", {
-                            attrs: { showBtn: _vm.showBtn }
-                          })
-                        ],
-                        1
-                      )
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "col-sm-2 col-form-label",
+                                attrs: { for: "image" }
+                              },
+                              [_vm._v("Image:")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", {}, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "d-flex justify-content-center flex-wrap"
+                                },
+                                [
+                                  _c("div", { staticClass: "mx-auto" }, [
+                                    _c("img", {
+                                      staticStyle: { "max-width": "15rem" },
+                                      attrs: { src: _vm.course.image, alt: "" }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-12 my-2" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "custom-file mt-3 mb-3" },
+                                      [
+                                        _c("input", {
+                                          ref: "file",
+                                          staticClass: "custom-file-input",
+                                          attrs: {
+                                            type: "file",
+                                            id: "customFile"
+                                          },
+                                          on: {
+                                            change: function($event) {
+                                              return _vm.previewFiles()
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "label",
+                                          {
+                                            staticClass: "custom-file-label",
+                                            attrs: { for: "customFile" }
+                                          },
+                                          [_vm._v(_vm._s(_vm.filename))]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ]
+                              )
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "d-flex justify-content-end my-3" },
+                          [
+                            _c("SubmitButton", {
+                              attrs: { showBtn: _vm.showBtn }
+                            })
+                          ],
+                          1
+                        )
+                      ])
                     ])
                   ])
                 ]
