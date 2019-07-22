@@ -4,11 +4,13 @@
 
     <loader v-if="!isLoaded"></loader>
     <div v-else>
-      <div class="container-fluid">
+      <div class="container-fluid" v-if="!showEditForm">
         <button class="btn btn-info mb-3" @click="showForm = !showForm" v-if="!showForm">
           <i class="fas fa-plus"></i> Add new class
         </button>
         <NewReferralCodeForm class="my-3" v-else></NewReferralCodeForm>
+
+
         <div class="box">
           <div class="box-body">
             <table class="table table-hover table-responsive-sm dataTableClasses">
@@ -21,20 +23,23 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="classEvent in 10" v-bind:key="classEvent.id">
-                  <th scope="row">{{classEvent.id}}</th>
-                  <td>{{classEvent.title}}</td>
-                  <td>{{classEvent.startDate}}</td>
+                <tr v-for="referralCode in referralCodes" v-bind:key="referralCode.id">
+                  <th scope="row">{{referralCode.id}}</th>
+                  <td>{{referralCode.name}}</td>
+                  <td>{{referralCode.description}}</td>
                   <td class="d-flex justify-content-between">
                     <div class="col">
-                      <button class="btn btn-success" @click="showCurrentAssignment(1)">
+                      <button
+                        class="btn btn-success"
+                        @click="edit(referralCode)"
+                      >
                         <i class="fas fa-eye"></i>
                       </button>
                     </div>
                     <div class="col">
                       <button
-                        v-if="!activeButtons[1]"
-                        @click="deleteCriteria(1)"
+                        v-if="!activeButtons[referralCode.id]"
+                        @click="remove(referralCode.id)"
                         class="btn btn-danger"
                       >
                         <i class="fas fa-trash-alt"></i>
@@ -51,43 +56,84 @@
           </div>
         </div>
       </div>
+        <EditReferralCodeForm class="my-3" v-if="showEditForm" :referralCode="selectedCode"></EditReferralCodeForm>
     </div>
+
+
   </div>
 </template>
 
 <script>
 import NewReferralCodeForm from "./NewReferralCodeForm.vue";
+import EditReferralCodeForm from "./EditReferralCodeForm.vue";
 export default {
   props: ["class_id"],
 
   data() {
     return {
-      isLoaded: true,
+      isLoaded: false,
       errors: null,
       showError: false,
       activeButtons: [],
-      showForm:false,
+      showForm: false,
+      showEditForm: false,
+      selectedCode: '',
+      referralCodes: []
     };
   },
   components: {
     Error,
-    NewReferralCodeForm
+    NewReferralCodeForm,
+    EditReferralCodeForm
   },
 
   mounted() {
     // console.log(this.getClass());
   },
   created() {
-    // this.getClass();
+    this.getReferralCodes();
   },
   methods: {
-    getClass() {
+    getReferralCodes() {
       this.isLoaded = false;
-      axios.get("/api/classEvents/" + this.class_id).then(response => {
-        this.courseClass = response.data;
+      axios.get("/api/referralCode").then(response => {
+        // console.log(response.data);
+        this.referralCodes = response.data;
         this.isLoaded = true;
-        // console.log(this.courseClass);
+        this.showForm=false;
+        this.showEditForm=false;
       });
+    },
+    remove(id) {
+      let url = "/api/referralCode/"+id;
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          Vue.set(this.activeButtons, id, 1);
+          axios
+            .delete(url)
+            .then(response => {
+              this.alertSuccess("Deleted");
+              this.getReferralCodes();
+            })
+            .catch(error => {
+              console.log(error.response);
+              this.alertFailed("Failed");
+              Vue.set(this.activeButtons, id, 0);
+            });
+        }
+      });
+    },
+    edit(referralCode){
+        this.selectedCode=referralCode;
+        this.showEditForm=true;
     },
 
     updateErrors(errors) {

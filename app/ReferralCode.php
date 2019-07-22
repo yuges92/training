@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReferralCode extends Model
 {
-    //
+    protected $guarded = [];
 }

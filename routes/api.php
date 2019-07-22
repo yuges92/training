@@ -46,6 +46,7 @@ Route::group(['middleware'=>['auth:api']], function(){
   Route::resource('/assignments/{assignment}/questions', 'Api\QuestionController');
   Route::resource('/classEvents/{classEvent}/assignments/{assignment}/deadline', 'Api\AssignmentDeadlineController');
   Route::resource('/moderators', 'Api\ModeratorController');
+  Route::resource('/referralCode', 'ReferralCodeController');
 
 });
 

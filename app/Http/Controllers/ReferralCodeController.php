@@ -12,9 +12,21 @@ class ReferralCodeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showView()
     {
         return view('admin.referralCode.index');
+    }
+
+
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $referralCodes= ReferralCode::all();
+        return response()->json($referralCodes, 201);
     }
 
     /**
@@ -35,7 +47,14 @@ class ReferralCodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $referralCode = ReferralCode::create($data);
+
+        return response()->json($referralCode, 201);
     }
 
     /**
@@ -69,7 +88,14 @@ class ReferralCodeController extends Controller
      */
     public function update(Request $request, ReferralCode $referralCode)
     {
-        //
+        $data = $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $referralCode->update($data);
+
+        return response()->json($referralCode, 201);
     }
 
     /**
@@ -80,6 +106,7 @@ class ReferralCodeController extends Controller
      */
     public function destroy(ReferralCode $referralCode)
     {
-        //
+        $referralCode->delete();
+        return response()->json('Deleted', 204);
     }
 }

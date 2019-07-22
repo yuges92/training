@@ -146,7 +146,7 @@ class QuestionController extends Controller
             'video' => $request->video ?? null,
         ]);
 
-        
+
         if ($request->file('image')) {
             $imageFileName = $question->id . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->storeAs($question->getImageFolder(), $imageFileName);
@@ -191,9 +191,9 @@ class QuestionController extends Controller
     {
 
         // $question= Question::find($question_id);
-        Log::error($question);
+        // Log::error($question);
         if ($question->getImage()) {
-            Log::error($question->getImage());
+            // Log::error($question->getImage());
 
             Storage::delete($question->getImageFolder() . $question->image);
         }

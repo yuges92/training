@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="saveForm()" enctype="multipart/form-data">
+    <form @submit.prevent="updateForm()" enctype="multipart/form-data">
       <div class="card">
         <div class="card-header">
           <h2>New Referrer</h2>
@@ -48,28 +48,24 @@
 
 <script>
 export default {
-  props: [""],
+  props: ["referralCode"],
   data() {
     return {
       showBtn: true,
-      referralCode: {
-        name: "",
-        description: ""
-      }
+
     };
   },
   methods: {
-    saveForm() {
+    updateForm() {
       // console.log(this.trainer);
       this.showBtn = false;
       axios
-        .post("/api/referralCode", {
+        .put("/api/referralCode/"+this.referralCode.id, {
           name: this.referralCode.name,
           description: this.referralCode.description
         })
         .then(res => {
           // console.log(res);
-
           this.alertSuccess("Saved");
           this.isTrainerAdded = true;
           this.$parent.getReferralCodes();
@@ -84,7 +80,7 @@ export default {
         });
     },
     cancel(){
-        this.$parent.showForm=false;
+        this.$parent.showEditForm=false;
     }
   },
   mounted() {

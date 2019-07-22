@@ -15,6 +15,10 @@ class CreateReferralCodesTable extends Migration
     {
         Schema::create('referral_codes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
+            $table->text('description');
+            $table->integer('createdBy')->nullable();
+            $table->integer('updatedBY')->nullable();
             $table->timestamps();
         });
     }

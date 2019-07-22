@@ -118,7 +118,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
   Route::resource('/address', 'AddressController');
   Route::resource('/accessCode', 'AccessCodeController');
   Route::resource('/order', 'BookingController');
-  Route::resource('/referralCode', 'ReferralCodeController');
+  Route::get('/referralCode', 'ReferralCodeController@showView')->name('referralCode.showView');
 
   Route::post('/classStudent', 'ClassStudentController@store')->name('giveStudentClassAccess');
   // Route::post('/userDetail/store', 'UserDetailController@store')->name('addLearnerDetails');
