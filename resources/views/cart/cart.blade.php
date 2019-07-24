@@ -63,8 +63,8 @@
                           <button class="col-xs-4 qty-decrement-cart btn btn-link" type="button" data-id="quantity{{$item->class_id}}"><i class="fas fa-minus"></i></button>
                           <input id="quantity{{$item->class_id}}" name="quantity" type="number" autocomplete="off" size="2" value="{{$item->quantity}}" title="quantity" class="form-control  col-5 col-md-4 quantity-input text-center" min="1" max="{{$item->class->availableSpace}}" button-target="button{{$item->class_id}}">
                           <button class="col-xs-4 qty-increment-cart btn btn-link" type="button" data-id="quantity{{$item->class_id}}"><i class="fas fa-plus"></i></button>
-                          <div class="col-12 mx-auto mt-1 ">
-                            <button id="button{{$item->class_id}}"class="btn ml-1" type="submit" name="button" disabled>Update</button>
+                          <div class="d-flex justify-content-center mt-1 ">
+                            <button id="button{{$item->class_id}}"class="btn ml-1 btn-info" type="submit" name="button" disabled>Update</button>
                           </div>
                         </div>
                       @endif

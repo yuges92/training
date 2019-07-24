@@ -13,12 +13,12 @@
 
         <div class="box">
           <div class="box-body">
-            <table class="table table-hover table-responsive-sm dataTableClasses">
+            <table class="table table-hover table-responsive-sm dataTableClasses ">
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Start Date</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
                   <th></th>
                 </tr>
               </thead>

@@ -52,7 +52,7 @@
                   <!-- User image -->
                   <li class="user-header">
                       <img class="rounded float-left" style="width:100px; " src="{{Auth::user()->getImage()}}" alt="User profile picture">
-                    
+
                     <p>
                       {{Auth::user()->getFullname()}}
                       <small>Member since April . 2016</small>
@@ -61,7 +61,7 @@
                   <li class="user-footer row mx-auto">
                     <div class="col-md-6">
 
-                      <a href="#" class="btn btn-block btn-primary"><i class="fas fa-user-circle"></i> Profile</a>
+                      <a href="/admin/myProfile" class="btn btn-block btn-primary"><i class="fas fa-user-circle"></i> Profile</a>
                     </div>
                     <div class="col-md-6">
                       <a class="btn btn-block btn-danger" href="{{ route('customLogout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

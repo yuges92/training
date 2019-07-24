@@ -3,7 +3,7 @@
     <form @submit.prevent="updateForm()" enctype="multipart/form-data">
       <div class="card">
         <div class="card-header">
-          <h2>New Referrer</h2>
+          <h2>Edit Referrer Form</h2>
         </div>
         <div class="card-body">
           <div class="form-group row">

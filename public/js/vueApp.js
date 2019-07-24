@@ -40524,7 +40524,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h2", [_vm._v("New Referrer")])
+      _c("h2", [_vm._v("Edit Referrer Form")])
     ])
   }
 ]
@@ -40686,7 +40686,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h2", [_vm._v("New Referrer")])
+      _c("h2", [_vm._v("New Referrer Form")])
     ])
   }
 ]
@@ -40752,7 +40752,7 @@ var render = function() {
                             "table",
                             {
                               staticClass:
-                                "table table-hover table-responsive-sm dataTableClasses"
+                                "table table-hover table-responsive-sm dataTableClasses "
                             },
                             [
                               _c("thead", [
@@ -40762,11 +40762,11 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("th", { attrs: { scope: "col" } }, [
-                                    _vm._v("Title")
+                                    _vm._v("Name")
                                   ]),
                                   _vm._v(" "),
                                   _c("th", { attrs: { scope: "col" } }, [
-                                    _vm._v("Start Date")
+                                    _vm._v("Description")
                                   ]),
                                   _vm._v(" "),
                                   _c("th")

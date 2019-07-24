@@ -260,7 +260,7 @@ class ClassEventController extends Controller
 
     public function showClassDetail(Course $course, ClassEvent $classEvent)
     {
-        $class = $classEvent;
+        $class = $classEvent->load('classDates');
         // dd ($classEvent);
         $class_id = $class->id;
         // $cartItem=Cart::search(function($cartItem, $rowId) use($class)  {

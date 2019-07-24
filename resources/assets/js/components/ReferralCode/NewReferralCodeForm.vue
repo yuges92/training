@@ -3,7 +3,7 @@
     <form @submit.prevent="saveForm()" enctype="multipart/form-data">
       <div class="card">
         <div class="card-header">
-          <h2>New Referrer</h2>
+          <h2>New Referrer Form</h2>
         </div>
         <div class="card-body">
           <div class="form-group row">
@@ -37,7 +37,7 @@
           </div>
 
           <div class="my-3 d-flex justify-content-end">
-              <button type="button" class="btn btn-default mr-1" @click="cancel()">Cancel</button>
+            <button type="button" class="btn btn-default mr-1" @click="cancel()">Cancel</button>
             <SubmitButton :showBtn="showBtn"></SubmitButton>
           </div>
         </div>
@@ -77,14 +77,13 @@ export default {
         .catch(err => {
           console.error(err);
           this.alertFailed("Failed");
-
         })
         .then(res => {
           this.showBtn = true;
         });
     },
-    cancel(){
-        this.$parent.showForm=false;
+    cancel() {
+      this.$parent.showForm = false;
     }
   },
   mounted() {

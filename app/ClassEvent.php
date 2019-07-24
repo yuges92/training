@@ -104,11 +104,16 @@ class ClassEvent extends Model
     public function getAvailableSpaceText()
     {
         if ($this->availableSpace>4) {
-            return '<span class="text-primary"> available </span>';
+            return '<span class="text-success"> Available </span>';
         }elseif ($this->availableSpace>0) {
-            return '<span class="text-warning">   limited space available </span>';
+            return '<span class="text-warning">   Limited space available </span>';
         }else {
-            return '<span class="text-danger"> fully booked</span>';
+            return '<span class="text-danger"> Fully booked</span>';
         }
+    }
+
+    public function isFullyBooked()
+    {
+        return $this->availableSpace>0;
     }
 }
