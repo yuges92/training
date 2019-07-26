@@ -5,7 +5,7 @@
     </div>
 
     <div class="row mx-md-5">
-      <div class="col-sm-4 my-3" v-for="classDate in courseClass.class_dates" :key="classDate.id">
+      <div class="col-sm-4 my-3" v-for="classDate in courseClass.classDates" :key="classDate.id">
         <ShowClassDate :classDate="classDate"></ShowClassDate>
       </div>
     </div>
@@ -34,11 +34,12 @@ export default {
       // let url = "/api/classEvents/" + this.class_id + "/classDates";
 
       axios
-        .get("/api/classEvents/" + this.class_id + "/classDates")
+        .get("/api/classEvents/" + this.courseClass.id + "/classDates")
         .then(response => {
-          this.courseClass.class_dates = response.data;
+          this.courseClass.classDates = response.data;
         //   this.isLoaded = true;
-          // console.log(response.data);
+          console.log(this.courseClass.classDates);
+
         });
     },
   }

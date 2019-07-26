@@ -77,13 +77,19 @@ class ClassEvent extends Model
 
     public function reduceSpace($space)
     {
-        $this->availableSpace = $this->availableSpace - $space;
+        $this->availableSpace -= $space;
+        $this->save();
+    }
+
+    public function increaseSpace($space)
+    {
+        $this->availableSpace += $space;
         $this->save();
     }
 
     public function deadline()
     {
-        return $this->belongsToMany(Assignment::class, 'assignment_deadline', 'assignment_id', 'class_id')->withPivot('date')->withTimestamps();
+        return $this->belongsToMany(Assignment::class, 'assignment_deadline', 'assignment_id', 'class_id')->withPivot(['date', 'resubmissionDate'])->withTimestamps();
     }
 
     public function getStartDate()
@@ -103,17 +109,33 @@ class ClassEvent extends Model
 
     public function getAvailableSpaceText()
     {
-        if ($this->availableSpace>4) {
+        if ($this->availableSpace > 4) {
             return '<span class="text-success"> Available </span>';
-        }elseif ($this->availableSpace>0) {
+        } elseif ($this->availableSpace > 0) {
             return '<span class="text-warning">   Limited space available </span>';
-        }else {
+        } else {
             return '<span class="text-danger"> Fully booked</span>';
         }
     }
 
+    public function isPublic(): bool
+    {
+        return $this->type == 'public' ? true : false;
+    }
+
     public function isFullyBooked()
     {
-        return $this->availableSpace>0;
+        return $this->availableSpace > 0;
+    }
+
+    public function getLink()
+    {
+        return route('showClassDetail', [$this->course->slug, $this->slug]);
+    }
+
+    public function getRemainingSpace():int
+    {
+
+        return 1;
     }
 }

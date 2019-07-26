@@ -85,8 +85,8 @@ export default {
         )
         .then(res => {
           this.alertSuccess("Question Updated");
-this.$parent.showEditCriteria=false;
-            this.$emit("refresh");
+          this.$parent.showEditCriteria = false;
+          this.$emit("refresh");
           //   console.log(res);
         })
         .catch(err => {

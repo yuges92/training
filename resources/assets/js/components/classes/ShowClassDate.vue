@@ -36,7 +36,7 @@
                 id="StartDate"
                 placeholder="Day"
                 v-model="classDate.day"
-              >
+              />
             </div>
           </div>
 
@@ -50,7 +50,7 @@
                 id="StartDate"
                 placeholder="Date"
                 v-model="classDate.date"
-              >
+              />
             </div>
           </div>
 
@@ -64,7 +64,7 @@
                 id="StartTime"
                 placeholder="Course Code"
                 v-model="classDate.startTime"
-              >
+              />
             </div>
           </div>
 
@@ -78,7 +78,7 @@
                 id="EndTime"
                 placeholder="Course Code"
                 v-model="classDate.endTime"
-              >
+              />
             </div>
           </div>
           <div class="d-flex justify-content-center my-3">
@@ -117,21 +117,12 @@ export default {
           endTime: this.classDate.endTime
         })
         .then(data => {
-          Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Saved!', {
-            type: "success",
-            duration: 4000,
-            className: "py-3"
-          });
+          this.alertSuccess("Saved");
         })
         .catch(error => {
           this.$parent.$emit("update-errors", error.response.data.errors);
           // console.log(error.response.data.errors);
-
-          Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Failed', {
-            type: "error",
-            duration: 4000,
-            className: "py-3"
-          });
+          this.alertFailed("Failed");
         })
         .then(response => {
           this.showBtn = true;
@@ -157,28 +148,15 @@ export default {
                 this.classDate.id
             )
             .then(res => {
-          this.$parent.getClassDates();
+              this.$parent.getClassDates();
 
-              Vue.toasted.show(
-                '<i class="fas fa-check-circle fa-3x"></i> Deleted!',
-                {
-                  type: "success",
-                  duration: 4000,
-                  className: "py-3"
-                }
-              );
+              this.alertSuccess("Deleted");
+
             })
             .catch(err => {
-              Vue.toasted.show(
-                '<i class="fas fa-exclamation-circle"></i> Failed',
-                {
-                  type: "error",
-                  duration: 4000,
-                  className: "py-3"
-                }
-              );
-              console.log(err);
 
+                this.alertFailed("Failed");
+              console.log(err);
             });
         }
       });

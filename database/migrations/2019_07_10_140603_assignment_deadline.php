@@ -20,6 +20,7 @@ class AssignmentDeadline extends Migration
             $table->foreign('assignment_id')->references('id')->on('assignments')->onDelete('cascade');
             $table->foreign('class_id')->references('id')->on('class_events')->onDelete('cascade');
             $table->date('date');
+            $table->date('resubmissionDate')->nullable();
             $table->unique(['assignment_id', 'class_id']);
             $table->integer('createdBy')->nullable();
             $table->integer('updatedBY')->nullable();

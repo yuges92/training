@@ -79,7 +79,7 @@
                     <option {{ old('ethnicity')=='46' ? 'selected': ''}} value="46">Black / African / Caribbean / Black British - Any Other Black / African / Caribbean Background</option>
                     <option {{ old('ethnicity')=='47' ? 'selected': ''}} value="47">Other Ethnic Group - Arab</option>
                     <option {{ old('ethnicity')=='98' ? 'selected': ''}} value="98">Other Ethnic Group - Any Other Ethnic Group</option>
-                    <option {{ old('ethnicity')=='Do not wish to disclose' ? 'selected': ''}} value="Do not wish to disclose">Do not wish to disclose</option>
+                    <option {{ old('ethnicity')=='99' ? 'selected': ''}} value="99">Do not wish to disclose</option>
                   </select>
                 </div>
               </div>

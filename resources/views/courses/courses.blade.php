@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 @section('content')
 <div class="container mt-4">
   <div class=" d-flex justify-content-center row mx-auto ">
@@ -7,6 +7,7 @@
 
     </div>
     @foreach ($courses as $course)
+@if ($course->isPublic())
 
     <div class="card m-2" style="width: 18rem; ">
       <img style="height: 13rem;" class="card-img-top" src="{{$course->getImage()}}"
@@ -27,6 +28,7 @@
         <a href="{{route('course', [$course->courseType->slug,$course->slug])}}" class="btn btn-info col-12">Full Info</a>
       </div>
     </div>
+    @endif
 
     @endforeach
 

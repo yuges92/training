@@ -24,7 +24,7 @@ class Assignment extends Model
 
     public function deadline()
     {
-        return $this->belongsToMany(ClassEvent::class, 'assignment_deadline', 'assignment_id', 'class_id')->withPivot('date')->withTimestamps();
+        return $this->belongsToMany(ClassEvent::class, 'assignment_deadline', 'assignment_id', 'class_id')->withPivot(['date', 'resubmissionDate'])->withTimestamps();
     }
 
 

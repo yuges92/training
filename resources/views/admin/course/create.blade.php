@@ -1,6 +1,6 @@
-@extends('layouts.adminLayout') @push('css') 
-@endpush 
-@section('title', 'New Course') 
+@extends('layouts.adminLayout') @push('css')
+@endpush
+@section('title', 'New Course')
 @section('content')
 <div class="container-fluid p-sm-0 px-md-5 ">
     {{--
@@ -103,7 +103,7 @@
 
                         <div class="form-group ">
                                 <div class="col">
-                                  <input name="enable_megamenu" type="checkbox" id="enable_megamenu" class="filled-in chk-col-blue" checked="" value="1">
+                                  <input name="enable_megamenu" type="checkbox" id="enable_megamenu" class="filled-in chk-col-blue" {{ old('position') ? 'checked':''}} value="1">
                                   <label for="enable_megamenu">Display on MegaMenu</label>
                                 </div>
                               </div>
@@ -117,7 +117,7 @@
                                     </div>
                                 </div>
 
-                              
+
 
                         <div class="form-group" id="passwordDiv" style="{{ (old('status')=='password_protected') ? '' : 'display:none' }}">
                             <label for="password" class="col-sm-2 col-form-label">Password:</label>
@@ -153,7 +153,7 @@
 @endsection
  @push('js')
 <script>
-    document.addEventListener("DOMContentLoaded", function(event) { 
+    document.addEventListener("DOMContentLoaded", function(event) {
   $('.summernote').summernote({
         placeholder: '',
         tabsize: 2,
@@ -168,15 +168,15 @@ $('#addBodyContent').on('click', function(){
 
 });
 
-$('#status').change(function () { 
+$('#status').change(function () {
    if($(this).val()=='password_protected'){
 $('#passwordDiv').show();
    }else{
 $('#passwordDiv').hide();
 
-   }    
+   }
 });
-      
+
 });
 
 </script>

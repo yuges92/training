@@ -92,18 +92,13 @@ export default {
         }
       })
         .then(function(response) {
-          Vue.toasted.show(
-            '<i class="fas fa-check-circle fa-3x"></i> Course details updated',
-            {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+              _this.alertSuccess("Saved");
+
           _this.$parent.$parent.refresh();
           _this.cancel();
         })
         .catch(function(error) {
+              _this.alertFailed("Failed");
           console.log(error);
           console.log(error.response.data);
           console.log("FAILURE!!");

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CourseResource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
@@ -17,7 +18,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = CourseResource::collection(Course::with('courseBodies', 'documents','classes')->get());
+        $courses = CourseResource::collection(Course::with('courseBodies', 'documents', 'classes')->get());
         return response()->json($courses, 200);
     }
 
@@ -74,64 +75,63 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Log::error($request->input('position'));
         $course = Course::find($id);
         // return response()->json($request, 200);
 
-        $validatedData= $this->validate($request,[
-          'title' => 'required|unique:course_types,title,' . $course->id,
-          'course_code' => 'required|unique:courses,course_code,' . $course->id,
-          'course_type_id' => 'required',
-          'description' => 'required',
-          'status' => 'required',
-          'position' => 'required_if:enable_megamenu,1',
-          'password' => 'required_if:status,password_protected',
-          ]);
+        $validatedData = $this->validate($request, [
+            'title' => 'required|unique:course_types,title,' . $course->id,
+            'course_code' => 'required|unique:courses,course_code,' . $course->id,
+            'course_type_id' => 'required',
+            'description' => 'required',
+            'status' => 'required',
+            'position' => 'required_if:enable_megamenu,1',
+            'password' => 'required_if:status,password_protected',
+        ]);
 
-          $course->title = $request->input('title');
-          $course->slug = str_slug($request->input('title'));
-          $course->course_code = $request->input('course_code');
-          $course->description = $request->input('description');
-          $course->course_type_id = $request->input('course_type_id');
-          $course->enable_megamenu = ($request->enable_megamenu) ? 1 : 0;
-          $course->body = $request->input('body');
-          $course->status = $request->input('status');
-          $course->position = $request->input('position');
-          $course->password = $request->password ? $request->password :'';
-          $course->updatedBy = $request->user()->id;
+        $course->title = $request->input('title');
+        $course->slug = str_slug($request->input('title'));
+        $course->course_code = $request->input('course_code');
+        $course->description = $request->input('description');
+        $course->course_type_id = $request->input('course_type_id');
+        $course->enable_megamenu = ($request->enable_megamenu) ? 1 : 0;
+        $course->body = $request->input('body');
+        $course->status = $request->input('status');
+        $course->position = (int) $request->position ?? NULL;
+        $course->password = $request->password ? $request->password : '';
+        $course->updatedBy = $request->user()->id;
 
 
-          if ($request->file('image')) {
+        if ($request->file('image')) {
             $imageFileName = $course->id . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->storeAs($course->getImageFolder(), $imageFileName);
             $course->image = $imageFileName;
-          }
-          $course->update();
+        }
+        $course->update();
 
         return response()->json($course);
     }
 
     public function addBody(Request $request, $course_id)
     {
-     $request->validate([
-        'title' => 'required',
-        'content' => 'required',
-        'order'    => 'required'
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'order'    => 'required'
 
-      ]);
+        ]);
 
 
 
-      $course = Course::find($course_id);
-      $course->courseBodies()->create([
-        'title' => $request->title,
-        'content' => $request->content,
-        'order' => $request->order,
-        'createdBy' => $request->user()->id
-      ]);
+        $course = Course::find($course_id);
+        $course->courseBodies()->create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'order' => $request->order,
+            'createdBy' => $request->user()->id
+        ]);
 
         return response()->json($course, 200);
-
-
     }
 
     /**
@@ -142,9 +142,9 @@ class CourseController extends Controller
      */
     public function destroy($course_id)
     {
-      $course = Course::find($course_id);
-      Storage::delete($course->getImage());
-      $course->delete();
-      return response()->json($course, 204);
+        $course = Course::find($course_id);
+        Storage::delete($course->getImage());
+        $course->delete();
+        return response()->json($course, 204);
     }
 }

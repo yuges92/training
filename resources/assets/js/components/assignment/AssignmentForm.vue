@@ -122,26 +122,14 @@ export default {
           introduction: this.assignment.introduction
         })
         .then(res => {
-          Vue.toasted.show(
-            '<i class="fas fa-check-circle fa-3x"></i> Course details updated',
-            {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+              this.alertSuccess("Saved");
+
           this.$emit("refresh");
           //   console.log(res);
         })
         .catch(err => {
-          Vue.toasted.show(
-            '<i class="fas fa-exclamation-circle"></i> Save Failed',
-            {
-              type: "error",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+              this.alertFailed("Failed");
+
           console.error(err);
         })
         .then(res => {

@@ -42,13 +42,15 @@ class AssessmentCriteriaController extends Controller
     public function store(Request $request, $course_id)
     {
         $this->validate($request, [
-            //    'course_id' => 'required|unique:assessment_criterias,course_id,NULL,number'.$request->number,
-            'number' => 'required|unique:assessment_criterias,number,NULL,course_id' . $request->course_id,
+            // 'unique:table_name,column1,null,null,column2,'.$request->column2.',column3,check3'
+
+            'number' => 'required|unique:assessment_criterias,number,NULL,null,course_id,' . $course_id,
             'description' => 'required',
 
         ]);
 
         $course = Course::find($course_id);
+        Log::info( $request->number);
         $criteria = AssessmentCriteria::create([
             'course_id' => $course_id,
             'number' => $request->number,

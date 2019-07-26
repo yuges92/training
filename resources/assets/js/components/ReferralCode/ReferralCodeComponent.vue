@@ -6,7 +6,7 @@
     <div v-else>
       <div class="container-fluid" v-if="!showEditForm">
         <button class="btn btn-info mb-3" @click="showForm = !showForm" v-if="!showForm">
-          <i class="fas fa-plus"></i> Add new class
+          <i class="fas fa-plus"></i> Add new
         </button>
         <NewReferralCodeForm class="my-3" v-else></NewReferralCodeForm>
 

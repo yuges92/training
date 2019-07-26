@@ -5,7 +5,10 @@ use App\Moderator;
 use App\ClassEvent;
 use App\CourseDocument;
 use App\Mail\NewUserMail;
+use App\Mail\InvoiceBooking;
 use App\Notifications\NewUser;
+use App\Mail\InvoiceBookingMail;
+use App\Mail\BookingConfirmedMail;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -47,7 +50,7 @@ Route::get('/mailable', function () {
   // $title = 'Page Title';
   $user=User::where('email','sivayuges@gmail.com')->first();
   // Mail::to($user)->send(new NewUserMail());
-  return new NewUserMail($user);
+  return new InvoiceBookingMail($user, $user->orders()->first());
 });
 
 // Route::get('/download/{file}', function ($file='') {

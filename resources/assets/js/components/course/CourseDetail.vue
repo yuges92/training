@@ -252,32 +252,20 @@ export default {
       axios
         .post(url, formData, config)
         .then(function(response) {
-          Vue.toasted.show(
-            '<i class="fas fa-check-circle fa-3x"></i> Course details updated',
-            {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+              _this.alertSuccess("Saved");
+
 
           // console.log(response);
           _this.showBtn = true;
         })
         .catch(function(error) {
-          console.log(error.response.data);
+            console.log(error.response.data);
           if (error.response.status == 422) {
-            _this.errors = error.response.data.errors;
+              _this.errors = error.response.data.errors;
             _this.showError = true;
           }
-          Vue.toasted.show(
-            '<i class="fas fa-exclamation-circle"></i> Update Failed',
-            {
-              type: "error",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+              _this.alertFailed("Failed");
+
           // console.log(error);
         })
         .then(function() {

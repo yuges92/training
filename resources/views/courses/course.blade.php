@@ -50,6 +50,8 @@
             <h2 class="mx-auto">Upcoming Courses</h2>
             <div class="row mx-auto">
                 @foreach ($course->classes as $class)
+                @if ($class->isPublic())
+
                 <div class="card m-2 " style="width: 19rem;">
                     <div class="card-header">
                         <h3 class="card-title">{{$course->title}}</h3>
@@ -93,6 +95,8 @@
                             Detail</a>
                     </div>
                 </div>
+                @endif
+
                 @endforeach
             </div>
         </div>

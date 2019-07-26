@@ -79,26 +79,14 @@ export default {
         })
         .then(res => {
           // console.log(res);
-          Vue.toasted.show(
-            '<i class="fas fa-check-circle fa-3x"></i> Trainer Updated',
-            {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+              this.alertSuccess("Saved");
+
           this.isTrainerAdded = true;
         })
         .catch(err => {
-          console.error(err);
-          Vue.toasted.show(
-            '<i class="fas fa-exclamation-circle"></i> Update Failed',
-            {
-              type: "error",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+            console.error(err);
+              this.alertFailed("Failed");
+
         })
         .then(res => {
           this.showBtn = true;
@@ -143,16 +131,11 @@ export default {
             this.isTrainerAdded = false;
           }
 
-          Vue.toasted.show(
-            '<i class="fas fa-check-circle fa-3x"></i> Trainer Removed',
-            {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+              this.alertSuccess("Saved");
+
         })
         .catch(err => {
+              this.alertFailed("Failed");
           console.error(err);
         })
         .then(res => {

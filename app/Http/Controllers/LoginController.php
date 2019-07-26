@@ -12,86 +12,83 @@ use Illuminate\Support\Facades\Redirect;
 class LoginController extends Controller
 {
 
-  /**
-   * Where to redirect users after login.
-   *
-   * @var string
-   */
-  protected $redirectTo = '/admin';
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/admin';
 
-  /**
-   * Create a new controller instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-    $this->middleware('guest')->except('logout');
-  }
-
-
-  /**
-   * Handle an authentication attempt.
-   *
-   * @param  \Illuminate\Http\Request $request
-   *
-   * @return Response
-   */
-  public function authenticate(Request $request)
-  {
-    $emailOrUsername = request()->input('email');
-
-    $fieldType = filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-    if (Auth::attempt([$fieldType => $emailOrUsername, 'password'=>$request->password])) {
-      Cart::storeToDatabase();
-
-      if(session('previous_page')==route('home')){
-        return redirect($this->redirectTo);
-
-      }
-      return redirect(session('previous_page'));
-
-
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
     }
 
-    return redirect()->back()->with('error', 'Login Failed. Please check your credentials');
-  }
 
-  public function register(Request $request)
-  {
-    dd('register');
-  }
+    /**
+     * Handle an authentication attempt.
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return Response
+     */
+    public function authenticate(Request $request)
+    {
+        $emailOrUsername = request()->input('email');
 
-  public function logout()
-  {
+        $fieldType = filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        if (Auth::attempt([$fieldType => $emailOrUsername, 'password' => $request->password])) {
+            Cart::storeToDatabase();
 
-    // Cart::store(Auth::user()->id);
-    // Cart::destroy();
-    Auth::logout();
-    return redirect()->route('home');
-  }
+            if (session('previous_page') == route('home')) {
+                return redirect($this->redirectTo);
+            }
+            return redirect(session('previous_page'));
+        }
 
-  public function show(Request $request)
-  {
+        return redirect()->back()->with('error', 'Login Failed. Please check your credentials');
+    }
 
-    // Cart::store(Auth::user()->id);
-    // Cart::destroy();
-    // session(['previous_page' => url()->previous()]);
-    // $request->session()->flash('previous_page', url()->previous());
-    Session::flash('previous_page', url()->previous());
+    public function register(Request $request)
+    {
+        dd('register');
+    }
 
-    return view('auth.login');
-  }
+    public function logout()
+    {
+
+        // Cart::store(Auth::user()->id);
+        // Cart::destroy();
+        Auth::logout();
+        return redirect()->route('home');
+    }
+
+    public function show(Request $request)
+    {
+
+        // Cart::store(Auth::user()->id);
+        // Cart::destroy();
+        // session(['previous_page' => url()->previous()]);
+        // $request->session()->flash('previous_page', url()->previous());
+        Session::flash('previous_page', url()->previous());
+
+        return view('auth.login');
+    }
 
 
-  protected function credentials(Request $request)
-  {
-      $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
-          ? $this->username()
-          : 'username';
-      return [
-          $field => $request->get($this->username()),
-          'password' => $request->password,
-      ];
-  }
+    protected function credentials(Request $request)
+    {
+        $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
+            ? $this->username()
+            : 'username';
+        return [
+            $field => $request->get($this->username()),
+            'password' => $request->password,
+        ];
+    }
 }

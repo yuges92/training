@@ -27,8 +27,8 @@ class CourseTableSeeder extends Seeder
     $course = new Course();
     $course->course_code = 'TAL1';
     $course->course_type_id = 1;
-    $course->title = 'Course Test 1';
-    $course->slug = str_slug('Course Test 1');
+    $course->title = 'Trusted Assessor Level 1';
+    $course->slug = str_slug($course->title);
     $course->status = 'publish';
     $course->enable_megamenu = 1;
     $course->position = 1;

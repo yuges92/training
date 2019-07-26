@@ -130,26 +130,14 @@ export default {
           axios
             .delete(url)
             .then(response => {
-              Vue.toasted.show(
-                '<i class="fas fa-check-circle fa-3x"></i> Course document deleted',
-                {
-                  type: "success",
-                  duration: 4000,
-                  className: "py-3"
-                }
-              );
+              this.alertSuccess("Deleted");
+
               this.getCriterias();
             })
             .catch(error => {
+              this.alertFailed("Failed");
               console.log(error.response.data);
-              Vue.toasted.show(
-                '<i class="fas fa-times"></i> Failed to delete',
-                {
-                  type: "error",
-                  duration: 4000,
-                  className: "py-3"
-                }
-              );
+
               Vue.set(this.activeButtons, id, 0);
             });
         }

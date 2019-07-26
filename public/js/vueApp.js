@@ -3511,8 +3511,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/api/classEvents/".concat(this.courseClass.id, "/assignments/").concat(this.assignment.id, "/deadline")).then(function (response) {
-        _this.assignment.deadline = response.data;
-        console.log(response.data.date);
+        _this.assignment.deadline = response.data; //   console.log(response.data.date);
       })["catch"](function (err) {
         console.error(err);
         alert("Loaded Failed. Please reload the page");
@@ -3523,7 +3522,8 @@ __webpack_require__.r(__webpack_exports__);
 
       this.showBtn = false;
       axios.post("/api/classEvents/".concat(this.courseClass.id, "/assignments/").concat(this.assignment.id, "/deadline"), {
-        date: this.assignment.deadline.date
+        date: this.assignment.deadline.date,
+        resubmissionDate: this.assignment.deadline.resubmissionDate
       }).then(function (res) {
         _this2.alertSuccess("Question Added"); //   console.log(res);
 
@@ -3706,9 +3706,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       // let url = "/api/classEvents/" + this.class_id + "/classDates";
-      axios.get("/api/classEvents/" + this.class_id + "/classDates").then(function (response) {
-        _this.courseClass.class_dates = response.data; //   this.isLoaded = true;
-        // console.log(response.data);
+      axios.get("/api/classEvents/" + this.courseClass.id + "/classDates").then(function (response) {
+        _this.courseClass.classDates = response.data; //   this.isLoaded = true;
+
+        console.log(_this.courseClass.classDates);
       });
     }
   }
@@ -3725,6 +3726,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3985,20 +3991,12 @@ __webpack_require__.r(__webpack_exports__);
         availableSpace: this.courseClass.availableSpace,
         moderator_id: this.moderator ? this.moderator.id : null
       }).then(function (data) {
-        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Class details updated', {
-          type: "success",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertSuccess("Saved");
       })["catch"](function (error) {
         _this.$emit("update-errors", error.response.data.errors); // console.log(error.response.data.errors);
 
 
-        Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Update Failed', {
-          type: "error",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertFailed("Failed");
       }).then(function (response) {
         _this.showBtn = true;
       });
@@ -4006,7 +4004,7 @@ __webpack_require__.r(__webpack_exports__);
     getCourses: function getCourses() {
       var _this2 = this;
 
-      axios.get("/api/courses/").then(function (response) {
+      axios.get("/api/courses").then(function (response) {
         _this2.courses = response.data;
         _this2.isLoaded = true;
       });
@@ -4049,7 +4047,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     charactersRemaining: function charactersRemaining() {
-      return this.maxCharacters - this.courseClass.description.length;
+      return this.courseClass.description.length;
     }
   }
 });
@@ -4349,19 +4347,13 @@ __webpack_require__.r(__webpack_exports__);
         type: this.trainerType
       }).then(function (res) {
         // console.log(res);
-        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Trainer Updated', {
-          type: "success",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertSuccess("Saved");
+
         _this.isTrainerAdded = true;
       })["catch"](function (err) {
         console.error(err);
-        Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Update Failed', {
-          type: "error",
-          duration: 4000,
-          className: "py-3"
-        });
+
+        _this.alertFailed("Failed");
       }).then(function (res) {
         _this.showBtn = true;
       });
@@ -4403,12 +4395,10 @@ __webpack_require__.r(__webpack_exports__);
           _this3.isTrainerAdded = false;
         }
 
-        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Trainer Removed', {
-          type: "success",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this3.alertSuccess("Saved");
       })["catch"](function (err) {
+        _this3.alertFailed("Failed");
+
         console.error(err);
       }).then(function (res) {
         _this3.deleting = "Remove";
@@ -4543,20 +4533,12 @@ __webpack_require__.r(__webpack_exports__);
         startTime: this.classDate.startTime,
         endTime: this.classDate.endTime
       }).then(function (data) {
-        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Saved!', {
-          type: "success",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertSuccess("Saved");
       })["catch"](function (error) {
         _this.$parent.$emit("update-errors", error.response.data.errors); // console.log(error.response.data.errors);
 
 
-        Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Failed', {
-          type: "error",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertFailed("Failed");
       }).then(function (response) {
         _this.showBtn = true;
       });
@@ -4577,17 +4559,10 @@ __webpack_require__.r(__webpack_exports__);
           axios["delete"]("/api/classEvents/" + _this2.classDate.class_id + "/classDates/" + _this2.classDate.id).then(function (res) {
             _this2.$parent.getClassDates();
 
-            Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Deleted!', {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            });
+            _this2.alertSuccess("Deleted");
           })["catch"](function (err) {
-            Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Failed', {
-              type: "error",
-              duration: 4000,
-              className: "py-3"
-            });
+            _this2.alertFailed("Failed");
+
             console.log(err);
           });
         }
@@ -40741,7 +40716,7 @@ var render = function() {
                             },
                             [
                               _c("i", { staticClass: "fas fa-plus" }),
-                              _vm._v(" Add new class\n      ")
+                              _vm._v(" Add new\n      ")
                             ]
                           )
                         : _c("NewReferralCodeForm", { staticClass: "my-3" }),
@@ -43011,8 +42986,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.assignment.resubmissionDate,
-                        expression: "assignment.resubmissionDate"
+                        value: _vm.assignment.deadline.resubmissionDate,
+                        expression: "assignment.deadline.resubmissionDate"
                       }
                     ],
                     staticClass: "form-control",
@@ -43022,14 +42997,16 @@ var render = function() {
                       id: "resubmissionDate",
                       placeholder: "Deadline Date"
                     },
-                    domProps: { value: _vm.assignment.resubmissionDate },
+                    domProps: {
+                      value: _vm.assignment.deadline.resubmissionDate
+                    },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.assignment,
+                          _vm.assignment.deadline,
                           "resubmissionDate",
                           $event.target.value
                         )
@@ -43292,7 +43269,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "row mx-md-5" },
-      _vm._l(_vm.courseClass.class_dates, function(classDate) {
+      _vm._l(_vm.courseClass.classDates, function(classDate) {
         return _c(
           "div",
           { key: classDate.id, staticClass: "col-sm-4 my-3" },
@@ -43330,20 +43307,28 @@ var render = function() {
     !_vm.isLoaded
       ? _c("div", [_vm._m(0)])
       : _c("div", [
-          _vm.showNewClass
-            ? _c("div", { staticClass: "row mx-md-5" }, [
+          _c(
+            "div",
+            { staticClass: "d-flex justify-content-between my-3 mx-3" },
+            [
+              _c("div", [
+                _c("strong", [_vm._v("Link: ")]),
+                _vm._v(" "),
+                _c("span", [_vm._v(" " + _vm._s(_vm.courseClass.link))])
+              ]),
+              _vm._v(" "),
+              _c("div", {}, [
                 _c(
-                  "div",
-                  { staticClass: "col-md-4 my-3" },
-                  [
-                    _c("NewClassDate", {
-                      attrs: { class_id: _vm.courseClass.id }
-                    })
-                  ],
-                  1
+                  "a",
+                  {
+                    staticClass: "btn btn-info",
+                    attrs: { href: _vm.courseClass.link, target: "_blank" }
+                  },
+                  [_vm._v("Preview")]
                 )
               ])
-            : _vm._e(),
+            ]
+          ),
           _vm._v(" "),
           _c(
             "form",
@@ -43456,7 +43441,7 @@ var render = function() {
                                   fn: function(ref) {
                                     var option = ref.option
                                     return [
-                                      _c("strong", [
+                                      _c("span", [
                                         _vm._v(_vm._s(option.fullName))
                                       ])
                                     ]
@@ -43616,8 +43601,7 @@ var render = function() {
                               id: "description",
                               name: "description",
                               rows: "14",
-                              cols: "80",
-                              maxlength: "300"
+                              cols: "80"
                             },
                             domProps: { value: _vm.courseClass.description },
                             on: {
@@ -43634,11 +43618,12 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _c("p", [
+                          _c("small", [
+                            _c("strong", [_vm._v("Word Count:")]),
                             _vm._v(
-                              "You have " +
+                              "  " +
                                 _vm._s(_vm.charactersRemaining) +
-                                " characters remaining."
+                                " characters."
                             )
                           ])
                         ])

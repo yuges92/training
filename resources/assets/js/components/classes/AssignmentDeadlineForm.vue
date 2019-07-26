@@ -70,7 +70,7 @@
                   type="date"
                   class="form-control"
                   id="resubmissionDate"
-                  v-model="assignment.resubmissionDate"
+                  v-model="assignment.deadline.resubmissionDate"
                   placeholder="Deadline Date"
                 />
               </div>
@@ -108,7 +108,7 @@ export default {
         )
         .then(response => {
           this.assignment.deadline = response.data;
-          console.log(response.data.date);
+        //   console.log(response.data.date);
         })
         .catch(err => {
           console.error(err);
@@ -121,7 +121,8 @@ export default {
         .post(
           `/api/classEvents/${this.courseClass.id}/assignments/${this.assignment.id}/deadline`,
           {
-            date: this.assignment.deadline.date
+            date: this.assignment.deadline.date,
+            resubmissionDate: this.assignment.deadline.resubmissionDate
           }
         )
         .then(res => {

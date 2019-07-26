@@ -53,7 +53,7 @@
                         @endif
                     </li>
                     <li>
-                        <strong>Available Space:</strong>
+                        <strong>Availability:</strong>
                         <span> {!!ucfirst($class->getAvailableSpaceText())!!}</span>
                     </li>
                 </ul>
@@ -77,7 +77,8 @@
                             class="form-control quantity-input text-center col-xs-5 col-md-1 " min="1"
                             max="{{$class->availableSpace}}">
                         <button class="col-xs-4 qty-increment-cart btn btn-link" type="button"
-                            data-id="quantity{{$class->id}}"><i class="fas fa-plus"></i></button>
+                            data-id="quantity{{$class->id}}"><i class="fas fa-plus"></i>
+                        </button>
                     </div>
                     <div class=" mt-3">
                         <button class="btn btn-{{($cartItem) ?'success' :'primary'}} add-to-cart" type="submit"

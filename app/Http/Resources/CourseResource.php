@@ -30,7 +30,7 @@ class CourseResource extends JsonResource
             "documents"=>CourseDocumentResource::collection($this->documents),
             "image"=>$this->getImage(),
             "course_type_id"=>$this->course_type_id,
-            "classes"=>$this->classes,
+            "classes"=>ClassEventResource::collection($this->classes->load('classDates')),
             "createdBy"=>$this->createdBy,
             "updatedBY"=> $this->updatedBY,
           ];

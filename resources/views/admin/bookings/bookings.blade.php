@@ -43,7 +43,7 @@
               <td>{{$order->type()}}</td>
               <td>{{$order->status}}</td>
               <td>£{{$order->total}}</td>
-              <td class="row"><a class="btn btn-success mr-1" href="{{route('order.edit', [$order->id])}}">Edit</a>
+              <td class="row"><a class="btn btn-success mr-1" href="{{route('order.edit', [$order->id])}}">View Booking</a>
                 <form class="deleteForm" action="{{route('deleteCourse',[$order->id])}}" method="post">
                   {{ csrf_field() }}
                   @method('Delete')

@@ -18,6 +18,15 @@ public function class()
 
 }
 
+public function getQuantity():int
+{
+    if($this->class->type=='private'){
+        return $this->class->space;
+
+    }
+    return $this->quantity;
+}
+
 public function getItemSubTotal()
 {
   return $this->quantity*$this->price;

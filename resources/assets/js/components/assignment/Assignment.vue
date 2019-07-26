@@ -19,7 +19,12 @@
           <i class="fas fa-plus"></i> Close
         </button>
 
-        <AssignmentForm v-if="showForm" @refresh="refresh" :course_id="course_id" :criterias="criterias"></AssignmentForm>
+        <AssignmentForm
+          v-if="showForm"
+          @refresh="refresh"
+          :course_id="course_id"
+          :criterias="criterias"
+        ></AssignmentForm>
         <div class="box">
           <div class="box-body">
             <table class="table table-hover table-sm-responsive">
@@ -38,7 +43,10 @@
                   <td>{{assignment.type}}</td>
                   <td class="d-flex justify-content-around">
                     <div>
-                      <a :href="assignment.course_id+'/assignments/'+assignment.id" class="btn btn-success" >
+                      <a
+                        :href="assignment.course_id+'/assignments/'+assignment.id"
+                        class="btn btn-success"
+                      >
                         <i class="fas fa-eye"></i> View
                       </a>
                     </div>
@@ -80,7 +88,7 @@ export default {
       isLoaded: false,
       isEditFormActive: false,
       currentAssignment: {},
-      criterias:[],
+      criterias: []
     };
   },
   components: {
@@ -105,12 +113,12 @@ export default {
           console.error(err);
         });
     },
-        getCriterias() {
+    getCriterias() {
       axios
         .get("/api/courses/" + this.course_id + "/assessmentCriterias")
         .then(res => {
           this.criterias = res.data;
-        //   console.log(this.criterias);
+          //   console.log(this.criterias);
         })
         .catch(err => {
           console.error(err);
@@ -132,26 +140,14 @@ export default {
           axios
             .delete(url)
             .then(response => {
-              Vue.toasted.show(
-                '<i class="fas fa-check-circle fa-3x"></i> Course document deleted',
-                {
-                  type: "success",
-                  duration: 4000,
-                  className: "py-3"
-                }
-              );
+              this.alertSuccess("Deleted");
+
               this.getAssignments();
             })
             .catch(error => {
               console.log(error.response.data);
-              Vue.toasted.show(
-                '<i class="fas fa-times"></i> Failed to delete',
-                {
-                  type: "error",
-                  duration: 4000,
-                  className: "py-3"
-                }
-              );
+              this.alertFailed("Failed");
+
               Vue.set(this.activeButtons, id, 0);
             });
         }

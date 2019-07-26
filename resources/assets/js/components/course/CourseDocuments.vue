@@ -28,7 +28,7 @@
               <td>{{document.title}}</td>
               <td>
                 <a class="btn btn-info rounded" :href="document.filename" target="_blank" rel="noopener noreferrer">Download</a>
-                
+
               </td>
               <td>
                 <div>
@@ -89,26 +89,14 @@ export default {
           axios
             .delete(url)
             .then(function(response) {
-              Vue.toasted.show(
-                '<i class="fas fa-check-circle fa-3x"></i> Course document deleted',
-                {
-                  type: "success",
-                  duration: 4000,
-                  className: "py-3"
-                }
-              );
+              _this.alertSuccess("Deleted");
+
               _this.$parent.refresh();
             })
             .catch(function(error) {
-              console.log(error.response.data);
-              Vue.toasted.show(
-                '<i class="fas fa-times"></i> Failed to delete',
-                {
-                  type: "error",
-                  duration: 4000,
-                  className: "py-3"
-                }
-              );
+                console.log(error.response.data);
+              _this.alertFailed("Failed");
+
               Vue.set(_this.activeButtons, id, 0);
             })
             .then(function() {

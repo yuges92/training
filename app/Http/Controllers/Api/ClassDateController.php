@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ClassDate;
 use App\Trainer;
+use Illuminate\Support\Facades\Log;
 
 class ClassDateController extends Controller
 {
@@ -14,11 +15,11 @@ class ClassDateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($class_id)
     {
-        $classDates=ClassDate::orderBy('day')->get();
+        $classDates=ClassDate::where('class_id', $class_id)->orderBy('day')->get();
         return response()->json($classDates, 201);
-        
+
     }
 
     /**

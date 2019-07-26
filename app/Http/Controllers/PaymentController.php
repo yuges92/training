@@ -40,6 +40,8 @@ class PaymentController extends Controller
   */
   public function store(Request $request)
   {
+
+    dd($request);
     if($request->input('differentAddress')=='yes'){
 
     $this->validate($request, [
@@ -104,7 +106,7 @@ class PaymentController extends Controller
     $order->billingPostcode=$request->input('billingPostcode');
     $order->billingCountry=$request->input('billingCountry');
     // $order->signUpForNews=$request->input('signUpForNews');
-    // $order->contacts=$request->input('contacts');
+    $order->referralCode=$request->referralCode;
 
 
     $order->paymentMethod=$request->input('paymentMethod');

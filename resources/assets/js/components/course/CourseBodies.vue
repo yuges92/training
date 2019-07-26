@@ -235,7 +235,7 @@ export default {
       showError: false,
       showEditModel: false,
       currentBody: {},
-      
+
     };
   },
   methods: {
@@ -250,14 +250,8 @@ export default {
           order: this.courseBody.order
         })
         .then(function(response) {
-          Vue.toasted.show(
-            '<i class="fas fa-check-circle fa-3x"></i> Course body added',
-            {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+              _this.alertSuccess("Saved");
+
           _this.showModel = false;
           _this.courseBody = {};
           _this.$emit("refresh");
@@ -266,7 +260,8 @@ export default {
           $(".modal-backdrop").remove();
         })
         .catch(function(error) {
-          console.log(error.response.data);
+            console.log(error.response.data);
+              _this.alertFailed("Failed");
           if (error.response.status == 422) {
             _this.errors = error.response.data.errors;
             _this.showError = true;
@@ -290,19 +285,14 @@ export default {
 
         })
         .then(function(response) {
-          Vue.toasted.show(
-            '<i class="fas fa-check-circle fa-3x"></i> Course body updated',
-            {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+              _this.alertSuccess("Saved");
+
 
           _this.$emit("refresh");
 
         })
         .catch(function(error) {
+              _this.alertFailed("Failed");
           console.log(error.response.data);
           if (error.response.status == 422) {
             _this.errors = error.response.data.errors;
@@ -343,26 +333,14 @@ export default {
               content: this.courseBody.content
             })
             .then(function(response) {
-              Vue.toasted.show(
-                '<i class="fas fa-check-circle fa-3x"></i> Course body deleted',
-                {
-                  type: "success",
-                  duration: 4000,
-                  className: "py-3"
-                }
-              );
+              _this.alertSuccess("Deleted");
+
               _this.$emit("refresh");
             })
             .catch(function(error) {
-              console.log(error.response.data);
-              Vue.toasted.show(
-                '<i class="fas fa-times"></i> Failed to delete',
-                {
-                  type: "error",
-                  duration: 4000,
-                  className: "py-3"
-                }
-              );
+                console.log(error);
+              _this.alertFailed("Failed");
+
               // console.log(error);
             })
             .then(function() {

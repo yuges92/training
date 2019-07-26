@@ -1932,6 +1932,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1992,20 +2000,14 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           Vue.set(_this3.activeButtons, id, 1);
           axios["delete"](url).then(function (response) {
-            Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course document deleted', {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            });
+            _this3.alertSuccess("Deleted");
 
             _this3.getAssignments();
           })["catch"](function (error) {
             console.log(error.response.data);
-            Vue.toasted.show('<i class="fas fa-times"></i> Failed to delete', {
-              type: "error",
-              duration: 4000,
-              className: "py-3"
-            });
+
+            _this3.alertFailed("Failed");
+
             Vue.set(_this3.activeButtons, id, 0);
           });
         }
@@ -2337,20 +2339,13 @@ __webpack_require__.r(__webpack_exports__);
         description: this.assignment.description,
         introduction: this.assignment.introduction
       }).then(function (res) {
-        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course details updated', {
-          type: "success",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertSuccess("Saved");
 
         _this.$emit("refresh"); //   console.log(res);
 
       })["catch"](function (err) {
-        Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Save Failed', {
-          type: "error",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertFailed("Failed");
+
         console.error(err);
       }).then(function (res) {
         _this.showBtn = true;
@@ -3305,16 +3300,14 @@ __webpack_require__.r(__webpack_exports__);
           "Content-Type": "multipart/form-data"
         }
       }).then(function (response) {
-        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course details updated', {
-          type: "success",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertSuccess("Saved");
 
         _this.$parent.$parent.refresh();
 
         _this.cancel();
       })["catch"](function (error) {
+        _this.alertFailed("Failed");
+
         console.log(error);
         console.log(error.response.data);
         console.log("FAILURE!!");
@@ -3477,20 +3470,13 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           Vue.set(_this2.activeButtons, id, 1);
           axios["delete"](url).then(function (response) {
-            Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course document deleted', {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            });
+            _this2.alertSuccess("Deleted");
 
             _this2.getCriterias();
           })["catch"](function (error) {
+            _this2.alertFailed("Failed");
+
             console.log(error.response.data);
-            Vue.toasted.show('<i class="fas fa-times"></i> Failed to delete', {
-              type: "error",
-              duration: 4000,
-              className: "py-3"
-            });
             Vue.set(_this2.activeButtons, id, 0);
           });
         }
@@ -3583,14 +3569,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Classes",
   props: ["course"],
   created: function created() {},
-  mounted: function mounted() {// var explode = function() {
-    //   $(".dataTableClasses").DataTable();
-    // };
-    // setTimeout(explode, 2000);
+  mounted: function mounted() {
+    var explode = function explode() {
+      $(".dataTableClasses").DataTable();
+    };
+
+    setTimeout(explode, 2000);
   }
 });
 $(document).ready(function () {});
@@ -3858,11 +3850,8 @@ __webpack_require__.r(__webpack_exports__);
         content: this.courseBody.content,
         order: this.courseBody.order
       }).then(function (response) {
-        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course body added', {
-          type: "success",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertSuccess("Saved");
+
         _this.showModel = false;
         _this.courseBody = {};
 
@@ -3873,6 +3862,8 @@ __webpack_require__.r(__webpack_exports__);
         $(".modal-backdrop").remove();
       })["catch"](function (error) {
         console.log(error.response.data);
+
+        _this.alertFailed("Failed");
 
         if (error.response.status == 422) {
           _this.errors = error.response.data.errors;
@@ -3894,14 +3885,12 @@ __webpack_require__.r(__webpack_exports__);
         content: this.currentBody.content,
         order: this.currentBody.order
       }).then(function (response) {
-        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course body updated', {
-          type: "success",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertSuccess("Saved");
 
         _this.$emit("refresh");
       })["catch"](function (error) {
+        _this.alertFailed("Failed");
+
         console.log(error.response.data);
 
         if (error.response.status == 422) {
@@ -3942,20 +3931,14 @@ __webpack_require__.r(__webpack_exports__);
             title: _this2.courseBody.title,
             content: _this2.courseBody.content
           }).then(function (response) {
-            Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course body deleted', {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            });
+            _this.alertSuccess("Deleted");
 
             _this.$emit("refresh");
           })["catch"](function (error) {
-            console.log(error.response.data);
-            Vue.toasted.show('<i class="fas fa-times"></i> Failed to delete', {
-              type: "error",
-              duration: 4000,
-              className: "py-3"
-            }); // console.log(error);
+            console.log(error);
+
+            _this.alertFailed("Failed"); // console.log(error);
+
           }).then(function () {
             _this.showBtn = true;
           });
@@ -4400,11 +4383,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.post(url, formData, config).then(function (response) {
-        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course details updated', {
-          type: "success",
-          duration: 4000,
-          className: "py-3"
-        }); // console.log(response);
+        _this.alertSuccess("Saved"); // console.log(response);
+
 
         _this.showBtn = true;
       })["catch"](function (error) {
@@ -4415,11 +4395,8 @@ __webpack_require__.r(__webpack_exports__);
           _this.showError = true;
         }
 
-        Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Update Failed', {
-          type: "error",
-          duration: 4000,
-          className: "py-3"
-        }); // console.log(error);
+        _this.alertFailed("Failed"); // console.log(error);
+
       }).then(function () {
         _this.showBtn = true;
       });
@@ -4574,20 +4551,14 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           Vue.set(_this2.activeButtons, id, 1);
           axios["delete"](url).then(function (response) {
-            Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course document deleted', {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            });
+            _this.alertSuccess("Deleted");
 
             _this.$parent.refresh();
           })["catch"](function (error) {
             console.log(error.response.data);
-            Vue.toasted.show('<i class="fas fa-times"></i> Failed to delete', {
-              type: "error",
-              duration: 4000,
-              className: "py-3"
-            });
+
+            _this.alertFailed("Failed");
+
             Vue.set(_this.activeButtons, id, 0);
           }).then(function () {}); // console.log(id);
         }
@@ -4685,27 +4656,20 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.criteria.description) {
         this.errors.push("Description required.");
-      } //   console.log(this.course);
-
+      }
 
       axios.post("/api/courses/" + this.course.id + "/assessmentCriterias", {
         number: this.criteria.number,
         description: this.criteria.description
       }).then(function (res) {
-        Vue.toasted.show('<i class="fas fa-check-circle fa-3x"></i> Course details updated', {
-          type: "success",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertSuccess("Saved");
 
         _this.$emit('refresh'); //   console.log(res);
 
       })["catch"](function (err) {
-        Vue.toasted.show('<i class="fas fa-exclamation-circle"></i> Save Failed', {
-          type: "error",
-          duration: 4000,
-          className: "py-3"
-        });
+        _this.alertFailed("Failed");
+
+        console.log(err.response.data);
         console.error(err);
       }).then(function (res) {
         _this.showBtn = true;
@@ -43221,6 +43185,19 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(classEvent.startDate))]),
                       _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(classEvent.type))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { href: classEvent.link, target: "_blank" }
+                          },
+                          [_vm._v("Link")]
+                        )
+                      ]),
+                      _vm._v(" "),
                       _c("td", { staticClass: "row" }, [
                         _c("div", { staticClass: "btn-group" }, [
                           _vm._m(1, true),
@@ -43282,6 +43259,10 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Title")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Start Date")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Link")]),
         _vm._v(" "),
         _c("th")
       ])

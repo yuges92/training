@@ -8,13 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\ClassEventResource;
 
 class ClassEventController extends Controller
 {
 
     public function show($id)
     {
-        $courseClass = ClassEvent::with('classDates', 'trainers')->find($id);
+        $courseClass = new ClassEventResource(ClassEvent::with('classDates','trainers', 'course')->find($id));
+        // Log::info($courseClass);
+        // \Debugbar::error('$this->image');
+
         return response()->json($courseClass, 200);
     }
 

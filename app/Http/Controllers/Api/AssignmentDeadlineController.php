@@ -18,7 +18,7 @@ class AssignmentDeadlineController extends Controller
         ]);
 
         $assignment->deadline()->detach($class_id);
-        $assignment->deadline()->attach($class_id, ['date' => $request->date]);
+        $assignment->deadline()->attach($class_id, ['date' => $request->date, 'resubmissionDate' => $request->resubmissionDate ?? null]);
 
         return response()->json($assignment->load('deadline'), 201);
     }

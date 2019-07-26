@@ -13,6 +13,8 @@
                   <th scope="col">#</th>
                   <th scope="col">Title</th>
                   <th scope="col">Start Date</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Link</th>
                   <th></th>
                 </tr>
               </thead>
@@ -21,6 +23,8 @@
                   <th scope="row">{{classEvent.id}}</th>
                   <td>{{classEvent.title}}</td>
                   <td>{{classEvent.startDate}}</td>
+                  <td>{{classEvent.type}}</td>
+                  <td><a :href="classEvent.link" class="btn btn-success" target="_blank">Link</a></td>
                   <td class="row">
                     <div class="btn-group">
                       <button
@@ -63,10 +67,10 @@ export default {
 
   created() {},
   mounted() {
-    // var explode = function() {
-    //   $(".dataTableClasses").DataTable();
-    // };
-    // setTimeout(explode, 2000);
+    var explode = function() {
+      $(".dataTableClasses").DataTable();
+    };
+    setTimeout(explode, 2000);
   }
 };
 

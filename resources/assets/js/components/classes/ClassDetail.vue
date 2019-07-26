@@ -8,10 +8,16 @@
       </div>
     </div>
     <div v-else>
-      <div class="row mx-md-5" v-if="showNewClass">
-        <div class="col-md-4 my-3">
-          <NewClassDate :class_id="courseClass.id"></NewClassDate>
+      <div class="d-flex justify-content-between my-3 mx-3">
+          <div>
+
+        <strong>Link: </strong> <span> {{courseClass.link}}</span>
+          </div>
+        <div class="">
+
+        <a :href="courseClass.link" class="btn btn-info" target="_blank">Preview</a>
         </div>
+
       </div>
       <form @submit.prevent="updateClass()" enctype="multipart/form-data">
         <div class="col-12 row mx-auto">
@@ -50,7 +56,7 @@
                       @input="onChangeModerator"
                     >
                       <template slot="singleLabel" slot-scope="{ option }">
-                        <strong>{{ option.fullName }}</strong>
+                        <span>{{ option.fullName }}</span>
                       </template>
                     </multiselect>
                   </div>
@@ -104,10 +110,9 @@
                       name="description"
                       rows="14"
                       cols="80"
-                      maxlength="300"
                       v-model="courseClass.description"
                     ></textarea>
-                    <p>You have {{charactersRemaining}} characters remaining.</p>
+                    <small><strong>Word Count:</strong>  {{charactersRemaining}} characters.</small>
                   </div>
                 </div>
               </div>
@@ -220,7 +225,7 @@ export default {
       newClassDates: [],
       maxCharacters: 300,
       moderators: [],
-      moderator:{}
+      moderator: {}
     };
   },
   created() {
@@ -257,37 +262,25 @@ export default {
           price: this.courseClass.price,
           space: this.courseClass.space,
           availableSpace: this.courseClass.availableSpace,
-          moderator_id: this.moderator ? this.moderator.id : null,
+          moderator_id: this.moderator ? this.moderator.id : null
         })
         .then(data => {
-          Vue.toasted.show(
-            '<i class="fas fa-check-circle fa-3x"></i> Class details updated',
-            {
-              type: "success",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+          this.alertSuccess("Saved");
+
         })
         .catch(error => {
           this.$emit("update-errors", error.response.data.errors);
           // console.log(error.response.data.errors);
 
-          Vue.toasted.show(
-            '<i class="fas fa-exclamation-circle"></i> Update Failed',
-            {
-              type: "error",
-              duration: 4000,
-              className: "py-3"
-            }
-          );
+          this.alertFailed("Failed");
+
         })
         .then(response => {
           this.showBtn = true;
         });
     },
     getCourses() {
-      axios.get("/api/courses/").then(response => {
+      axios.get("/api/courses").then(response => {
         this.courses = response.data;
         this.isLoaded = true;
       });
@@ -332,7 +325,7 @@ export default {
   },
   computed: {
     charactersRemaining: function() {
-      return this.maxCharacters - this.courseClass.description.length;
+      return this.courseClass.description.length;
     }
   }
 };

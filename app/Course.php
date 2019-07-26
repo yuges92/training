@@ -50,7 +50,7 @@ class Course extends Model
   {
       return $this->imageFolder;
   }
-  
+
   public function getImage()
   {
       // \Debugbar::error($this->image);
@@ -59,6 +59,16 @@ class Course extends Model
       }
       return Storage::url($this->getImageFolder() . $this->image);
   }
-  
+
+  public function isPublic():bool
+  {
+      if($this->status=='publish'){
+        return true;
+
+      }
+
+      return false;
+  }
+
 
 }
