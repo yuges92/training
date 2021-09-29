@@ -35,7 +35,7 @@
         "@ckeditor/ckeditor5-vue": "^1.0.0-beta.2",
         "ckeditor": "^4.11.2",
         "codemirror": "^5.45.0",
-        "datatables.net": "^1.10.19",
+        "datatables.net": "^1.11.3",
         "datatables.net-bs4": "^1.10.19",
         "datatables.net-dt": "^1.10.19",
         "dropify": "^0.2.2",
